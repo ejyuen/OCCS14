@@ -37,11 +37,11 @@ public class PongLegacy {
             System.out.print(string + " ");
         }
         // RED_FLAG: test prints out vertices of all Polygons from 3 to 8
-        Polygon polygon;
-        for (int i = 3; i <= 8; i++) {
-        	polygon = new Polygon(i);
-        	System.out.println(polygon);
-        }
-        MainMenu.main(args);
+//        Polygon polygon;
+//        for (int i = 3; i <= 8; i++) {
+//        	polygon = new Polygon(i);
+//        	System.out.println(polygon);
+//        }
+        new MainMenu(6);
     }
 }

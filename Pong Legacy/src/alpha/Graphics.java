@@ -76,8 +76,9 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     private void paintBall(java.awt.Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         Ball ball = pong.getBall();
+        g2.setColor(Color.BLACK);
 
-        g2.drawOval((int) ((ball.getLocation().getX() - ball.getRadius())),
+        g2.fillOval((int) ((ball.getLocation().getX() - ball.getRadius())),
                     (int) ((ball.getLocation().getY() - ball.getRadius())),
                     (int) (ball.getRadius() * 2),
                     (int) (ball.getRadius() * 2));
@@ -128,7 +129,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         bufferGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         paintPolygon(bufferGraphics);
         paintBall(bufferGraphics);
-        for(int i = 0; i < 8; i++)
+        for(int i = 0; i < pong.getPolygon().npoints; i++)
             paintSide(pong.getPolygon().getSide(i), bufferGraphics);
         g.drawImage(bufferImage, 0, 0, this);
     }

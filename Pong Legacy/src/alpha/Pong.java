@@ -33,10 +33,13 @@ public class Pong {
      */
     public Pong(int n) {
         ball = new Ball();
-        ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
+        //ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
         polygon = new Polygon(n);
-        polygon.setPlayer(0, "PLAYER1");    // RED_FLAG: test player
-        polygon.setPlayer(5, "PLAYER2");    // RED_FLAG: test player
+        for(int i=0; i<n; i+=2){
+        	polygon.setPlayer(i, "PLAYER" + (i/2+1));
+        }
+//        polygon.setPlayer(0, "PLAYER1");    // RED_FLAG: test player
+//        polygon.setPlayer(5, "PLAYER2");    // RED_FLAG: test player
         graphics = new Graphics(this);
         Timer timer = new Timer(36, new TimeAction());
         timer.start();

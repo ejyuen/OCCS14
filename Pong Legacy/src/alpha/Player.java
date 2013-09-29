@@ -17,7 +17,7 @@ public class Player extends Side implements KeyListener {
      * Player name
      */
     private String name;
-
+    
     /**
      * Constructs a blank player
      */
@@ -57,7 +57,7 @@ public class Player extends Side implements KeyListener {
      * @param e The key event that triggers key listener
      */
     public void keyTyped(KeyEvent e) {
-        keyAction(e);
+    	keyAction(e);
     }
 
     /**
