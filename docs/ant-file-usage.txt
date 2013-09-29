@@ -1,0 +1,17 @@
+The use of the build.xml Ant file to build, test, distribute, javadoc, and zip the PongLegacy project is as follows:
+
+- Assume a "set home=E:\work\Java\ponglegacy" DOS environment.
+- %home%\scripts\bat\ponglegacy.bat <target>
+
+... where <target> can be one of the following. (No <target> defaults to "dist.")
+
+The Ant build targets are:
+
+Target	Depends			Actions
+======	=======			=======
+clean				Remove all build & temporary files  directories from the repository
+dist				Build & distribute the PongLegacy distribution .jar file
+test				Build & run the PongLegacy unit tests
+docs				Build the PongLegacy javadoc website
+run	dist			Build & run the PongLegacy distribution .jar file
+all	dist, test, docs	Build _everything_ and put it in a .zip archive

@@ -1,0 +1,175 @@
+<!-- http://ant.apache.org/manual/using.html -->
+<!-- http://ideoplex.com/id/25/ant-and-junit -->
+<project name="PongLegacy" default="dist" basedir="." >
+  <description >
+    PongLegacy build.xml file
+  </description>
+  <assertions enableSystemAssertions="true" >
+    <enable />
+  </assertions>
+
+  <!-- set global properties for this build -->
+  <property name="src" value="src" />
+  <property name="src.dir" location="${src}"/>
+  <property name="build" value="build"/>
+  <property name="build.dir" location="${build}"/>
+  <property name="dist" value="dist" />
+  <property name="dist.dir" location="${dist}"/>
+  <property name="docs" value="docs" />
+  <property name="docs.dir" location="${docs}/api"/>
+  <property name="resources" value="resources"/>
+  <property name="resources.dir" location="${resources}"/>
+  <property name="lib" value="lib"/>
+  <property name="lib.dir" location="${lib}"/>
+  <property name="junit.jar" location="${lib.dir}/junit-4.8.2.jar" />
+  <property name="logj4.jar" location="${lib.dir}/log4j-1.2.16.jar" />
+  <property name="test" value="test"/>
+  <property name="test.dir" location="${test}"/>
+  <property name="verbose" value="false" />
+  <property name="main.class.name" value="alpha.${ant.project.name}" />
+
+  <!-- set classpaths for this build -->
+  <path id="classpath.base">
+  </path>
+  <path id="classpath.test">
+    <pathelement location="${junit.jar}" />
+    <pathelement location="${logj4.jar}" />
+    <pathelement location="${test.dir}" />
+    <pathelement location="${build.dir}" />
+    <path refid="classpath.base" />
+  </path>
+
+  <!-- ******************************* CLEAN ******************************** -->
+
+  <target name="clean" description="clean up" >
+    <!-- Delete the ${build.dir} and ${dist.dir} directory trees -->
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+    <delete dir="${docs.dir}"/>
+    <delete dir="${test.dir}"/>
+    <delete verbose="true" >
+      <fileset dir="${basedir}" includes="${ant.project.name}*.zip"/>
+    </delete>
+  </target>
+  
+  <!-- ******************************** DIST ******************************** -->
+
+  <target name="init" description="initialize directories, time stamp" >
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <property name="dist.jar" location="${dist.dir}/${lib}/${ant.project.name}.jar" />
+    <property name="all.zip" location="${ant.project.name}-${DSTAMP}.zip" />
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <target name="compile" depends="init" description="compile source" >
+    <!-- Compile the java code from ${src.dir} into ${build.dir} -->
+    <javac
+      classpathref="classpath.base"
+      srcdir="${src.dir}"
+      destdir="${build.dir}"
+      excludes="**/*Test.java"
+      verbose="${verbose}"
+      includeAntRuntime="${includeAntRuntime}"
+    />
+  </target>
+
+  <target name="dist" depends="compile" description="generate distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist.dir}/${lib}"/>
+
+    <!-- Copy resources -->
+    <copy todir="${build.dir}">
+      <fileset dir="${resources.dir}"/>
+    </copy>
+
+    <!-- Put everything in ${build.dir} into ${dist.jar} file -->
+    <jar destfile="${dist.jar}" >
+      <fileset dir="${build.dir}" excludes="*Test.class" />
+      <manifest>
+        <attribute name="Main-Class" value="${main.class.name}"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <!-- ******************************** TEST ******************************** -->
+
+  <target name="init.test" >
+    <!-- Create the test directory structure used by compile -->
+    <mkdir dir="${test.dir}"/>
+  </target>
+
+  <target name="compile.test" depends="compile, init.test" description="compile unit tests" >
+    <!-- Compile java unit test code from ${src.dir} into ${test.dir} -->
+    <javac
+      classpathref="classpath.test"
+      srcdir="${src.dir}"
+      destdir="${test.dir}"
+      includes="**/*Test.java"
+      verbose="${verbose}"
+      includeAntRuntime="${includeAntRuntime}"
+    />
+  </target>
+
+  <target name="test" depends="compile.test" description="run unit tests" >
+    <junit >
+      <classpath refid="classpath.test" />
+      <formatter type="plain" usefile="false" />
+      <batchtest>
+        <fileset dir="${test.dir}" includes="**/*Test.class" />
+      </batchtest>
+    </junit>
+  </target>
+
+  <!-- ******************************** DOCS ******************************** -->
+
+  <target name="init.docs" >
+    <!-- Create the docs directory structure used by javadoc -->
+    <mkdir dir="${docs.dir}"/>
+  </target>
+
+  <target name="docs" depends="init.docs, compile, compile.test" description="create javadocs" >
+    <!-- this target must be explicitly run as 'ant clean docs all' because... -->
+    <!-- http://issues.apache.org/jira/browse/HADOOP-5240 -->
+    <javadoc
+      destdir="${docs.dir}"
+      author="true"
+      private="false"
+      use="true"
+      version="true"
+      linksource="yes"
+      windowtitle="${ant.project.name} API"
+      access="private"
+      defaultexcludes="yes"
+      verbose="${verbose}"
+    >
+      <fileset dir="${src.dir}" includes="**/*.java" excludes="**/*Test.*" />
+      <link href="http://java.sun.com/javase/6/docs/api/" />
+    </javadoc>
+
+  </target>
+
+  <!-- ******************************** RUN ********************************* -->
+
+  <target name="run" depends="dist" description="run ${ant.project.name}" >
+    <property name="input" value="These are sample command-line options"/>
+    <java jar="${dist.jar}" fork="true" >
+      <arg value="${input}" />
+    </java>
+  </target>
+
+  <!-- ******************************** ALL ********************************* -->
+
+  <target name="all" depends="dist, test, docs" >
+    <!-- Put EVERYTHING in into ${all.zip} file -->
+    <zip destfile="${all.zip}" >
+      <fileset dir="${basedir}" file="build.xml" />
+      <fileset dir="${basedir}" includes="${src}/**/*" />
+      <fileset dir="${basedir}" includes="${dist}/**/*" />
+      <fileset dir="${basedir}" includes="${docs}/**/*" />
+      <fileset dir="${basedir}" includes="${lib}/**/*" />
+    </zip>
+  </target>
+
+</project>
