@@ -11,8 +11,10 @@ package alpha;
  * <a href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.border.*;
 
 import alpha.Graphics;
@@ -25,72 +27,65 @@ public class MainMenu extends JFrame {
 	/**
 	 * Create a new main menu from which all other objects are launched.
 	 */
-	public MainMenu(){
-		this(8);
-	}
-	
-	public MainMenu(final int sides) {
-		// Assumes ClassLoader for this class loads it from the .JAR file.
-		ImageIcon icon = new ImageIcon(this.getClass().getResource(
-				"/images/logo.jpg"));
-		// This is the basics for the main window
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setTitle("Pong Legacy");
-		setLayout(new BorderLayout());
-		setSize(600, 600);
+	public MainMenu() {
+		// Version naming: [Alpha 0 /Beta 1 /Final 2].[Major Change #].[Minor Change #]
+		// Try to follow this, guys.
+		setTitle("Pong Legacy | Prototype v0.1.0");
 		setResizable(false);
-		// Now the logo, statusbar, and other things we want to add in
-		JLabel logo = new JLabel(icon);
-		logo.setSize(100, 50);
-		JLabel info = new JLabel("prototype v3.47");
-		// .....Add other things here
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(300, 500);
+		setLocationRelativeTo(null);
+		JPanel contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
-		// These next lines deal with the center panel
-		JPanel buttons = new JPanel();
-		JButton start = new JButton("START");
-		start.addActionListener(new ActionListener() {
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setBounds(121, 45, 52, 14);
+		contentPane.add(lblUsername);
+
+		//Herpderp, i dont think this should be a final... if someone can tell me why java wants it to be a final, tell me
+		final JTextField textField = new JTextField();
+		textField.setBounds(104, 67, 86, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+
+		JButton btnStartServer = new JButton("Start Server");
+		btnStartServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String name = JOptionPane.showInputDialog(
-						"Player Name: (NOT USED)", null);
-				
-				new Statistics(name);
-				// RED_FLAG: uses default 8-sided pong
-				new Pong(sides);
+				new Statistics(textField.getText());
+				new Pong(8);
 				setVisible(false);
 			}
 		});
-		JButton option = new JButton("OPTIONS");
-		option.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// sub = new OptionWindow();
-				// sub.start;
-			}
-		});
-		JButton close = new JButton("EXIT");
-		close.addActionListener(new ActionListener() {
+		btnStartServer.setBounds(97, 364, 100, 25);
+		contentPane.add(btnStartServer);
+
+		JButton btnStartClient = new JButton("Start Client");
+		btnStartClient.setBounds(97, 400, 100, 25);
+		contentPane.add(btnStartClient);
+
+		JButton btnOptions = new JButton("Options");
+		btnOptions.setBounds(37, 436, 100, 25);
+		contentPane.add(btnOptions);
+
+		JButton btnQuitGame = new JButton("Quit Game");
+		btnQuitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		buttons.setLayout(new BoxLayout(buttons, BoxLayout.Y_AXIS));
-		buttons.setBorder(new EmptyBorder(new Insets(20, 150, 20, 20)));
-		buttons.add(start);
-		buttons.add(Box.createRigidArea(new Dimension(0, 5)));
-		buttons.add(option);
-		buttons.add(Box.createRigidArea(new Dimension(0, 5)));
-		buttons.add(close);
-		buttons.setBackground(Color.black);
-		// buttons.pack();
-		// buttons.setVisible(true);
-		// Now we are going to put everything inside the main panel
-		add(logo, BorderLayout.NORTH);
-		add(buttons, BorderLayout.CENTER);
-		add(info, BorderLayout.SOUTH);
+		btnQuitGame.setBounds(157, 436, 100, 25);
+		contentPane.add(btnQuitGame);
+		
 		setVisible(true);
-		pack();
 	}
 
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+		}
 		new MainMenu();
 	}
 }
