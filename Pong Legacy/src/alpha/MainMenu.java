@@ -11,7 +11,7 @@ public class MainMenu extends JFrame {
 	public MainMenu() {
 		// Version naming: [Alpha 0 /Beta 1 /Final 2].[Major Change #].[Minor Change #]
 		// Try to follow this, guys.
-		setTitle("Pong Legacy | Prototype v0.2.0");
+		setTitle("Pong Legacy | Prototype v0.2.1");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 500);
