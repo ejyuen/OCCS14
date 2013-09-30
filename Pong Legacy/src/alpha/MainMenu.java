@@ -1,36 +1,17 @@
-/*
- * MainMenu.java
- */
-
 package alpha;
 
-/**
- * PongLegacy main menu from which all other objects are launched.
- *
- * @author 2009-2010 WHS
- * <a href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
- */
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.border.*;
 
-import alpha.Graphics;
-
-/**
- * Main menu from which all other objects are launched. Three buttons enable
- * players to chose start, options, or exit.
- */
 public class MainMenu extends JFrame {
-	/**
-	 * Create a new main menu from which all other objects are launched.
-	 */
+
 	public MainMenu() {
 		// Version naming: [Alpha 0 /Beta 1 /Final 2].[Major Change #].[Minor Change #]
 		// Try to follow this, guys.
-		setTitle("Pong Legacy | Prototype v0.1.0");
+		setTitle("Pong Legacy | Prototype v0.2.0");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 500);
@@ -44,7 +25,7 @@ public class MainMenu extends JFrame {
 		lblUsername.setBounds(121, 45, 52, 14);
 		contentPane.add(lblUsername);
 
-		//Herpderp, i dont think this should be a final... if someone can tell me why java wants it to be a final, tell me
+		// Herpderp, i dont think this should be a final... if someone can tell me why java wants it to be a final, tell me
 		final JTextField textField = new JTextField();
 		textField.setBounds(104, 67, 86, 20);
 		contentPane.add(textField);
@@ -53,8 +34,17 @@ public class MainMenu extends JFrame {
 		JButton btnStartServer = new JButton("Start Server");
 		btnStartServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Statistics(textField.getText());
-				new Pong(8);
+				// new Statistics(textField.getText()); Move this elsewhere. Work on it when implementing chat client.
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ServerUI frame = new ServerUI();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 				setVisible(false);
 			}
 		});
@@ -62,6 +52,21 @@ public class MainMenu extends JFrame {
 		contentPane.add(btnStartServer);
 
 		JButton btnStartClient = new JButton("Start Client");
+		btnStartClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ClientUI frame = new ClientUI();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				setVisible(false);
+			}
+		});
 		btnStartClient.setBounds(97, 400, 100, 25);
 		contentPane.add(btnStartClient);
 
@@ -77,7 +82,7 @@ public class MainMenu extends JFrame {
 		});
 		btnQuitGame.setBounds(157, 436, 100, 25);
 		contentPane.add(btnQuitGame);
-		
+
 		setVisible(true);
 	}
 
