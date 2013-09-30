@@ -88,7 +88,7 @@ public class Pong {
             }
          }
     }
-
+    
     /**
      * This method will move the paddle in the direction based upon the numeric
      * value of the key pressed. 37=Left 39=Right according to the adobe documentation

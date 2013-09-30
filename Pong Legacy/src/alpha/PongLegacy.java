@@ -42,6 +42,6 @@ public class PongLegacy {
 //        	polygon = new Polygon(i);
 //        	System.out.println(polygon);
 //        }
-        new MainMenu(6);
+        new MainMenu();
     }
 }
