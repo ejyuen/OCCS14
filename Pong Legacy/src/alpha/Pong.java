@@ -69,6 +69,7 @@ public class Pong {
         // Check for scoring.
         if (!polygon.contains(ball.getLocation())) {
             ball.stop();
+            ball = new Ball();
             // RED_FLAG: there are too many null checks in this method
             Player lastPlayer = ball.getLastHit();
             if (lastPlayer != null) {
