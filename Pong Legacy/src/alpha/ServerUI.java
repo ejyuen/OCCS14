@@ -36,7 +36,7 @@ public class ServerUI extends JFrame {
 		JButton btnLaunchServer = new JButton("Launch Server");
 		btnLaunchServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Pong(8);
+				new Pong();
 				setVisible(false);
 			}
 		});

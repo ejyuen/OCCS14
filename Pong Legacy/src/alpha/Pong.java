@@ -22,7 +22,7 @@ public class Pong {
     private Graphics graphics;  // awt graphics
 
     /**
-     * Deafult pong game square window size.
+     * Defult pong game square window size.
      */
     public static final int DEFAULT_SIZE = 1000;
 
@@ -31,6 +31,10 @@ public class Pong {
      *
      * @param n number of polygon sides
      */
+    public Pong(){
+    	this(8);
+    }
+    
     public Pong(int n) {
         ball = new Ball();
         //ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
