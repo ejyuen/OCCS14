@@ -57,7 +57,7 @@ public class Ball {
      */
     public static final int DEFAULT_SPEED = 80;
 
-    private boolean moving = true;
+    private boolean moving = false;
     
     private Side lastHit;
 
