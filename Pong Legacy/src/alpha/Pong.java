@@ -76,7 +76,7 @@ public class Pong{
         if (!polygon.contains(ball.getLocation())) {
             ball.stop();
             ball = new Ball();
-            polygon = new Polygon(8); //Testing and stuff
+            //polygon = new Polygon(8); //Testing and stuff
             pause = new Thread(new BallPause(ball, 1000));
             pause.start();
             // RED_FLAG: there are too many null checks in this method
