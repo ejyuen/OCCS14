@@ -141,11 +141,14 @@ class BallPause implements Runnable {
 		}
 		ball.changeSpeed(10);
 		ball.start();
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (int i = 1; i < ball.DEFAULT_SPEED - 10; i++) {
+			ball.changeSpeed(10 + i);
+			try {
+				Thread.sleep(30);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		ball.changeSpeed(ball.DEFAULT_SPEED);
 		return;
