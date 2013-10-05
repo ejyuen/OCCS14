@@ -50,7 +50,7 @@ public class Pong{
         graphics = new Graphics(this);
         pause = new Thread(new BallPause(ball, 1000));
         pause.start();
-        Timer timer = new Timer(36, new TimeAction());
+        Timer timer = new Timer(50, new TimeAction());
         timer.start();
     }
 
@@ -76,6 +76,7 @@ public class Pong{
         if (!polygon.contains(ball.getLocation())) {
             ball.stop();
             ball = new Ball();
+            polygon = new Polygon(8); //Testing and stuff
             pause = new Thread(new BallPause(ball, 1000));
             pause.start();
             // RED_FLAG: there are too many null checks in this method
