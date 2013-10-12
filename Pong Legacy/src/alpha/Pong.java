@@ -23,7 +23,9 @@ public class Pong{
     private Polygon polygon;    // n-sided polygon
     private Graphics graphics;  // awt graphics
     private Thread pause;
-
+    private Server server = null;
+    private Client client = null;
+    
     /**
      * Defult pong game square window size.
      */
@@ -35,10 +37,28 @@ public class Pong{
      * @param n number of polygon sides
      */
     public Pong(){
-    	this(8);
+    	this(8, null, null);
     }
     
-    public Pong(int n) {
+    public Pong(Client client){
+    	this(8, client);
+    }
+    
+    public Pong(int n, Client client){
+    	this(n, null, client);
+    }
+    
+    public Pong(Server server){
+    	this(8, server);
+    }
+    
+    public Pong(int n, Server server){
+    	this(n, server, null);
+    }
+    
+    public Pong(int n, Server server, Client client) {
+    	this.client = client;
+    	this.server = server;
         ball = new Ball();
         //ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
         polygon = new Polygon(n);
@@ -69,7 +89,6 @@ public class Pong{
     public void move() {
         // Update ball position.
         // RED_FLAG: this is too much Ball code in Pong
-    	
     	polygon.checkCollision(ball);
         ball.move();
         // Check for scoring.
