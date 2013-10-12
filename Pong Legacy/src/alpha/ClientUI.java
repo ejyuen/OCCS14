@@ -25,6 +25,13 @@ public class ClientUI extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnConnect = new JButton("Connect");
+		btnConnect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String ipAddress = textField.getText();
+				new Pong(ipAddress, new Client("IP Address"));
+				setVisible(false);
+			}
+		});
 		btnConnect.setBounds(47, 400, 200, 25);
 		contentPane.add(btnConnect);
 		

@@ -35,7 +35,8 @@ public class ServerUI extends JFrame {
 		JButton btnLaunchServer = new JButton("Launch Server");
 		btnLaunchServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new Pong();
+				int sides = Integer.parseInt(textField.getText());
+				new Pong(sides, new Server("Max Players"));
 				setVisible(false);
 			}
 		});
