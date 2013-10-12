@@ -64,7 +64,11 @@ public class Server {
 		String[] ret = new String[clientSockets.length];
 		for(int i = 0; i<clientSockets.length; i++){
 			try {
-				ret[i] = inputs[i].readLine();
+				String in = inputs[i].readLine();
+				if(in == null){
+					in = "";
+				}
+				ret[i] = in;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

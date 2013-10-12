@@ -39,7 +39,7 @@ public class Client {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "No input";
+		return "";
 	}
 	
 	public void send(String s) {
@@ -56,27 +56,4 @@ public class Client {
 			e.printStackTrace();
 		}
 	}
-	
-	/*
-	public static void main(String[] args) throws IOException {
-
-		Client client;
-		
-		if (args.length > 0) {
-			client = new Client(args[0]);
-		}
-		else {
-			client = new Client("144");
-		}
-		String input;
-
-		while ((input = client.getNextLine()) != null) {
-		}	
-		
-		System.out.println("Probably disconnected");
-		
-		System.exit(0);
-		
-	}
-	*/
 }
