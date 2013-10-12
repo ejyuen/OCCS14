@@ -70,7 +70,13 @@ public class Pong{
         graphics = new Graphics(this);
         pause = new Thread(new BallPause(ball, 1000));
         pause.start();
+        
         Timer timer = new Timer(50, new TimeAction());
+        if(server != null){
+        	timer.addActionListener(new ServerAction());
+        } else if(client != null){
+        	timer.addActionListener(new ClientAction());
+        }
         timer.start();
     }
 
@@ -120,6 +126,18 @@ public class Pong{
                 move();
             }
          }
+    }
+    
+    class ServerAction extends AbstractAction{
+		public void actionPerformed(ActionEvent arg0) {
+			//TODO make this do server stuff
+		}
+    }
+    
+    class ClientAction extends AbstractAction{
+		public void actionPerformed(ActionEvent arg0) {
+			//TODO make this do client stuff
+		}
     }
     
     /**
