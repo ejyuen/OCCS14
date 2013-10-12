@@ -14,6 +14,10 @@ public class Server {
 	PrintWriter[] outputs = null;
 	BufferedReader[] inputs = null;
 	
+	public Server(){
+		this(1); //defaults to just 1 client
+	}
+	
 	public Server(int numberOfClients) {
 		clientSockets = new Socket[numberOfClients];
 		outputs = new PrintWriter[numberOfClients];
