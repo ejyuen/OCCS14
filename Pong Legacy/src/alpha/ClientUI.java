@@ -1,5 +1,8 @@
 package alpha;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -25,9 +28,14 @@ public class ClientUI extends JFrame {
 		btnConnect.setBounds(47, 400, 200, 25);
 		contentPane.add(btnConnect);
 		
-		JButton btnBack = new JButton("Back");
-		btnBack.setBounds(117, 436, 60, 25);
-		contentPane.add(btnBack);
+		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		btnExit.setBounds(117, 436, 60, 25);
+		contentPane.add(btnExit);
 		
 		JRadioButton rdbtnSelectAServer = new JRadioButton("Select a server from the list:");
 		rdbtnSelectAServer.setBounds(66, 25, 161, 25);

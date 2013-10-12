@@ -11,8 +11,7 @@ public class ServerUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JButton btnBack;
-
+	
 	public ServerUI() {
 		setTitle("Pong Legacy | Prototype v0.2.1");
 		setResizable(false);
@@ -42,14 +41,14 @@ public class ServerUI extends JFrame {
 		});
 		btnLaunchServer.setBounds(47, 400, 200, 25);
 		contentPane.add(btnLaunchServer);
-
-		btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
+		
+		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
-		btnBack.setBounds(117, 436, 60, 25);
-		contentPane.add(btnBack);
+		btnExit.setBounds(117, 436, 60, 25);
+		contentPane.add(btnExit);
 	}
 }
