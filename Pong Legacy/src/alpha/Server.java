@@ -45,6 +45,7 @@ public class Server {
 				System.out.println("Streams failed to instantiate.");
 			}
 			send("Client number is "+i, i);
+			System.out.println("Client " + i + " has been instantiated");
 		}
 		System.out.println("Server loaded");		
 	}
