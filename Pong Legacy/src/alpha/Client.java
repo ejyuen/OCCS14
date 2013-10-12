@@ -18,7 +18,7 @@ public class Client {
 	BufferedReader in = null;
 	
 	public Client(String ipIdentifier) {
-		HOST = "192.168.0." + ipIdentifier;
+		HOST = ipIdentifier;
 		
 		try {
 			echoSocket = new Socket(HOST, PORT);
