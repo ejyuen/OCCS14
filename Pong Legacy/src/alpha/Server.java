@@ -33,6 +33,7 @@ public class Server {
 			try {
 				System.out.println("Waiting for socket server");
 				clientSocket = serverSocket.accept();
+				clientSockets[i] = clientSocket;
 			} catch (IOException e) {
 				System.out.println("Client accepting failed.");
 			}
@@ -43,14 +44,19 @@ public class Server {
 			} catch (IOException e) {
 				System.out.println("Streams failed to instantiate.");
 			}
+			send("Client number is "+i, i);
 		}
 		System.out.println("Server loaded");		
 	}
 	
 	public void send(String s) {
-		for(PrintWriter out: outputs){
-			out.println(s);
+		for(int i = 0; i<outputs.length; i++){
+			send(s, i);
 		}
+	}
+	
+	public void send(String s, int client){
+		outputs[client].println(s);
 	}
 	
 	public String[] getNextLines() {
