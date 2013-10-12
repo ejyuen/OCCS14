@@ -28,7 +28,7 @@ public class ClientUI extends JFrame {
 		btnConnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String ipAddress = textField.getText();
-				new Pong(ipAddress, new Client("IP Address"));
+				new Pong(new Client("IP Address"));
 				setVisible(false);
 			}
 		});
