@@ -5,11 +5,9 @@
  *
  */
 
-package alpha.serializable;
+package alpha;
 
 import java.awt.geom.Point2D;
-import java.io.Serializable;
-import alpha.Server;;
 
 /**
  * DESCRIPTION
@@ -17,7 +15,7 @@ import alpha.Server;;
  * @author 2009-2010 WHS <a
  *         href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
-public class Ball implements Serializable{
+public class Ball {
 
     /*
      * The location of the ball.
@@ -43,15 +41,12 @@ public class Ball implements Serializable{
      * Speed of the Ball in absolute units / time tick.
      */
     private int speed;
-    
-    private Server server = null;
-    
+
     /**
      * Default ball radius.
      */
     public static final int DEFAULT_RADIUS = 20;
 
-    
     /*
      * Default ball location.
      */
@@ -71,11 +66,7 @@ public class Ball implements Serializable{
      *.randomly determined direction.
      */
     public Ball() {
-        this(DEFAULT_LOCATION, DEFAULT_RADIUS, Math.random() * (2 * Math.PI), DEFAULT_SPEED, null);
-    }
-    
-    public Ball(Server server){
-    	this(DEFAULT_LOCATION, DEFAULT_RADIUS, Math.random() * (2 * Math.PI), DEFAULT_SPEED, server);
+        this(DEFAULT_LOCATION, DEFAULT_RADIUS, Math.random() * (2 * Math.PI), DEFAULT_SPEED);
     }
 
     /**
@@ -86,11 +77,7 @@ public class Ball implements Serializable{
      * @param radius radius of the ball
      */
     public Ball(int speed, int radius) {
-        this(DEFAULT_LOCATION, radius, Math.random() * (2 * Math.PI), speed, null);
-    }
-    
-    public Ball(Ball b){
-    	this(b.location, b.radius, b.direction, b.speed, null);
+        this(DEFAULT_LOCATION, radius, Math.random() * (2 * Math.PI), speed);
     }
 
     /**
@@ -103,9 +90,8 @@ public class Ball implements Serializable{
      * @param speed ball speed
      * @param occupied side last hit
      */
-    public Ball(Point2D location, int radius, double direction, int speed, Server server) {
-        this.server = server;
-    	setLocation(location);
+    public Ball(Point2D location, int radius, double direction, int speed) {
+        setLocation(location);
         setRadius(radius);
         changeDirection(direction);
         changeSpeed(speed);
@@ -140,9 +126,6 @@ public class Ball implements Serializable{
      */
     public void setLocation(Point2D location) {
         this.location = location;
-        if(server != null){
-        	server.sendObject(location);
-        }
     }
     /**
      * Returns location that the Ball will move to next.

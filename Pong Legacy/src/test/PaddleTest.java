@@ -1,8 +1,6 @@
 package test;
 
 import alpha.*;
-import alpha.serializable.Paddle;
-
 import org.junit.*;
 import static org.junit.Assert.*;
 

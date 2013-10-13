@@ -1,12 +1,10 @@
 package alpha;
 
+import java.awt.Color;
+import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -16,19 +14,16 @@ public class Client {
 	final String HOST; 
 	final int PORT = 4444;
 	Socket echoSocket = null;
-	ObjectOutputStream objOutput = null;
-	ObjectInputStream objInput = null;
+	PrintWriter out = null;
+	BufferedReader in = null;
 	
 	public Client(String ipIdentifier) {
 		HOST = ipIdentifier;
 		
 		try {
 			echoSocket = new Socket(HOST, PORT);
-			OutputStream os = echoSocket.getOutputStream();
-			objOutput = new ObjectOutputStream(os);
-			
-			InputStream is = echoSocket.getInputStream();
-			objInput = new ObjectInputStream(is);
+			out = new PrintWriter(echoSocket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: " + HOST);
 			System.exit(0);
@@ -38,32 +33,23 @@ public class Client {
 		}
 	}
 	
-	public void sendObject(Object o){
+	public String getNextLine() {
 		try {
-			objOutput.writeObject(o);
+			return in.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "";
 	}
 	
-	public Object getNextObject(){
-		Object ret = null;
-		try {
-			ret = objInput.readObject();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return ret;
+	public void send(String s) {
+		out.println(s);
 	}
 	
 	public void close() {
+		out.close();
 		try {
-			objOutput.close();
-			objInput.close();
+			in.close();
 			echoSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

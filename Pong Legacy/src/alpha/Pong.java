@@ -5,13 +5,11 @@
 package alpha;
 
 import java.awt.event.*;
+import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
-
-import alpha.serializable.Ball;
-import alpha.serializable.Player;
-import alpha.serializable.Polygon;
 
 /**
  * DESCRIPTION
@@ -27,7 +25,6 @@ public class Pong{
     private Thread pause;
     private Server server = null;
     private Client client = null;
-    private int side = -1;
     
     /**
      * Defult pong game square window size.
@@ -62,34 +59,28 @@ public class Pong{
     public Pong(int n, Server server, Client client) {
     	this.client = client;
     	this.server = server;
-        ball = new Ball(server);
+        ball = new Ball();
         //ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
         polygon = new Polygon(n);
         for(int i=0; i<n; i+=2){
         	polygon.setPlayer(i, "PLAYER" + (i/2+1));
         }
-        //polygon.setPlayer(0, "PLAYER1");    // RED_FLAG: test player
-        //polygon.setPlayer(5, "PLAYER2");    // RED_FLAG: test player
+//        polygon.setPlayer(0, "PLAYER1");    // RED_FLAG: test player
+//        polygon.setPlayer(5, "PLAYER2");    // RED_FLAG: test player
+        graphics = new Graphics(this);
         pause = new Thread(new BallPause(ball, 1000));
         pause.start();
-
+        
+        Timer timer = null;
+        int delay = 50;
         if(server != null){
-        	server.sendObject(polygon);
-        	side = 0;
-        	Timer timer = new Timer(36, new TimeAction());
-        	graphics = new Graphics(this, side);
-        	timer.start();
-        	
-        	new Thread(new runServer()).start();
+        	timer = new Timer(delay, new ServerAction());
         } else if(client != null){
-        	Object o = client.getNextObject();
-        	setSideNumber(o); //need to set side for graphics to control correct paddle
-        	graphics = new Graphics(this, side);
-        	
-        	new Thread(new runClient()).start();
+        	timer = new Timer(delay, new ClientAction());
         } else {
         	System.out.println("no client or server initialized");
         }
+        timer.start();
     }
 
     public Polygon getPolygon() {
@@ -98,23 +89,6 @@ public class Pong{
 
     public Ball getBall() {
         return ball;
-    }
-    
-    public Server getServer(){
-    	return server;
-    }
-    
-    public Client getClient(){
-    	return client;
-    }
-    
-    public void setSideNumber(Object o){
-    	if(o instanceof Integer){
-    		System.out.println("setting side");
-    		side = (Integer)o;
-    	} else {
-    		System.out.println("o was not an integer, side not set");
-    	}
     }
 
     /**
@@ -129,7 +103,7 @@ public class Pong{
         // Check for scoring.
         if (!polygon.contains(ball.getLocation())) {
             ball.stop();
-            ball = new Ball(server);
+            ball = new Ball();
             //polygon = new Polygon(8); //Testing and stuff
             pause = new Thread(new BallPause(ball, 1000));
             pause.start();
@@ -145,67 +119,39 @@ public class Pong{
         }
     }
     
-    class TimeAction extends AbstractAction{
-		public void actionPerformed(ActionEvent e) {
+    class ServerAction extends AbstractAction{
+		public void actionPerformed(ActionEvent arg0) {
 			if (ball.getState()==true) {
                 move();
             }
+			
+			//implement rest of server stuff below here
 		}
     }
     
-    class runServer implements Runnable{
-		public void run() {
-			Object[] objects = null;
-	    	while(true){
-	    		//input stuff
-				objects = server.getNextObjects();
-				for(Object o: objects){
-					if(o instanceof double[]){ //paddlelocation in the format [side, location]
-						double[] paddleLocation = (double[]) o;
-						polygon.getSide((int)Math.round(paddleLocation[0])).
-								getPaddle().setCenter(paddleLocation[1]);
-						server.sendObject(paddleLocation);
-					}
-				}
-	    	}
+    class ClientAction extends AbstractAction{
+		public void actionPerformed(ActionEvent arg0) {
+			//TODO make this do client stuff
 		}
     }
     
-    class runClient implements Runnable{
-		public void run() {
-			Object o = null;
-	    	while(true){
-	    		//reading objects in
-				o = client.getNextObject();
-				if(o == null){
-					System.out.println("no object");
-				} 
-				else if(o instanceof Polygon){
-					System.out.println("polygon");
-					polygon = (Polygon) o; //this will only work once, afterwards reset required
-				} 
-				else if(o instanceof Ball){
-					System.out.println("Ball");
-					ball = (Ball) o; //this will only work once, afterwards reset required
-				}
-				else if(o instanceof Integer){ //Integers are 
-					setSideNumber(o);
-				} 
-				else if(o instanceof Point2D){ //Point2D always a ball location
-					System.out.println("ball location");
-					ball.setLocation((Point2D) o);
-				} 
-				else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
-					double[] center = (double[]) o;
-					int c_side = (int)Math.round(center[0]);
-					if(c_side != side){
-						polygon.getSide(c_side).getPaddle().setCenter(center[1]);
-					}
-				}
-				System.out.println("read objects");
-	    	}
-		}
-    }
+    /**
+     * This method will move the paddle in the direction based upon the numeric
+     * value of the key pressed. 37=Left 39=Right according to the adobe documentation
+     * <a href="http://www.adobe.com/livedocs/flash/9.0/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&file=00001136.html">
+     * here</a>.
+     *
+     * NOTE: this method is probably incorrect and likely to be changed and/or 
+     *       modified. It was added simply to document the numerical key values 
+     *       for left and right.
+     *
+     * @param keyValue numeric value of the key pressed
+     */
+    /*public static void keyPressed(int keyValue) {
+        Paddle paddle = new Paddle();
+        if (keyValue == 37) paddle.moveLeft();
+        if (keyValue == 39) paddle.moveRight();
+    }*/
 }
 
 class BallPause implements Runnable {
@@ -239,5 +185,7 @@ class BallPause implements Runnable {
 		}
 		ball.changeSpeed(ball.DEFAULT_SPEED);
 		return;
-	}	
+	}
+
+	
 }
