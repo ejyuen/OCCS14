@@ -15,7 +15,7 @@ public class Server {
 	BufferedReader[] inputs = null;
 	
 	public Server(){
-		this(1); //defaults to just 1 client
+		this(0); //defaults to no client
 	}
 	
 	public Server(int numberOfClients) {
