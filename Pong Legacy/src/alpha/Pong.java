@@ -75,8 +75,18 @@ public class Pong{
         pause.start();
 
         if(server != null){
+        	server.sendObject(polygon);
+        	side = 0;
+        	Timer timer = new Timer(32, new TimeAction());
+        	graphics = new Graphics(this, side);
+        	timer.start();
+        	
         	runServer();
         } else if(client != null){
+        	Object o = client.getNextObject();
+        	setSideNumber(o); //need to set side for graphics to control correct paddle
+        	graphics = new Graphics(this, side);
+        	
         	runClient();
         } else {
         	System.out.println("no client or server initialized");
@@ -84,14 +94,18 @@ public class Pong{
     }
     
     public void runServer(){
-    	//initial setup
-    	server.sendObject(polygon);
-    	side = 0;
-    	Timer timer = new Timer(32, new TimeAction());
-    	timer.start();
-    	graphics = new Graphics(this, side);
-    	
+    	Object[] objects = null;
     	while(true){
+    		//input stuff
+			objects = server.getNextObjects();
+			for(Object o: objects){
+				if(o instanceof double[]){ //paddlelocation in the format [side, location]
+					double[] paddleLocation = (double[]) o;
+					polygon.getSide((int)Math.round(paddleLocation[0])).
+							getPaddle().setCenter(paddleLocation[1]);
+				}
+			}
+    		
     		//sending stuff
 			Side[] sides = polygon.getSides();
 			double[] paddleLocations = new double[sides.length/2];
@@ -100,25 +114,11 @@ public class Pong{
 			}
 			server.sendObject(paddleLocations);
 			server.sendObject(ball.getLocation());
-			
-			//input stuff
-			Object[] objects = server.getNextObjects();
-			for(Object o: objects){
-				if(o instanceof double[]){ //paddlelocation in the format [side, location]
-					double[] paddleLocation = (double[]) o;
-					polygon.getSide((int)Math.round(paddleLocation[0])).
-							getPaddle().setCenter(paddleLocation[1]);
-				}
-			}
     	}
     }
     
     public void runClient(){
-    	//setup
-    	Object o = client.getNextObject();
-    	setSideNumber(o); //need to set side for graphics to control correct paddle
-    	graphics = new Graphics(this, side);
-    	
+    	Object o = null;
     	while(true){
     		//reading objects in
 			o = client.getNextObject();
