@@ -156,6 +156,7 @@ public class Pong{
 				polygon = (Polygon)o;
 			} else if(o instanceof Ball){
 				System.out.println("ball");
+				System.out.println(((Ball) o).getLocation());
 				ball = (Ball)o;
 			} else if(o instanceof Integer){
 				setSideNumber(o);
