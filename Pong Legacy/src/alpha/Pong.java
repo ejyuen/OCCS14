@@ -25,6 +25,7 @@ public class Pong{
     private Thread pause;
     private Server server = null;
     private Client client = null;
+    private int side = -1;
     
     /**
      * Defult pong game square window size.
@@ -75,6 +76,7 @@ public class Pong{
         int delay = 50;
         if(server != null){
         	timer = new Timer(delay, new ServerAction());
+        	side = 0;
         } else if(client != null){
         	timer = new Timer(delay, new ClientAction());
         } else {
@@ -142,6 +144,9 @@ public class Pong{
 			} else if(o instanceof Ball){
 				System.out.println("ball");
 				ball = (Ball)o;
+			} else if(o instanceof Integer){
+				System.out.println("setting side");
+				side = (Integer)o;
 			}
 		}
     }

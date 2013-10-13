@@ -15,8 +15,6 @@ public class Server {
 	final int PORT = 4444;
 	ServerSocket serverSocket = null;
 	Socket[] clientSockets = null;
-	PrintWriter[] stringOutputs = null;
-	BufferedReader[] stringInputs = null;
 	ObjectOutputStream[] objOutputs = null;
 	ObjectInputStream[] objInputs = null;
 	
@@ -26,8 +24,6 @@ public class Server {
 	
 	public Server(int numberOfClients) {
 		clientSockets = new Socket[numberOfClients];
-		stringOutputs = new PrintWriter[numberOfClients];
-		stringInputs = new BufferedReader[numberOfClients];
 		objOutputs = new ObjectOutputStream[numberOfClients];
 		objInputs = new ObjectInputStream[numberOfClients];
 		
@@ -50,17 +46,15 @@ public class Server {
 			try {
 				//outputs
 				OutputStream os = clientSocket.getOutputStream();
-				stringOutputs[i] = new PrintWriter(os, true);
 				objOutputs[i] = new ObjectOutputStream(os);
 				
 				//inputs
 				InputStream is = clientSocket.getInputStream();
-				stringInputs[i] = new BufferedReader(new InputStreamReader(is));
 				objInputs[i] = new ObjectInputStream(is);
 			} catch (IOException e) {
 				System.out.println("Streams failed to instantiate.");
 			}
-			//sendString("Client number is "+i, i);
+			sendObject(new Integer(i), i);
 			System.out.println("Client " + i + " has been instantiated");
 		}
 		System.out.println("Server loaded");		
@@ -79,32 +73,6 @@ public class Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public void sendString(String s) {
-		for(int i = 0; i<stringOutputs.length; i++){
-			sendString(s, i);
-		}
-	}
-	
-	public void sendString(String s, int client){
-		stringOutputs[client].println(s);
-	}
-	
-	public String[] getNextLines() {
-		String[] strings = new String[clientSockets.length];
-		for(int i = 0; i<clientSockets.length; i++){
-			try {
-				String in = stringInputs[i].readLine();
-				if(in == null){
-					in = "";
-				}
-				strings[i] = in;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return strings;
 	}
 	
 	public Object[] getNextObjects(){
@@ -126,8 +94,8 @@ public class Server {
 	public void close() {
 		try {
 			for(int i = 0; i<clientSockets.length; i++){
-				stringOutputs[i].close();
-				stringInputs[i].close();
+				objOutputs[i].close();
+				objInputs[i].close();
 				clientSockets[i].close();
 			}
 			serverSocket.close();
