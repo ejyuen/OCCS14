@@ -12,6 +12,7 @@ import javax.swing.*;
 import alpha.serializable.Ball;
 import alpha.serializable.Player;
 import alpha.serializable.Polygon;
+import alpha.serializable.Side;
 
 /**
  * DESCRIPTION
@@ -140,26 +141,62 @@ public class Pong{
 			if (ball.getState()==true) {
                 move();
             }
-			server.sendObject(ball);
+			
+			//sending stuff
+			Side[] sides = polygon.getSides();
+			double[] paddleLocations = new double[sides.length/2];
+			for(int i = 0; i<sides.length; i+=2){
+				paddleLocations[i/2] = sides[i].getPaddle().getCenter();
+			}
+			server.sendObject(paddleLocations);
+			server.sendObject(ball.getLocation());
+			
+			//input stuff
+			Object[] objects = server.getNextObjects();
+			for(Object o: objects){
+				if(o instanceof double[]){ //paddlelocation in the format [side, location]
+					double[] paddleLocation = (double[]) o;
+					polygon.getSide((int)Math.round(paddleLocation[0])).
+							getPaddle().setCenter(paddleLocation[1]);
+				}
+			}
 		}
     }
     
     class ClientAction extends AbstractAction{
 		public void actionPerformed(ActionEvent arg0) {
+			//reading objects in
 			Object o = client.getNextObject();
 			if(o == null){
 				System.out.println("no object");
-			} else if(o instanceof Polygon){
+			} 
+			else if(o instanceof Polygon){
 				System.out.println("polygon");
-				polygon = (Polygon)o;
-			} else if(o instanceof Ball){
-				System.out.println("ball");
-				ball = (Ball)o;
-			} else if(o instanceof Integer){
-				setSideNumber(o);
-			} else if(o instanceof Point2D){
-				ball.setLocation((Point2D) o);
+				polygon = (Polygon) o; //this will only work once, afterwards reset required
+			} 
+			else if(o instanceof Ball){
+				System.out.println("Ball");
+				ball = (Ball) o; //this will only work once, afterwards reset required
 			}
+			else if(o instanceof Integer){ //Integers are 
+				setSideNumber(o);
+			} 
+			else if(o instanceof Point2D){ //Point2D always a ball location
+				System.out.println("ball location");
+				ball.setLocation((Point2D) o);
+			} 
+			else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
+				double[] centers = (double[]) o;
+				for(int i = 0; i<centers.length; i++){
+					if(i*2 != side){
+						polygon.getSide(i*2).getPaddle().setCenter(centers[i]);
+					}
+				}
+			}
+			
+			//sending side location out
+			double[] paddleLocation = {(double)side, polygon.getSide(side).getPaddle().getCenter()};
+			client.sendObject(paddleLocation);
 		}
     }
     

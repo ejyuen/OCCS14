@@ -79,7 +79,9 @@ public class Server {
 		Object[] objects = new Object[clientSockets.length];
 		for(int i = 0; i<clientSockets.length; i++){
 			try {
-				objects[i] = objInputs[i].readObject();
+				Object o = null;
+				o = objInputs[i].readObject();
+				objects[i] = o;
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

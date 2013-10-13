@@ -76,6 +76,14 @@ public class Paddle implements Serializable{
 	}
 	
 	/**
+	 * Method is used for client server stuff, for the rest please use move methods
+	 * @param c is the new center
+	 */
+	public void setCenter(double c){
+		center = c;
+	}
+	
+	/**
 	 * Moves the paddle the designated number of moves to the right.
      * @param moves number of default movements to move
      * @return true if the paddle moved; false if it could not.
