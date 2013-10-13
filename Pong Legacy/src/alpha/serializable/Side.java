@@ -2,7 +2,7 @@
  * Side.java
  */
 
-package alpha;
+package alpha.serializable;
 
 import java.awt.geom.Line2D;
 import java.awt.event.*;

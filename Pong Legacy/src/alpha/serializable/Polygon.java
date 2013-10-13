@@ -1,7 +1,7 @@
 /*
  * Polygon.java
  */
-package alpha;
+package alpha.serializable;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Line2D;

@@ -2,7 +2,7 @@
  * Paddle.java
  */
 
-package alpha;
+package alpha.serializable;
 
 import java.io.Serializable;
 

@@ -12,6 +12,10 @@ import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import javax.swing.*;
 
+import alpha.serializable.Ball;
+import alpha.serializable.Polygon;
+import alpha.serializable.Side;
+
 /**
  * Graphics is in charge of all the game window drawing, as well as relative positioning.
  *

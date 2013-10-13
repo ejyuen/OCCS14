@@ -14,6 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
+import alpha.serializable.Ball;
+import alpha.serializable.Player;
+import alpha.serializable.Polygon;
+
 /**
  * DESCRIPTION
  *
@@ -142,7 +146,6 @@ public class Pong{
                 move();
             }
 			server.sendObject(ball);
-			System.out.println(ball.getState());
 		}
     }
     
