@@ -4,6 +4,7 @@
 package alpha;
 
 import java.awt.event.*;
+import java.io.Serializable;
 
 /**
  * The human interface in the Pong Legacy Game
@@ -11,7 +12,7 @@ import java.awt.event.*;
  * @author 2009-2010 WHS
  * <a href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
-public class Player extends Side implements KeyListener {
+public class Player extends Side implements KeyListener, Serializable {
 
     /**
      * Player name

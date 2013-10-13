@@ -75,7 +75,7 @@ public class Pong{
         pause.start();
         
         Timer timer = null;
-        int delay = 50;
+        int delay = 32;
         if(server != null){
         	timer = new Timer(delay, new ServerAction());
         	server.sendObject(polygon);
@@ -141,7 +141,8 @@ public class Pong{
 			if (ball.getState()==true) {
                 move();
             }
-			server.sendObject(ball.getLocation());
+			server.sendObject(ball);
+			System.out.println(ball.getState());
 		}
     }
     
