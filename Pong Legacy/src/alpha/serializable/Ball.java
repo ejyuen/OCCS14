@@ -9,6 +9,7 @@ package alpha.serializable;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
+import alpha.Server;;
 
 /**
  * DESCRIPTION
@@ -42,12 +43,15 @@ public class Ball implements Serializable{
      * Speed of the Ball in absolute units / time tick.
      */
     private int speed;
-
+    
+    private Server server = null;
+    
     /**
      * Default ball radius.
      */
     public static final int DEFAULT_RADIUS = 20;
 
+    
     /*
      * Default ball location.
      */
@@ -102,6 +106,14 @@ public class Ball implements Serializable{
         changeSpeed(speed);
         lastHit = null;
     }
+    
+    public Server getServer(){
+    	return server;
+    }
+    
+    public void setServer(Server server){
+    	this.server = server;
+    }
 
     public void stop() {
         moving = false;
@@ -131,6 +143,9 @@ public class Ball implements Serializable{
      */
     public void setLocation(Point2D location) {
         this.location = location;
+        if(server != null){
+        	server.sendObject(location);
+        }
     }
     /**
      * Returns location that the Ball will move to next.

@@ -64,6 +64,7 @@ public class Pong{
     	this.client = client;
     	this.server = server;
         ball = new Ball();
+        ball.setServer(this.server);
         //ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
         polygon = new Polygon(n);
         for(int i=0; i<n; i+=2){
@@ -92,89 +93,6 @@ public class Pong{
         	System.out.println("no client or server initialized");
         }
     }
-    
-    class runServer implements Runnable{
-		public void run() {
-			Object[] objects = null;
-	    	while(true){
-	    		//input stuff
-				objects = server.getNextObjects();
-				for(Object o: objects){
-					if(o instanceof double[]){ //paddlelocation in the format [side, location]
-						double[] paddleLocation = (double[]) o;
-						polygon.getSide((int)Math.round(paddleLocation[0])).
-								getPaddle().setCenter(paddleLocation[1]);
-					}
-				}
-	    		
-	    		//sending stuff
-				Side[] sides = polygon.getSides();
-				double[] paddleLocations = new double[sides.length/2];
-				for(int i = 0; i<sides.length; i+=2){
-					paddleLocations[i/2] = sides[i].getPaddle().getCenter();
-				}
-				server.sendObject(paddleLocations);
-				server.sendObject(ball.getLocation());
-				System.out.println("sent objects");
-				
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	    	}
-		}
-    }
-    
-    class runClient implements Runnable{
-		public void run() {
-			Object o = null;
-	    	while(true){
-	    		//reading objects in
-				o = client.getNextObject();
-				if(o == null){
-					System.out.println("no object");
-				} 
-				else if(o instanceof Polygon){
-					System.out.println("polygon");
-					polygon = (Polygon) o; //this will only work once, afterwards reset required
-				} 
-				else if(o instanceof Ball){
-					System.out.println("Ball");
-					ball = (Ball) o; //this will only work once, afterwards reset required
-				}
-				else if(o instanceof Integer){ //Integers are 
-					setSideNumber(o);
-				} 
-				else if(o instanceof Point2D){ //Point2D always a ball location
-					System.out.println("ball location");
-					ball.setLocation((Point2D) o);
-				} 
-				else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
-					double[] centers = (double[]) o;
-					for(int i = 0; i<centers.length; i++){
-						if(i*2 != side){
-							polygon.getSide(i*2).getPaddle().setCenter(centers[i]);
-						}
-					}
-				}
-				System.out.println("read objects");
-				
-				//sending side location out
-				double[] paddleLocation = {(double)side, polygon.getSide(side).getPaddle().getCenter()};
-				client.sendObject(paddleLocation);
-				System.out.println("send objects");
-				
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	    	}
-		}
-    }
 
     public Polygon getPolygon() {
         return polygon;
@@ -182,6 +100,14 @@ public class Pong{
 
     public Ball getBall() {
         return ball;
+    }
+    
+    public Server getServer(){
+    	return server;
+    }
+    
+    public Client getClient(){
+    	return client;
     }
     
     public void setSideNumber(Object o){
@@ -229,23 +155,59 @@ public class Pong{
 		}
     }
     
-    /**
-     * This method will move the paddle in the direction based upon the numeric
-     * value of the key pressed. 37=Left 39=Right according to the adobe documentation
-     * <a href="http://www.adobe.com/livedocs/flash/9.0/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&file=00001136.html">
-     * here</a>.
-     *
-     * NOTE: this method is probably incorrect and likely to be changed and/or 
-     *       modified. It was added simply to document the numerical key values 
-     *       for left and right.
-     *
-     * @param keyValue numeric value of the key pressed
-     */
-    /*public static void keyPressed(int keyValue) {
-        Paddle paddle = new Paddle();
-        if (keyValue == 37) paddle.moveLeft();
-        if (keyValue == 39) paddle.moveRight();
-    }*/
+    class runServer implements Runnable{
+		public void run() {
+			Object[] objects = null;
+	    	while(true){
+	    		//input stuff
+				objects = server.getNextObjects();
+				for(Object o: objects){
+					if(o instanceof double[]){ //paddlelocation in the format [side, location]
+						double[] paddleLocation = (double[]) o;
+						polygon.getSide((int)Math.round(paddleLocation[0])).
+								getPaddle().setCenter(paddleLocation[1]);
+						server.sendObject(paddleLocation);
+					}
+				}
+	    	}
+		}
+    }
+    
+    class runClient implements Runnable{
+		public void run() {
+			Object o = null;
+	    	while(true){
+	    		//reading objects in
+				o = client.getNextObject();
+				if(o == null){
+					System.out.println("no object");
+				} 
+				else if(o instanceof Polygon){
+					System.out.println("polygon");
+					polygon = (Polygon) o; //this will only work once, afterwards reset required
+				} 
+				else if(o instanceof Ball){
+					System.out.println("Ball");
+					ball = (Ball) o; //this will only work once, afterwards reset required
+				}
+				else if(o instanceof Integer){ //Integers are 
+					setSideNumber(o);
+				} 
+				else if(o instanceof Point2D){ //Point2D always a ball location
+					System.out.println("ball location");
+					ball.setLocation((Point2D) o);
+				} 
+				else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
+					double[] center = (double[]) o;
+					int c_side = (int)Math.round(center[0]);
+					if(c_side != side){
+						polygon.getSide(c_side).getPaddle().setCenter(center[1]);
+					}
+				}
+				System.out.println("read objects");
+	    	}
+		}
+    }
 }
 
 class BallPause implements Runnable {

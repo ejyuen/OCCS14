@@ -28,6 +28,8 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     private boolean leftPressed = false;
     private boolean rightPressed = false;
     private int side = -1;
+    private Client client = null;
+    private Server server = null;
 
     /**
      * Constructs a new Graphics with the Pong that creates it.
@@ -41,6 +43,8 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         super();
         this.pong = pong;
         this.side = side;
+        client = pong.getClient();
+        server = pong.getServer();
         // RED_FlAG: constructor needs title / player name and player number?
         init("PongLegacy");
     }
@@ -161,6 +165,17 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         if(ke.getKeyCode() == 39) leftPressed = false;
         if(ke.getKeyCode() == 37) rightPressed = false;
     }
+    
+    public void sendPaddle(){
+    	double[] paddleLocation = {side, pong.getPolygon().getSide(side).getPaddle().getCenter()};
+    	if(server != null){
+    		server.sendObject(paddleLocation);
+    	} else if(client != null){
+    		client.sendObject(paddleLocation);
+    	} else {
+    		System.out.println("no server or client");
+    	}
+    }
 
     class TimeAction extends AbstractAction {
 
@@ -171,8 +186,13 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         public void actionPerformed(ActionEvent arg0) {
             Graphics.this.repaint();
 
-            if(leftPressed == true) pong.getPolygon().getSide(side).getPaddle().moveLeft();
-            if(rightPressed == true) pong.getPolygon().getSide(side).getPaddle().moveRight();
+            if(leftPressed == true){
+            	pong.getPolygon().getSide(side).getPaddle().moveLeft();
+            	sendPaddle();
+            } else if(rightPressed == true){
+            	pong.getPolygon().getSide(side).getPaddle().moveRight();
+            	sendPaddle();
+            }
         }
     }
 }
