@@ -21,8 +21,7 @@ public class Ball implements Serializable{
     /*
      * The location of the ball.
      */
-    private double x = 0;
-    private double y = 0;
+    private Point2D location;
 
     /**
      * The radius of the ball.
@@ -83,7 +82,7 @@ public class Ball implements Serializable{
     }
     
     public Ball(Ball b){
-    	this(b.getLocation(), b.getRadius(), b.getDirection(), b.getSpeed());
+    	this(b.location, b.radius, b.direction, b.speed);
     }
 
     /**
@@ -122,7 +121,7 @@ public class Ball implements Serializable{
      * @return ball location
      */
     public Point2D getLocation() {
-        return new Point2D.Double(x, y);
+        return location;
     }
 
     /**
@@ -131,8 +130,7 @@ public class Ball implements Serializable{
      * @param location new ball location
      */
     public void setLocation(Point2D location) {
-        x = location.getX();
-        y = location.getY();
+        this.location = location;
     }
     /**
      * Returns location that the Ball will move to next.
@@ -140,8 +138,8 @@ public class Ball implements Serializable{
      * @return next location
      */
     public Point2D getNextLocation() {
-        double newX = Math.cos(direction) * speed + x;
-        double newY = -1.0 * Math.sin(direction) * speed + y;
+        double newX = Math.cos(direction) * speed + location.getX();
+        double newY = -1.0 * Math.sin(direction) * speed + location.getY();
         return new Point2D.Double(newX, newY);
     }
 

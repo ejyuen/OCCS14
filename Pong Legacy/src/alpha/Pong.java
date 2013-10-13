@@ -7,6 +7,9 @@ package alpha;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
@@ -75,6 +78,7 @@ public class Pong{
         int delay = 50;
         if(server != null){
         	timer = new Timer(delay, new ServerAction());
+        	server.sendObject(polygon);
         	side = 0;
         } else if(client != null){
         	timer = new Timer(delay, new ClientAction());
@@ -138,8 +142,6 @@ public class Pong{
                 move();
             }
 			
-			//implement rest of server stuff below here
-			server.sendObject(polygon);
 			server.sendObject(ball);
 		}
     }
