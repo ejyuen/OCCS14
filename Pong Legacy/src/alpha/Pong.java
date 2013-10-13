@@ -134,7 +134,10 @@ public class Pong{
     class ClientAction extends AbstractAction{
 		public void actionPerformed(ActionEvent arg0) {
 			Object o = client.getNextObject();
-			if(o instanceof Polygon){
+			if(o == null){
+				System.out.println("no object");
+			} else if(o instanceof Polygon){
+				System.out.println("polygon");
 				new Polygon((Polygon)o);
 			}
 		}
