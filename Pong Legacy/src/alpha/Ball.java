@@ -80,6 +80,10 @@ public class Ball implements Serializable{
     public Ball(int speed, int radius) {
         this(DEFAULT_LOCATION, radius, Math.random() * (2 * Math.PI), speed);
     }
+    
+    public Ball(Ball b){
+    	this(b.location, b.radius, b.direction, b.speed);
+    }
 
     /**
      * Creates a ball with the specified speed and radius, but with

@@ -138,7 +138,10 @@ public class Pong{
 				System.out.println("no object");
 			} else if(o instanceof Polygon){
 				System.out.println("polygon");
-				new Polygon((Polygon)o);
+				polygon = (Polygon)o;
+			} else if(o instanceof Ball){
+				System.out.println("ball");
+				ball = (Ball)o;
 			}
 		}
     }

@@ -60,7 +60,7 @@ public class Server {
 			} catch (IOException e) {
 				System.out.println("Streams failed to instantiate.");
 			}
-			sendString("Client number is "+i, i);
+			//sendString("Client number is "+i, i);
 			System.out.println("Client " + i + " has been instantiated");
 		}
 		System.out.println("Server loaded");		
