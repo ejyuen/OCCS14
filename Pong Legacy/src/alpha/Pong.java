@@ -63,8 +63,7 @@ public class Pong{
     public Pong(int n, Server server, Client client) {
     	this.client = client;
     	this.server = server;
-        ball = new Ball();
-        ball.setServer(this.server);
+        ball = new Ball(server);
         //ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
         polygon = new Polygon(n);
         for(int i=0; i<n; i+=2){
@@ -78,7 +77,7 @@ public class Pong{
         if(server != null){
         	server.sendObject(polygon);
         	side = 0;
-        	Timer timer = new Timer(32, new TimeAction());
+        	Timer timer = new Timer(40, new TimeAction());
         	graphics = new Graphics(this, side);
         	timer.start();
         	
@@ -131,7 +130,7 @@ public class Pong{
         // Check for scoring.
         if (!polygon.contains(ball.getLocation())) {
             ball.stop();
-            ball = new Ball();
+            ball = new Ball(server);
             //polygon = new Polygon(8); //Testing and stuff
             pause = new Thread(new BallPause(ball, 1000));
             pause.start();

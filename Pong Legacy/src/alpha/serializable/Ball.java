@@ -71,7 +71,11 @@ public class Ball implements Serializable{
      *.randomly determined direction.
      */
     public Ball() {
-        this(DEFAULT_LOCATION, DEFAULT_RADIUS, Math.random() * (2 * Math.PI), DEFAULT_SPEED);
+        this(DEFAULT_LOCATION, DEFAULT_RADIUS, Math.random() * (2 * Math.PI), DEFAULT_SPEED, null);
+    }
+    
+    public Ball(Server server){
+    	this(DEFAULT_LOCATION, DEFAULT_RADIUS, Math.random() * (2 * Math.PI), DEFAULT_SPEED, server);
     }
 
     /**
@@ -82,11 +86,11 @@ public class Ball implements Serializable{
      * @param radius radius of the ball
      */
     public Ball(int speed, int radius) {
-        this(DEFAULT_LOCATION, radius, Math.random() * (2 * Math.PI), speed);
+        this(DEFAULT_LOCATION, radius, Math.random() * (2 * Math.PI), speed, null);
     }
     
     public Ball(Ball b){
-    	this(b.location, b.radius, b.direction, b.speed);
+    	this(b.location, b.radius, b.direction, b.speed, null);
     }
 
     /**
@@ -99,20 +103,13 @@ public class Ball implements Serializable{
      * @param speed ball speed
      * @param occupied side last hit
      */
-    public Ball(Point2D location, int radius, double direction, int speed) {
-        setLocation(location);
+    public Ball(Point2D location, int radius, double direction, int speed, Server server) {
+        this.server = server;
+    	setLocation(location);
         setRadius(radius);
         changeDirection(direction);
         changeSpeed(speed);
         lastHit = null;
-    }
-    
-    public Server getServer(){
-    	return server;
-    }
-    
-    public void setServer(Server server){
-    	this.server = server;
     }
 
     public void stop() {
