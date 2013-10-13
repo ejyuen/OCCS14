@@ -5,9 +5,10 @@
  *
  */
 
-package alpha;
+package alpha.serializable;
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
 /**
  * DESCRIPTION
@@ -15,7 +16,7 @@ import java.awt.geom.Point2D;
  * @author 2009-2010 WHS <a
  *         href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
-public class Ball {
+public class Ball implements Serializable{
 
     /*
      * The location of the ball.
@@ -78,6 +79,10 @@ public class Ball {
      */
     public Ball(int speed, int radius) {
         this(DEFAULT_LOCATION, radius, Math.random() * (2 * Math.PI), speed);
+    }
+    
+    public Ball(Ball b){
+    	this(b.location, b.radius, b.direction, b.speed);
     }
 
     /**

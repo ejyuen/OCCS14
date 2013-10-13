@@ -1,9 +1,10 @@
 /*
  * Player.java
  */
-package alpha;
+package alpha.serializable;
 
 import java.awt.event.*;
+import java.io.Serializable;
 
 /**
  * The human interface in the Pong Legacy Game

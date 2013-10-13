@@ -1,10 +1,11 @@
 /*
  * Polygon.java
  */
-package alpha;
+package alpha.serializable;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Line2D;
+import java.io.Serializable;
 
 /**
  * The Polygon class represents the absolute positioning of the polygon,
@@ -13,7 +14,7 @@ import java.awt.geom.Line2D;
  * @author 2009-2010 WHS
  * <a href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
-public class Polygon extends java.awt.Polygon {
+public class Polygon extends java.awt.Polygon implements Serializable{
 
     private int[] xArray, yArray;
     private Side[] sides;
@@ -33,6 +34,14 @@ public class Polygon extends java.awt.Polygon {
         yArray = calculateY(RADIUS, numSides);
         sides = createSides();
     }
+    
+    public Polygon(Polygon p){
+    	super(p.xpoints, p.ypoints, p.npoints);
+    	container = p.container;
+    	xArray = p.xArray;
+    	yArray = p.yArray;
+    	sides = p.sides;
+    }
 
     /**
      * Returns side at position.
@@ -42,6 +51,15 @@ public class Polygon extends java.awt.Polygon {
      */
     public Side getSide(int num) {
         return sides[num];
+    }
+    
+    /**
+     * return the full array of sides
+     * 
+     * @return sides field
+     */
+    public Side[] getSides(){
+    	return sides;
     }
 
     /**
