@@ -106,7 +106,6 @@ public class Pong{
 								getPaddle().setCenter(paddleLocation[1]);
 					}
 				}
-				System.out.println("read objects");
 	    		
 	    		//sending stuff
 				Side[] sides = polygon.getSides();
@@ -117,6 +116,12 @@ public class Pong{
 				server.sendObject(paddleLocations);
 				server.sendObject(ball.getLocation());
 				System.out.println("sent objects");
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	    	}
 		}
     }
@@ -159,6 +164,12 @@ public class Pong{
 				double[] paddleLocation = {(double)side, polygon.getSide(side).getPaddle().getCenter()};
 				client.sendObject(paddleLocation);
 				System.out.println("send objects");
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	    	}
 		}
     }
