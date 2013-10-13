@@ -4,6 +4,8 @@
 
 package alpha;
 
+import java.io.Serializable;
+
 /**
  * Paddle is a line type obstacle that is moved left and right on a side by
  * the player to block the ball from going into the goal.
@@ -11,7 +13,7 @@ package alpha;
  * @author 2009-2010 WHS
  * <a href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
-public class Paddle {
+public class Paddle implements Serializable{
 	/**
 	 * The default width of a paddle as percent of the entire side length. 
          * Has to be >= 0 and <=100.

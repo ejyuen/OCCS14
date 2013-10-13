@@ -133,7 +133,10 @@ public class Pong{
     
     class ClientAction extends AbstractAction{
 		public void actionPerformed(ActionEvent arg0) {
-			//TODO make this do client stuff
+			Object o = client.getNextObject();
+			if(o instanceof Polygon){
+				new Polygon((Polygon)o);
+			}
 		}
     }
     

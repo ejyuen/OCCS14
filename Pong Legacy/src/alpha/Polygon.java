@@ -34,6 +34,14 @@ public class Polygon extends java.awt.Polygon implements Serializable{
         yArray = calculateY(RADIUS, numSides);
         sides = createSides();
     }
+    
+    public Polygon(Polygon p){
+    	super(p.xpoints, p.ypoints, p.npoints);
+    	container = p.container;
+    	xArray = p.xArray;
+    	yArray = p.yArray;
+    	sides = p.sides;
+    }
 
     /**
      * Returns side at position.
