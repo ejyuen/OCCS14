@@ -12,7 +12,6 @@ import javax.swing.*;
 import alpha.serializable.Ball;
 import alpha.serializable.Player;
 import alpha.serializable.Polygon;
-import alpha.serializable.Side;
 
 /**
  * DESCRIPTION
@@ -77,7 +76,7 @@ public class Pong{
         if(server != null){
         	server.sendObject(polygon);
         	side = 0;
-        	Timer timer = new Timer(40, new TimeAction());
+        	Timer timer = new Timer(36, new TimeAction());
         	graphics = new Graphics(this, side);
         	timer.start();
         	

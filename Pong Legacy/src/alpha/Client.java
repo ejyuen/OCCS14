@@ -50,7 +50,6 @@ public class Client {
 	public Object getNextObject(){
 		Object ret = null;
 		try {
-			System.out.println(objInput.available());
 			ret = objInput.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
