@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author 2009-2010 WHS
  * <a href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
-public class Player extends Side implements KeyListener, Serializable {
+public class Player extends Side implements KeyListener {
 
     /**
      * Player name

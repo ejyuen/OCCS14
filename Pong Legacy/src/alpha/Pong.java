@@ -5,12 +5,7 @@
 package alpha;
 
 import java.awt.event.*;
-import java.awt.*;
 import java.awt.geom.Point2D;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
