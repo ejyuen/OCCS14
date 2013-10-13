@@ -116,6 +116,7 @@ public class Pong{
 				server.sendObject(paddleLocations);
 				server.sendObject(ball.getLocation());
 				System.out.println("sent objects");
+				
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
@@ -164,6 +165,7 @@ public class Pong{
 				double[] paddleLocation = {(double)side, polygon.getSide(side).getPaddle().getCenter()};
 				client.sendObject(paddleLocation);
 				System.out.println("send objects");
+				
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
