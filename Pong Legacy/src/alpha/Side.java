@@ -6,6 +6,7 @@ package alpha;
 
 import java.awt.geom.Line2D;
 import java.awt.event.*;
+import java.io.Serializable;
 
 /**
  * A side of the polygon that may or may not be occupied by a paddle.
@@ -13,7 +14,7 @@ import java.awt.event.*;
  * @author 2009-2010 WHS
  * <a href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
-public class Side extends Line2D.Double {
+public class Side extends Line2D.Double implements Serializable{
 
     public static enum Status {VACANT, OCCUPIED}
 

@@ -8,6 +8,7 @@
 package alpha;
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
 /**
  * DESCRIPTION
@@ -15,7 +16,7 @@ import java.awt.geom.Point2D;
  * @author 2009-2010 WHS <a
  *         href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
-public class Ball {
+public class Ball implements Serializable{
 
     /*
      * The location of the ball.

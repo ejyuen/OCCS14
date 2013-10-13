@@ -126,6 +126,8 @@ public class Pong{
             }
 			
 			//implement rest of server stuff below here
+			server.sendObject(polygon);
+			server.sendObject(ball);
 		}
     }
     
