@@ -77,7 +77,7 @@ public class Pong{
         if(server != null){
         	server.sendObject(polygon);
         	side = 0;
-        	Timer timer = new Timer(32, new TimeAction());
+        	Timer timer = new Timer(36, new TimeAction());
         	graphics = new Graphics(this, side);
         	timer.start();
         	
@@ -114,6 +114,12 @@ public class Pong{
 			}
 			server.sendObject(paddleLocations);
 			server.sendObject(ball.getLocation());
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}
     }
     
@@ -152,6 +158,13 @@ public class Pong{
 			//sending side location out
 			double[] paddleLocation = {(double)side, polygon.getSide(side).getPaddle().getCenter()};
 			client.sendObject(paddleLocation);
+			
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}
     }
 

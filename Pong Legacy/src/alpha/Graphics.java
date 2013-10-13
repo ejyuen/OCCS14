@@ -62,6 +62,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         Timer timer = new Timer(36, new TimeAction());
         timer.start();
         frame.addKeyListener(this);
+        System.out.println("graphics initialized");
     }
 
     /**
@@ -134,6 +135,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     @Override
     public void paintComponent(java.awt.Graphics g) {
         super.paintComponent(g);
+        System.out.println("graphics called");
         Image bufferImage = createImage(this.getSize().width, this.getSize().height);
         Graphics2D bufferGraphics = (Graphics2D) bufferImage.getGraphics();
         bufferGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
