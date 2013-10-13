@@ -124,8 +124,8 @@ public class Pong{
 			if (ball.getState()==true) {
                 move();
             }
-			
-			//implement rest of server stuff below here
+			server.sendObject(polygon);
+			server.sendObject(ball);
 		}
     }
     
