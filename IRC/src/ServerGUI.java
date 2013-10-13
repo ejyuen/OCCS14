@@ -1,4 +1,3 @@
-package IRC.IRC.src;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
