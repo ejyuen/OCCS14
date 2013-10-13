@@ -16,6 +16,8 @@ public class Client {
 	final String HOST; 
 	final int PORT = 4444;
 	Socket echoSocket = null;
+	PrintWriter stringOutput = null;
+	BufferedReader stringInput = null;
 	ObjectOutputStream objOutput = null;
 	ObjectInputStream objInput = null;
 	
@@ -25,9 +27,11 @@ public class Client {
 		try {
 			echoSocket = new Socket(HOST, PORT);
 			OutputStream os = echoSocket.getOutputStream();
+			stringOutput = new PrintWriter(os, true);
 			objOutput = new ObjectOutputStream(os);
 			
 			InputStream is = echoSocket.getInputStream();
+			stringInput = new BufferedReader(new InputStreamReader(is));
 			objInput = new ObjectInputStream(is);
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: " + HOST);
@@ -38,6 +42,10 @@ public class Client {
 		}
 	}
 	
+	public void sendString(String s) {
+		stringOutput.println(s);
+	}
+	
 	public void sendObject(Object o){
 		try {
 			objOutput.writeObject(o);
@@ -45,6 +53,15 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String getNextLine() {
+		try {
+			return stringInput.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	public Object getNextObject(){
@@ -61,9 +78,9 @@ public class Client {
 	}
 	
 	public void close() {
+		stringOutput.close();
 		try {
-			objOutput.close();
-			objInput.close();
+			stringInput.close();
 			echoSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
