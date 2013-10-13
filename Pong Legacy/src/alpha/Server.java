@@ -54,7 +54,7 @@ public class Server {
 			} catch (IOException e) {
 				System.out.println("Streams failed to instantiate.");
 			}
-			sendObject(new Integer(i), i);
+			sendObject(new Integer(2*(i+1)), i); //set the side number of the client
 			System.out.println("Client " + i + " has been instantiated");
 		}
 		System.out.println("Server loaded");		

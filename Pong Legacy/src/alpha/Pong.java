@@ -66,9 +66,8 @@ public class Pong{
         for(int i=0; i<n; i+=2){
         	polygon.setPlayer(i, "PLAYER" + (i/2+1));
         }
-//        polygon.setPlayer(0, "PLAYER1");    // RED_FLAG: test player
-//        polygon.setPlayer(5, "PLAYER2");    // RED_FLAG: test player
-        graphics = new Graphics(this);
+        //polygon.setPlayer(0, "PLAYER1");    // RED_FLAG: test player
+        //polygon.setPlayer(5, "PLAYER2");    // RED_FLAG: test player
         pause = new Thread(new BallPause(ball, 1000));
         pause.start();
         
@@ -79,9 +78,12 @@ public class Pong{
         	side = 0;
         } else if(client != null){
         	timer = new Timer(delay, new ClientAction());
+        	Object o = client.getNextObject();
+        	setSideNumber(o);
         } else {
         	System.out.println("no client or server initialized");
         }
+        graphics = new Graphics(this, side);
         timer.start();
     }
 
@@ -91,6 +93,15 @@ public class Pong{
 
     public Ball getBall() {
         return ball;
+    }
+    
+    public void setSideNumber(Object o){
+    	if(o instanceof Integer){
+    		System.out.println("setting side");
+    		side = (Integer)o;
+    	} else {
+    		System.out.println("o was not an integer, side not set");
+    	}
     }
 
     /**
@@ -145,8 +156,7 @@ public class Pong{
 				System.out.println("ball");
 				ball = (Ball)o;
 			} else if(o instanceof Integer){
-				System.out.println("setting side");
-				side = (Integer)o;
+				setSideNumber(o);
 			}
 		}
     }
