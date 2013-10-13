@@ -141,8 +141,7 @@ public class Pong{
 			if (ball.getState()==true) {
                 move();
             }
-			
-			server.sendObject(ball);
+			server.sendObject(ball.getLocation());
 		}
     }
     
@@ -156,10 +155,11 @@ public class Pong{
 				polygon = (Polygon)o;
 			} else if(o instanceof Ball){
 				System.out.println("ball");
-				System.out.println(((Ball) o).getLocation());
 				ball = (Ball)o;
 			} else if(o instanceof Integer){
 				setSideNumber(o);
+			} else if(o instanceof Point2D){
+				ball.setLocation((Point2D) o);
 			}
 		}
     }
