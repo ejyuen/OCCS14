@@ -135,15 +135,15 @@ public class Pong{
 					
 					String input = inputs[i];
 					
-					if (input.startsWith("")) { // Paddle moved left ["x"] moves ("y")
-						int numMoves = Integer.parseInt(input.substring(input.indexOf('(') + 1, input.indexOf(')')));
+					if (input.startsWith("")) { // Paddle [playerNum] moved left (numMoves) moves
 						int playerNum = Integer.parseInt(input.substring(input.indexOf('[') + 1, input.indexOf(']')));
+						int numMoves = Integer.parseInt(input.substring(input.indexOf('(') + 1, input.indexOf(')')));
 						players[playerNum].getPaddle().moveLeft(numMoves);						
 					}
 					
-					if (input.startsWith("")) { // Paddle moved right ["x"] moves ("y")
-						int numMoves = Integer.parseInt(input.substring(input.indexOf('(') + 1, input.indexOf(')')));
+					if (input.startsWith("")) { // Paddle [playerNum] moved right (numMoves) moves
 						int playerNum = Integer.parseInt(input.substring(input.indexOf('[') + 1, input.indexOf(']')));
+						int numMoves = Integer.parseInt(input.substring(input.indexOf('(') + 1, input.indexOf(')')));
 						players[playerNum].getPaddle().moveRight(numMoves);
 					}
 				}
