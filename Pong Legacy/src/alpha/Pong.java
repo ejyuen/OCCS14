@@ -25,6 +25,7 @@ public class Pong{
     private Thread pause;
     private Server server = null;
     private Client client = null;
+    private Player[] players = null;
     
     /**
      * Defult pong game square window size.
@@ -126,12 +127,44 @@ public class Pong{
             }
 			
 			//implement rest of server stuff below here
+			
+			while (server.getNextLines() != null) {
+				
+				String[] inputs = server.getNextLines();
+				for (int i = 0; i < inputs.length; i++) {
+					
+					String input = inputs[i];
+					
+					if (input.startsWith("")) { // Paddle moved left ["x"] moves ("y")
+						int numMoves = Integer.parseInt(input.substring(input.indexOf('(') + 1, input.indexOf(')')));
+						int playerNum = Integer.parseInt(input.substring(input.indexOf('[') + 1, input.indexOf(']')));
+						players[playerNum].getPaddle().moveLeft(numMoves);						
+					}
+					
+					if (input.startsWith("")) { // Paddle moved right ["x"] moves ("y")
+						int numMoves = Integer.parseInt(input.substring(input.indexOf('(') + 1, input.indexOf(')')));
+						int playerNum = Integer.parseInt(input.substring(input.indexOf('[') + 1, input.indexOf(']')));
+						players[playerNum].getPaddle().moveRight(numMoves);
+					}
+				}
+			}
 		}
     }
     
     class ClientAction extends AbstractAction{
 		public void actionPerformed(ActionEvent arg0) {
 			//TODO make this do client stuff
+			while (client.getNextLine() != null) {
+				
+				String input = client.getNextLine();
+				
+				if (input.startsWith("Ball is at")) { //Ball is at (x,y)
+					double x = Double.parseDouble(input.substring(input.indexOf('(') + 1, input.indexOf(',')));
+					double y = Double.parseDouble(input.substring(input.indexOf(',') + 1, input.indexOf(')')));
+					Point2D location = new Point2D.Double(x, y);
+					ball.setLocation(location);
+				}
+			}
 		}
     }
     
