@@ -22,10 +22,9 @@ public class runClient implements Runnable{
     		//reading objects in
 			o = client.getNextObject();
 			if(o == null){
-				System.out.println("no object");
+				continue;
 			} 
 			else if(o instanceof Point2D){ //Point2D always a ball location
-				System.out.println("ball location");
 				pong.getBall().setLocation((Point2D) o);
 			} 
 			else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
@@ -36,7 +35,6 @@ public class runClient implements Runnable{
 				}
 			}
 			else if(o instanceof Polygon){
-				System.out.println("polygon");
 				pong.setPolygon((Polygon) o); //this will only work once, afterwards reset required
 			} 
 			else if(o instanceof Ball){
