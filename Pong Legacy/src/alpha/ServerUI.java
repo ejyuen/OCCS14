@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import alpha.communicator.Server;
+
 
 public class ServerUI extends JFrame {
 

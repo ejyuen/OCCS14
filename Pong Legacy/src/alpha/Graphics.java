@@ -12,6 +12,9 @@ import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import javax.swing.*;
 
+import alpha.communicator.Client;
+import alpha.communicator.Communicator;
+import alpha.communicator.Server;
 import alpha.serializable.Ball;
 import alpha.serializable.Polygon;
 import alpha.serializable.Side;
@@ -28,8 +31,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     private boolean leftPressed = false;
     private boolean rightPressed = false;
     private int side = -1;
-    private Client client = null;
-    private Server server = null;
+    private Communicator comm = null;
 
     /**
      * Constructs a new Graphics with the Pong that creates it.
@@ -43,8 +45,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         super();
         this.pong = pong;
         this.side = side;
-        client = pong.getClient();
-        server = pong.getServer();
+        comm = pong.getCommunicator();
         // RED_FlAG: constructor needs title / player name and player number?
         init("PongLegacy");
     }
@@ -168,10 +169,8 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     
     public void sendPaddle(){
     	double[] paddleLocation = {side, pong.getPolygon().getSide(side).getPaddle().getCenter()};
-    	if(server != null){
-    		server.sendObject(paddleLocation);
-    	} else if(client != null){
-    		client.sendObject(paddleLocation);
+    	if(comm != null){
+    		comm.sendObject(paddleLocation);
     	} else {
     		System.out.println("no server or client");
     	}

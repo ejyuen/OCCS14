@@ -9,7 +9,9 @@ package alpha.serializable;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
-import alpha.Server;;
+
+import alpha.communicator.Communicator;
+import alpha.communicator.Server;
 
 /**
  * DESCRIPTION
@@ -44,6 +46,10 @@ public class Ball implements Serializable{
      */
     private int speed;
     
+    /**
+     * Server for the ball to send info across
+     */
+    
     private Server server = null;
     
     /**
@@ -74,8 +80,8 @@ public class Ball implements Serializable{
         this(DEFAULT_LOCATION, DEFAULT_RADIUS, Math.random() * (2 * Math.PI), DEFAULT_SPEED, null);
     }
     
-    public Ball(Server server){
-    	this(DEFAULT_LOCATION, DEFAULT_RADIUS, Math.random() * (2 * Math.PI), DEFAULT_SPEED, server);
+    public Ball(Communicator comm){
+    	this(DEFAULT_LOCATION, DEFAULT_RADIUS, Math.random() * (2 * Math.PI), DEFAULT_SPEED, comm);
     }
 
     /**
@@ -103,8 +109,10 @@ public class Ball implements Serializable{
      * @param speed ball speed
      * @param occupied side last hit
      */
-    public Ball(Point2D location, int radius, double direction, int speed, Server server) {
-        this.server = server;
+    public Ball(Point2D location, int radius, double direction, int speed, Communicator comm) {
+        if(comm instanceof Server){
+        	server = (Server) comm;
+        }
     	setLocation(location);
         setRadius(radius);
         changeDirection(direction);

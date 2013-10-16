@@ -9,9 +9,13 @@ import java.awt.geom.Point2D;
 
 import javax.swing.*;
 
+import alpha.communicator.Client;
+import alpha.communicator.Communicator;
+import alpha.communicator.Server;
 import alpha.serializable.Ball;
 import alpha.serializable.Player;
 import alpha.serializable.Polygon;
+import alpha.utilities.*;
 
 /**
  * DESCRIPTION
@@ -25,8 +29,7 @@ public class Pong{
     private Polygon polygon;    // n-sided polygon
     private Graphics graphics;  // awt graphics
     private Thread pause;
-    private Server server = null;
-    private Client client = null;
+    private Communicator comm = null;
     private int side = -1;
     
     /**
@@ -40,29 +43,16 @@ public class Pong{
      * @param n number of polygon sides
      */
     public Pong(){
-    	this(8, null, null);
+    	this(8, null);
     }
     
-    public Pong(Client client){
-    	this(8, client);
+    public Pong(Communicator comm){
+    	this(8, comm);
     }
     
-    public Pong(int n, Client client){
-    	this(n, null, client);
-    }
-    
-    public Pong(Server server){
-    	this(8, server);
-    }
-    
-    public Pong(int n, Server server){
-    	this(n, server, null);
-    }
-    
-    public Pong(int n, Server server, Client client) {
-    	this.client = client;
-    	this.server = server;
-        ball = new Ball(server);
+    public Pong(int n, Communicator comm) {
+    	this.comm = comm;
+        ball = new Ball(comm);
         //ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
         polygon = new Polygon(n);
         for(int i=0; i<n; i+=2){
@@ -73,20 +63,23 @@ public class Pong{
         pause = new Thread(new BallPause(ball, 1000));
         pause.start();
 
-        if(server != null){
-        	server.sendObject(polygon);
+        if(comm instanceof Server){
+        	comm.sendObject(polygon);
         	side = 0;
         	Timer timer = new Timer(36, new TimeAction());
         	graphics = new Graphics(this, side);
         	timer.start();
-        	
-        	new Thread(new runServer()).start();
-        } else if(client != null){
-        	Object o = client.getNextObject();
-        	setSideNumber(o); //need to set side for graphics to control correct paddle
+        	new Thread(new runServer((Server) comm, this)).start();
+       
+        } else if(comm instanceof Client){
+        	Object o = ((Client) comm).getNextObject();
+        	if(o instanceof Integer){
+        		side = (Integer) o;
+        	}
+        	assert side != -1; //make sure a side has been set
         	graphics = new Graphics(this, side);
-        	
-        	new Thread(new runClient()).start();
+        	new Thread(new runClient((Client) comm, this)).start();
+        
         } else {
         	System.out.println("no client or server initialized");
         }
@@ -95,26 +88,29 @@ public class Pong{
     public Polygon getPolygon() {
         return polygon;
     }
+    
+    public void setPolygon(Polygon p){
+    	polygon = p;
+    }
 
     public Ball getBall() {
         return ball;
     }
     
-    public Server getServer(){
-    	return server;
+    public void setBall(Ball b){
+    	ball = b;
     }
     
-    public Client getClient(){
-    	return client;
+    public Communicator getCommunicator(){
+    	return comm;
     }
     
-    public void setSideNumber(Object o){
-    	if(o instanceof Integer){
-    		System.out.println("setting side");
-    		side = (Integer)o;
-    	} else {
-    		System.out.println("o was not an integer, side not set");
-    	}
+    public int getSide(){
+    	return side;
+    }
+    
+    public void setSide(int side){
+    	this.side = side;
     }
 
     /**
@@ -129,7 +125,7 @@ public class Pong{
         // Check for scoring.
         if (!polygon.contains(ball.getLocation())) {
             ball.stop();
-            ball = new Ball(server);
+            ball = new Ball(comm);
             //polygon = new Polygon(8); //Testing and stuff
             pause = new Thread(new BallPause(ball, 1000));
             pause.start();
@@ -152,92 +148,4 @@ public class Pong{
             }
 		}
     }
-    
-    class runServer implements Runnable{
-		public void run() {
-			Object[] objects = null;
-	    	while(true){
-	    		//input stuff
-				objects = server.getNextObjects();
-				for(Object o: objects){
-					if(o instanceof double[]){ //paddlelocation in the format [side, location]
-						double[] paddleLocation = (double[]) o;
-						polygon.getSide((int)Math.round(paddleLocation[0])).
-								getPaddle().setCenter(paddleLocation[1]);
-						server.sendObject(paddleLocation);
-					}
-				}
-	    	}
-		}
-    }
-    
-    class runClient implements Runnable{
-		public void run() {
-			Object o = null;
-	    	while(true){
-	    		//reading objects in
-				o = client.getNextObject();
-				if(o == null){
-					System.out.println("no object");
-				} 
-				else if(o instanceof Polygon){
-					System.out.println("polygon");
-					polygon = (Polygon) o; //this will only work once, afterwards reset required
-				} 
-				else if(o instanceof Ball){
-					System.out.println("Ball");
-					ball = (Ball) o; //this will only work once, afterwards reset required
-				}
-				else if(o instanceof Integer){ //Integers are 
-					setSideNumber(o);
-				} 
-				else if(o instanceof Point2D){ //Point2D always a ball location
-					System.out.println("ball location");
-					ball.setLocation((Point2D) o);
-				} 
-				else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
-					double[] center = (double[]) o;
-					int c_side = (int)Math.round(center[0]);
-					if(c_side != side){
-						polygon.getSide(c_side).getPaddle().setCenter(center[1]);
-					}
-				}
-				System.out.println("read objects");
-	    	}
-		}
-    }
-}
-
-class BallPause implements Runnable {
-	Ball ball;
-	int sleep;
-	
-	public BallPause(Ball ball, int sleep){
-		this.sleep = sleep;
-		this.ball = ball;
-	}
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ball.changeSpeed(10);
-		ball.start();
-		for (int i = 1; i < ball.DEFAULT_SPEED - 10; i++) {
-			ball.changeSpeed(10 + i);
-			try {
-				Thread.sleep(30);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		ball.changeSpeed(ball.DEFAULT_SPEED);
-		return;
-	}	
 }
