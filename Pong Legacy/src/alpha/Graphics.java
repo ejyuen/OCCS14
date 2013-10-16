@@ -12,6 +12,10 @@ import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import javax.swing.*;
 
+import alpha.serializable.Ball;
+import alpha.serializable.Polygon;
+import alpha.serializable.Side;
+
 /**
  * Graphics is in charge of all the game window drawing, as well as relative positioning.
  *
@@ -21,16 +25,26 @@ import javax.swing.*;
 public class Graphics extends JPanel implements KeyListener, ActionListener {
     private Pong pong;
     private double degrees;
-    private boolean leftPressed[] = {false,false};
-    private boolean rightPressed[] = {false,false};
+    private boolean leftPressed = false;
+    private boolean rightPressed = false;
+    private int side = -1;
+    private Client client = null;
+    private Server server = null;
 
     /**
      * Constructs a new Graphics with the Pong that creates it.
      * @param pong number of sides in Polygon
      */
     public Graphics(Pong pong) {
+        this(pong, 0);
+    }
+    
+    public Graphics(Pong pong, int side){
         super();
         this.pong = pong;
+        this.side = side;
+        client = pong.getClient();
+        server = pong.getServer();
         // RED_FlAG: constructor needs title / player name and player number?
         init("PongLegacy");
     }
@@ -143,17 +157,24 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     }
 
     public void keyPressed(KeyEvent ke) {
-        if(ke.getKeyCode() == 39) {leftPressed[0] = true; rightPressed[0] = false;}
-        if(ke.getKeyCode() == 37) {rightPressed[0] = true; leftPressed[0] = false;}
-        if(ke.getKeyChar() == 'a') {leftPressed[1] = true; rightPressed[1] = false;}
-        if(ke.getKeyChar() == 'd') {rightPressed[1] = true; leftPressed[1] = false;}
+        if(ke.getKeyCode() == 39) {leftPressed = true; rightPressed = false;}
+        if(ke.getKeyCode() == 37) {rightPressed = true; leftPressed = false;}
     }
 
     public void keyReleased(KeyEvent ke) {
-        if(ke.getKeyCode() == 39) leftPressed[0] = false;
-        if(ke.getKeyCode() == 37) rightPressed[0] = false;
-        if(ke.getKeyChar() == 'a') leftPressed[1] = false;
-        if(ke.getKeyChar() == 'd') rightPressed[1] = false;
+        if(ke.getKeyCode() == 39) leftPressed = false;
+        if(ke.getKeyCode() == 37) rightPressed = false;
+    }
+    
+    public void sendPaddle(){
+    	double[] paddleLocation = {side, pong.getPolygon().getSide(side).getPaddle().getCenter()};
+    	if(server != null){
+    		server.sendObject(paddleLocation);
+    	} else if(client != null){
+    		client.sendObject(paddleLocation);
+    	} else {
+    		System.out.println("no server or client");
+    	}
     }
 
     class TimeAction extends AbstractAction {
@@ -165,11 +186,13 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         public void actionPerformed(ActionEvent arg0) {
             Graphics.this.repaint();
 
-            if(leftPressed[0] == true) pong.getPolygon().getSide(0).getPaddle().moveLeft();
-            if(rightPressed[0] == true) pong.getPolygon().getSide(0).getPaddle().moveRight();
-
-            if(leftPressed[1] == true) pong.getPolygon().getSide(5).getPaddle().moveLeft();
-            if(rightPressed[1] == true) pong.getPolygon().getSide(5).getPaddle().moveRight();
+            if(leftPressed == true){
+            	pong.getPolygon().getSide(side).getPaddle().moveLeft();
+            	sendPaddle();
+            } else if(rightPressed == true){
+            	pong.getPolygon().getSide(side).getPaddle().moveRight();
+            	sendPaddle();
+            }
         }
     }
 }

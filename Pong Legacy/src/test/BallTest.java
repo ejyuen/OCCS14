@@ -6,6 +6,8 @@
 package test;
 
 import alpha.*;
+import alpha.serializable.Ball;
+
 import java.awt.geom.Point2D;
 import org.junit.*;
 import static org.junit.Assert.*;

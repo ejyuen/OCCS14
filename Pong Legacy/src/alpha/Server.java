@@ -2,7 +2,11 @@ package alpha;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,8 +15,8 @@ public class Server {
 	final int PORT = 4444;
 	ServerSocket serverSocket = null;
 	Socket[] clientSockets = null;
-	PrintWriter[] outputs = null;
-	BufferedReader[] inputs = null;
+	ObjectOutputStream[] objOutputs = null;
+	ObjectInputStream[] objInputs = null;
 	
 	public Server(){
 		this(0); //defaults to no client
@@ -20,8 +24,9 @@ public class Server {
 	
 	public Server(int numberOfClients) {
 		clientSockets = new Socket[numberOfClients];
-		outputs = new PrintWriter[numberOfClients];
-		inputs = new BufferedReader[numberOfClients];
+		objOutputs = new ObjectOutputStream[numberOfClients];
+		objInputs = new ObjectInputStream[numberOfClients];
+		
 		try {
 			serverSocket = new ServerSocket(PORT);
 		} catch (IOException e) {
@@ -39,48 +44,60 @@ public class Server {
 			}
 		
 			try {
-				outputs[i] = new PrintWriter(clientSocket.getOutputStream(), true);
-				inputs[i] = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				//outputs
+				OutputStream os = clientSocket.getOutputStream();
+				objOutputs[i] = new ObjectOutputStream(os);
+				
+				//inputs
+				InputStream is = clientSocket.getInputStream();
+				objInputs[i] = new ObjectInputStream(is);
 			} catch (IOException e) {
 				System.out.println("Streams failed to instantiate.");
 			}
-			send("Client number is "+i, i);
+			sendObject(new Integer(2*(i+1)), i); //set the side number of the client
 			System.out.println("Client " + i + " has been instantiated");
 		}
 		System.out.println("Server loaded");		
 	}
 	
-	public void send(String s) {
-		for(int i = 0; i<outputs.length; i++){
-			send(s, i);
+	public void sendObject(Object o){
+		for(int i = 0; i<objOutputs.length; i++){
+			sendObject(o, i);
 		}
 	}
 	
-	public void send(String s, int client){
-		outputs[client].println(s);
+	public void sendObject(Object o, int client){
+		try {
+			objOutputs[client].writeObject(o);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public String[] getNextLines() {
-		String[] ret = new String[clientSockets.length];
+	public Object[] getNextObjects(){
+		Object[] objects = new Object[clientSockets.length];
 		for(int i = 0; i<clientSockets.length; i++){
 			try {
-				String in = inputs[i].readLine();
-				if(in == null){
-					in = "";
-				}
-				ret[i] = in;
+				Object o = null;
+				o = objInputs[i].readObject();
+				objects[i] = o;
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		return ret;
+		return objects;
 	}
 	
 	public void close() {
 		try {
 			for(int i = 0; i<clientSockets.length; i++){
-				outputs[i].close();
-				inputs[i].close();
+				objOutputs[i].close();
+				objInputs[i].close();
 				clientSockets[i].close();
 			}
 			serverSocket.close();

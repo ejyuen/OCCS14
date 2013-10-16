@@ -2,7 +2,9 @@
  * Paddle.java
  */
 
-package alpha;
+package alpha.serializable;
+
+import java.io.Serializable;
 
 /**
  * Paddle is a line type obstacle that is moved left and right on a side by
@@ -11,7 +13,7 @@ package alpha;
  * @author 2009-2010 WHS
  * <a href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
-public class Paddle {
+public class Paddle implements Serializable{
 	/**
 	 * The default width of a paddle as percent of the entire side length. 
          * Has to be >= 0 and <=100.
@@ -71,6 +73,14 @@ public class Paddle {
      */
 	public double getCenter() {
 		return center;
+	}
+	
+	/**
+	 * Method is used for client server stuff, for the rest please use move methods
+	 * @param c is the new center
+	 */
+	public void setCenter(double c){
+		center = c;
 	}
 	
 	/**
