@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import alpha.serializable.Ball;
+
 public class Server implements Communicator{
 	final int PORT = 4444;
 	ServerSocket serverSocket = null;
@@ -68,6 +70,10 @@ public class Server implements Communicator{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void sendBall(Ball ball){
+		
 	}
 	
 	public Object getNextObject(int client){

@@ -245,4 +245,8 @@ public class Ball implements Serializable{
     public Player getLastHit() {
         return (Player)lastHit;
     }
+    
+    public String toString(){
+    	return getLocation().toString() + " " + getRadius() + " " + getDirection();
+    }
 }
