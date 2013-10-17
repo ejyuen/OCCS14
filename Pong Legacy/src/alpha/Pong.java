@@ -60,8 +60,7 @@ public class Pong{
         }
         //polygon.setPlayer(0, "PLAYER1");    // RED_FLAG: test player
         //polygon.setPlayer(5, "PLAYER2");    // RED_FLAG: test player
-        pause = new Thread(new BallPause(ball, 1000));
-        pause.start();
+        new Thread(new BallPause(ball, 1000)).start();
 
         if(comm instanceof Server){
         	comm.sendObject(polygon);
@@ -127,8 +126,7 @@ public class Pong{
             ball.stop();
             ball = new Ball(comm);
             //polygon = new Polygon(8); //Testing and stuff
-            pause = new Thread(new BallPause(ball, 1000));
-            pause.start();
+            new Thread(new BallPause(ball, 1000)).start();
             // RED_FLAG: there are too many null checks in this method
             Player lastPlayer = ball.getLastHit();
             if (lastPlayer != null) {
