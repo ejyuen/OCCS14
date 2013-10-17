@@ -13,6 +13,7 @@ public class Server implements Communicator{
 	ServerSocket serverSocket = null;
 	Socket[] clientSockets = null;
 	ObjectOutputStream[] objOutputs = null;
+	ObjectInputStream[] objInputs = null;
 	
 	public Server(){
 		this(0); //defaults to no client
@@ -21,6 +22,7 @@ public class Server implements Communicator{
 	public Server(int numberOfClients) {
 		clientSockets = new Socket[numberOfClients];
 		objOutputs = new ObjectOutputStream[numberOfClients];
+		objInputs = new ObjectInputStream[numberOfClients];
 		
 		try {
 			serverSocket = new ServerSocket(PORT);
@@ -40,8 +42,10 @@ public class Server implements Communicator{
 		
 			try {
 				//outputs
-				OutputStream os = clientSocket.getOutputStream();
-				objOutputs[i] = new ObjectOutputStream(os);
+				objOutputs[i] = new ObjectOutputStream(clientSocket.getOutputStream());
+				
+				//inputs
+				objInputs[i] = new ObjectInputStream(clientSocket.getInputStream());
 			} catch (IOException e) {
 				System.out.println("Streams failed to instantiate.");
 			}
@@ -66,8 +70,16 @@ public class Server implements Communicator{
 		}
 	}
 	
-	public Socket[] getClientSockets(){
-		return clientSockets;
+	public Object getNextObject(int client){
+		Object ret = null;
+		try {
+			ret = objInputs[client].readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 	
 	public void close() {

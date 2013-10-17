@@ -11,24 +11,17 @@ import alpha.communicator.Server;
 public class RunServer implements Runnable{
 	Server server = null;
 	Pong pong = null;
-	Socket socket = null;
-	ObjectInputStream objInput = null;
+	int client = -1;
 	
-	public RunServer(Server server, Socket socket, Pong pong){
+	public RunServer(Server server, int client, Pong pong){
 		this.server = server;
-		this.socket = socket;
 		this.pong = pong;
-		
-		try {
-			objInput = new ObjectInputStream(socket.getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.client = client;
 	}
 	
 	public void run() {
     	while(true){
-			Object o = getNextObject();
+			Object o = server.getNextObject(client);
 			
 			if(o instanceof double[]){ //paddlelocation in the format [side, location]
 				double[] paddleLocation = (double[]) o;
@@ -37,17 +30,5 @@ public class RunServer implements Runnable{
 				server.sendObject(paddleLocation);
 			}
     	}
-	}
-	
-	public Object getNextObject(){
-		Object ret = null;
-		try {
-			ret = objInput.readObject();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return ret;
 	}
 }

@@ -82,8 +82,8 @@ public class Pong{
     	graphics = new Graphics(this, side); //begin graphics
     	new Timer(36, new TimeAction()).start(); //begin ball movement
     	
-    	for(Socket socket: ((Server) comm).getClientSockets()){ //initialize each reader
-    		new Thread(new RunServer((Server) comm, socket, this)).start();
+    	for(int i = 0; i<numPlayers-1; i++){
+    		new Thread(new RunServer((Server) comm, i, this)).start();
     	}
     }
     
