@@ -56,7 +56,6 @@ public class Client implements Communicator{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return ret;
 	}
 	

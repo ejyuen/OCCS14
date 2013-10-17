@@ -68,7 +68,7 @@ public class Pong{
         	Timer timer = new Timer(36, new TimeAction());
         	graphics = new Graphics(this, side);
         	timer.start();
-        	new Thread(new runServer((Server) comm, this)).start();
+        	new Thread(new RunServer((Server) comm, this)).start();
        
         } else if(comm instanceof Client){
         	Object o = ((Client) comm).getNextObject();
@@ -77,7 +77,7 @@ public class Pong{
         	}
         	assert side != -1; //make sure a side has been set
         	graphics = new Graphics(this, side);
-        	new Thread(new runClient((Client) comm, this)).start();
+        	new Thread(new RunClient((Client) comm, this)).start();
         
         } else {
         	System.out.println("no client or server initialized");

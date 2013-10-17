@@ -7,11 +7,11 @@ import alpha.communicator.Client;
 import alpha.serializable.Ball;
 import alpha.serializable.Polygon;
 
-public class runClient implements Runnable{
+public class RunClient implements Runnable{
 	Client client = null;
 	Pong pong = null;
 	
-	public runClient(Client client, Pong pong){
+	public RunClient(Client client, Pong pong){
 		this.client = client;
 		this.pong = pong;
 	}

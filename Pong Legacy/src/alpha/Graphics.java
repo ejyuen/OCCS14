@@ -187,11 +187,12 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 
             if(leftPressed == true){
             	pong.getPolygon().getSide(side).getPaddle().moveLeft();
-            	sendPaddle();
             } else if(rightPressed == true){
             	pong.getPolygon().getSide(side).getPaddle().moveRight();
-            	sendPaddle();
+            } else {
+            	return;
             }
+        	sendPaddle();
         }
     }
 }

@@ -3,11 +3,11 @@ package alpha.utilities;
 import alpha.Pong;
 import alpha.communicator.Server;
 
-public class runServer implements Runnable{
+public class RunServer implements Runnable{
 	Server server = null;
 	Pong pong = null;
 	
-	public runServer(Server server, Pong pong){
+	public RunServer(Server server, Pong pong){
 		this.server = server;
 		this.pong = pong;
 	}
