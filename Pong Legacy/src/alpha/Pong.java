@@ -6,6 +6,7 @@ package alpha;
 
 import java.awt.event.*;
 import java.awt.geom.Point2D;
+import java.net.Socket;
 
 import javax.swing.*;
 
@@ -68,7 +69,9 @@ public class Pong{
         	Timer timer = new Timer(36, new TimeAction());
         	graphics = new Graphics(this, side);
         	timer.start();
-        	new Thread(new RunServer((Server) comm, this)).start();
+        	for(Socket s: ((Server) comm).getClientSockets()){
+        		new Thread(new RunServer((Server) comm, this, s)).start();
+        	}
        
         } else if(comm instanceof Client){
         	Object o = ((Client) comm).getNextObject();
