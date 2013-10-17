@@ -76,8 +76,8 @@ public class Server implements Communicator{
 	}
 	
 	public Object[] getNextObjects(){
-		Object[] objects = new Object[clientSockets.length];
-		for(int i = 0; i<clientSockets.length; i++){
+		Object[] objects = new Object[objInputs.length];
+		for(int i = 0; i<objInputs.length; i++){
 			try {
 				Object o = null;
 				o = objInputs[i].readObject();
