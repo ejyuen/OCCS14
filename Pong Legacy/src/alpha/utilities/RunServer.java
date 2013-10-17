@@ -14,7 +14,7 @@ public class RunServer implements Runnable{
 	Socket socket = null;
 	ObjectInputStream objInput = null;
 	
-	public RunServer(Server server, Pong pong, Socket socket){
+	public RunServer(Server server, Socket socket, Pong pong){
 		this.server = server;
 		this.socket = socket;
 		this.pong = pong;
@@ -22,14 +22,12 @@ public class RunServer implements Runnable{
 		try {
 			objInput = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public void run() {
     	while(true){
-    		//input stuff
 			Object o = getNextObject();
 			
 			if(o instanceof double[]){ //paddlelocation in the format [side, location]

@@ -64,27 +64,34 @@ public class Pong{
         new Thread(new BallPause(ball, 1000)).start();
 
         if(comm instanceof Server){
-        	comm.sendObject(polygon);
-        	side = 0;
-        	Timer timer = new Timer(36, new TimeAction());
-        	graphics = new Graphics(this, side);
-        	timer.start();
-        	for(Socket s: ((Server) comm).getClientSockets()){
-        		new Thread(new RunServer((Server) comm, this, s)).start();
-        	}
-       
+        	initServer();
         } else if(comm instanceof Client){
-        	Object o = ((Client) comm).getNextObject();
-        	if(o instanceof Integer){
-        		side = (Integer) o;
-        	}
-        	assert side != -1; //make sure a side has been set
-        	graphics = new Graphics(this, side);
-        	new Thread(new RunClient((Client) comm, this)).start();
-        
+        	initClient();
         } else {
         	System.out.println("no client or server initialized");
         }
+    }
+    
+    private void initServer(){
+    	comm.sendObject(polygon);
+    	side = 0;
+    	graphics = new Graphics(this, side); //begin graphics
+    	new Timer(36, new TimeAction()).start(); //begin ball movement
+    	
+    	for(Socket socket: ((Server) comm).getClientSockets()){ //initialize each reader
+    		new Thread(new RunServer((Server) comm, socket, this)).start();
+    	}
+    }
+    
+    private void initClient(){
+    	Object o = ((Client) comm).getNextObject();
+    	if(o instanceof Integer){
+    		side = (Integer) o;
+    	}
+    	assert side != -1; //make sure a side has been set
+    	
+    	graphics = new Graphics(this, side);
+    	new Thread(new RunClient((Client) comm, this)).start();
     }
 
     public Polygon getPolygon() {

@@ -19,7 +19,6 @@ public class RunClient implements Runnable{
 	public void run() {
 		Object o = null;
     	while(true){
-    		//reading objects in
 			o = client.getNextObject();
 			if(o == null){
 				continue;
