@@ -31,7 +31,9 @@ public class Pong{
     private Graphics graphics;  // awt graphics
     private Thread pause;
     private Communicator comm = null;
+    private int numPlayers;
     private int side = -1;
+    private int[] strikes;
     
     /**
      * Defult pong game square window size.
@@ -59,6 +61,8 @@ public class Pong{
         for(int i=0; i<n; i+=2){
         	polygon.setPlayer(i, "PLAYER" + (i/2+1));
         }
+        numPlayers = n / 2;
+        strikes = new int[n / 2];
         //polygon.setPlayer(0, "PLAYER1");    // RED_FLAG: test player
         //polygon.setPlayer(5, "PLAYER2");    // RED_FLAG: test player
         new Thread(new BallPause(ball, 1000)).start();
@@ -129,11 +133,30 @@ public class Pong{
     public void move() {
         // Update ball position.
         // RED_FLAG: this is too much Ball code in Pong
+    	double minDist = polygon.getSide(0).ptLineDist(ball.getLocation());
+    	int loseSide;
     	polygon.checkCollision(ball);
         ball.move();
         // Check for scoring.
-        if (!polygon.contains(ball.getLocation())) {
+        
+        if (!polygon.contains(ball.getLocation())) 
+        {
             ball.stop();
+            loseSide = 0;
+            for (int i = 0; i < numPlayers * 2; i += 2)
+            {
+            	if (polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist)
+            	{
+            		minDist = polygon.getSide(i).ptLineDist(ball.getLocation());
+            		loseSide = i;
+            	}	
+            }
+            System.out.println("Loseside = " + loseSide);
+              	strikes[loseSide / 2] = strikes[loseSide / 2] + 1 ;
+              
+            for (int i = 0; i < strikes.length; i++)
+            	System.out.println("Player " + (i + 1) + " : " + strikes[i] + " strikes");
+        
             ball = new Ball(comm);
             //polygon = new Polygon(8); //Testing and stuff
             new Thread(new BallPause(ball, 1000)).start();
