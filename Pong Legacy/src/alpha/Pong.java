@@ -7,6 +7,7 @@ package alpha;
 import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -34,6 +35,8 @@ public class Pong{
     private int numPlayers;
     private int side = -1;
     private int[] strikes;
+    private boolean ready = false;
+    
     
     /**
      * Defult pong game square window size.
@@ -57,6 +60,17 @@ public class Pong{
     	this.comm = comm;
         ball = new Ball(comm);
         //ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
+        while(!ready){
+			try {
+				TimeUnit.NANOSECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+        if(comm instanceof Server){
+        	polygon = new Polygon(((Server)(comm)).getNumClients()*2);
+        }
         polygon = new Polygon(n);
         for(int i=0; i<n; i+=2){
         	polygon.setPlayer(i, "PLAYER" + (i/2+1));
@@ -75,6 +89,10 @@ public class Pong{
         	System.out.println("no client or server initialized");
         }
     }
+    
+    public void nowReady(){
+		ready = true;
+	}
     
     private void initServer(){
     	comm.sendObject(polygon);
