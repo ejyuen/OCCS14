@@ -1,5 +1,7 @@
 package alpha.communicator;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,10 +27,10 @@ public class Client implements Communicator{
 		try {
 			echoSocket = new Socket(HOST, PORT);
 			OutputStream os = echoSocket.getOutputStream();
-			objOutput = new ObjectOutputStream(os);
+			objOutput = new ObjectOutputStream(new BufferedOutputStream(os));
 			
 			InputStream is = echoSocket.getInputStream();
-			objInput = new ObjectInputStream(is);
+			objInput = new ObjectInputStream(new BufferedInputStream(is));
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: " + HOST);
 			System.exit(0);
