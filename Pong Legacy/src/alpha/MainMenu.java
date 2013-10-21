@@ -7,11 +7,10 @@ import java.awt.event.*;
 import javax.swing.border.*;
 
 public class MainMenu extends JFrame {
+	private JTextField textField;
 
 	public MainMenu() {
-		// Version naming: [Alpha 0 /Beta 1 /Final 2].[Major Change #].[Minor Change #]
-		// Try to follow this, guys.
-		setTitle("Pong Legacy | Prototype v0.2.1");
+		setTitle("Pong Legacy");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 500);
@@ -24,9 +23,7 @@ public class MainMenu extends JFrame {
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setBounds(121, 45, 52, 14);
 		contentPane.add(lblUsername);
-
-		// Herpderp, i dont think this should be a final... if someone can tell me why java wants it to be a final, tell me
-		final JTextField textField = new JTextField();
+		textField = new JTextField();
 		textField.setBounds(104, 67, 86, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
@@ -34,7 +31,8 @@ public class MainMenu extends JFrame {
 		JButton btnStartServer = new JButton("Start Server");
 		btnStartServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new Statistics(textField.getText()); Move this elsewhere. Work on it when implementing chat client.
+				// new Statistics(textField.getText()); Move this elsewhere.
+				// Work on it when implementing chat client.
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {

@@ -17,7 +17,7 @@ public class ServerUI extends JFrame {
 	private boolean ready = false;
 	
 	public ServerUI() {
-		setTitle("Pong Legacy | Prototype v0.2.1");
+		setTitle("Pong Legacy");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 500);

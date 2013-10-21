@@ -15,7 +15,7 @@ public class ClientUI extends JFrame {
 	private JRadioButton rdbtnSelectAServer, rdbtnManualConnection;
 
 	public ClientUI() {
-		setTitle("Pong Legacy | Prototype v0.2.1");
+		setTitle("Pong Legacy");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 500);
@@ -41,7 +41,7 @@ public class ClientUI extends JFrame {
 		rdbtnManualConnection = new JRadioButton("Manual Connection:");
 		rdbtnManualConnection.setBounds(87, 325, 120, 25);
 		contentPane.add(rdbtnManualConnection);
-		
+
 		buttonGroup();
 
 		textField = new JTextField();
@@ -55,8 +55,8 @@ public class ClientUI extends JFrame {
 				String ipAddress = null;
 				if (rdbtnManualConnection.isSelected()) {
 					ipAddress = textField.getText();
-				}else if(rdbtnSelectAServer.isSelected()){
-					ipAddress = "127.0.0.1"; //something i will add later
+				} else if (rdbtnSelectAServer.isSelected()) {
+					ipAddress = "127.0.0.1"; // something i will add later
 				}
 
 				new Pong(new Client(ipAddress));
@@ -66,8 +66,8 @@ public class ClientUI extends JFrame {
 		btnConnect.setBounds(47, 400, 200, 25);
 		contentPane.add(btnConnect);
 	}
-	
-	private void buttonGroup(){
+
+	private void buttonGroup() {
 		ButtonGroup serverSelect = new ButtonGroup();
 		serverSelect.add(rdbtnManualConnection);
 		serverSelect.add(rdbtnSelectAServer);
