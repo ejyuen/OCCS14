@@ -69,19 +69,17 @@ public class Pong {
 			}
 		}
 		if (comm instanceof Server) {
-			polygon = new Polygon(((Server) (comm)).getNumClients() * 2);
 		}
 		polygon = new Polygon(n);
-		for (int i = 0; i < n; i += 2) {
-			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
-		}
 		numPlayers = n / 2;
 		strikes = new int[n / 2];
-		// polygon.setPlayer(0, "PLAYER1"); // RED_FLAG: test player
-		// polygon.setPlayer(5, "PLAYER2"); // RED_FLAG: test player
 		new Thread(new BallPause(ball, 1000)).start();
 
 		if (comm instanceof Server) {
+			polygon = new Polygon(((Server) (comm)).getNumClients() * 2);
+			for (int i = 0; i < n; i += 2) {
+				polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
+			}
 			initServer();
 		} else if (comm instanceof Client) {
 			initClient();
