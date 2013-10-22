@@ -1,4 +1,4 @@
-package alpha.communicator;
+package communicator;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

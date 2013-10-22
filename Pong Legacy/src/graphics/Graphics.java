@@ -1,8 +1,9 @@
+package graphics;
 /*
  * Graphics.java
  */
 
-package alpha;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,12 +13,16 @@ import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import javax.swing.*;
 
-import alpha.communicator.Client;
-import alpha.communicator.Communicator;
-import alpha.communicator.Server;
-import alpha.serializable.Ball;
-import alpha.serializable.Polygon;
-import alpha.serializable.Side;
+import pong.Pong;
+
+import serializable.Ball;
+import serializable.Polygon;
+import serializable.Side;
+
+import communicator.Client;
+import communicator.Communicator;
+import communicator.Server;
+
 
 /**
  * Graphics is in charge of all the game window drawing, as well as relative positioning.

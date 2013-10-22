@@ -1,4 +1,5 @@
-package alpha;
+package menues;
+
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +8,10 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import alpha.communicator.Server;
+import pong.Pong;
+
+import communicator.Server;
+
 
 
 public class ServerUI extends JFrame {

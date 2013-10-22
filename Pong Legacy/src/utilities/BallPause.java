@@ -1,6 +1,6 @@
-package alpha.utilities;
+package utilities;
 
-import alpha.serializable.Ball;
+import serializable.Ball;
 
 public class BallPause implements Runnable {
 	Ball ball;

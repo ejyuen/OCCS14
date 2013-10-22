@@ -1,12 +1,16 @@
-package alpha.utilities;
+package utilities;
+
 
 import java.awt.geom.Point2D;
 
-import alpha.Pong;
-import alpha.communicator.Client;
-import alpha.serializable.Ball;
-import alpha.serializable.Polygon;
-import alpha.serializable.Score;
+import pong.Pong;
+
+import serializable.Ball;
+import serializable.Polygon;
+import serializable.Score;
+
+import communicator.Client;
+
 
 public class RunClient implements Runnable{
 	Client client = null;

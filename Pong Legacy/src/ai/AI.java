@@ -1,12 +1,15 @@
+package ai;
 /*
  * AI.java
  */
 
-package alpha;
+
 import java.awt.geom.Line2D;
 
-import alpha.serializable.Ball;
-import alpha.serializable.Side;
+import serializable.Ball;
+import serializable.Side;
+
+
 /**
  * Runs the Non-human player paddle and runs as a side
  *

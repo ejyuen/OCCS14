@@ -1,12 +1,15 @@
-package alpha.utilities;
+package utilities;
+
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import alpha.Pong;
-import alpha.communicator.Server;
+import pong.Pong;
+
+import communicator.Server;
+
 
 public class RunServer implements Runnable{
 	Server server = null;

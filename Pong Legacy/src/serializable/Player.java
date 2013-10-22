@@ -1,7 +1,7 @@
 /*
  * Player.java
  */
-package alpha.serializable;
+package serializable;
 
 import java.awt.event.*;
 import java.io.Serializable;

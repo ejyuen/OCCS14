@@ -1,8 +1,12 @@
+package pong;
 /*
  * Pong.java
  */
 
-package alpha;
+
+
+
+import graphics.Graphics;
 
 import java.awt.event.*;
 import java.awt.geom.Point2D;
@@ -11,13 +15,18 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
-import alpha.communicator.Client;
-import alpha.communicator.Communicator;
-import alpha.communicator.Server;
-import alpha.serializable.Ball;
-import alpha.serializable.Player;
-import alpha.serializable.Polygon;
-import alpha.serializable.Score;
+import communicator.Client;
+import communicator.Communicator;
+import communicator.Server;
+
+import serializable.Ball;
+import serializable.Player;
+import serializable.Polygon;
+import serializable.Score;
+import utilities.BallPause;
+import utilities.RunClient;
+import utilities.RunServer;
+
 import alpha.utilities.*;
 
 /**

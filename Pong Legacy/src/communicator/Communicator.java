@@ -1,4 +1,4 @@
-package alpha.communicator;
+package communicator;
 
 public interface Communicator {
 	void sendObject(Object o); //sends Object O to other sockets

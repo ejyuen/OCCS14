@@ -1,3 +1,4 @@
+package main;
 /*
  * PongLegacy.java
  *
@@ -12,11 +13,13 @@
  *            - Tim
  */
 
-package alpha;
+
 
 import java.awt.geom.*;
 
 import javax.swing.UIManager;
+
+import menues.MainMenu;
 
 /**
  * <a href="http://java.sun.com/docs/books/tutorial/deployment/jar/appman.html">

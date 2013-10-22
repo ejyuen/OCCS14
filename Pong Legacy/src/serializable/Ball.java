@@ -5,13 +5,14 @@
  *
  */
 
-package alpha.serializable;
+package serializable;
 
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 
-import alpha.communicator.Communicator;
-import alpha.communicator.Server;
+import communicator.Communicator;
+import communicator.Server;
+
 
 /**
  * DESCRIPTION

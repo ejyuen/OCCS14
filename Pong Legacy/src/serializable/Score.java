@@ -1,4 +1,4 @@
-package alpha.serializable;
+package serializable;
 
 import java.io.Serializable;
 import java.util.Arrays;
