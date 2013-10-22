@@ -30,7 +30,7 @@ public class Paddle implements Serializable{
 	 * The default value of one "move" of the paddle in percent of the
          * side length. Has to be >= 0 and <=100.
 	 */
-	public static final double ONE_MOVE = 4.0;
+	public static final double ONE_MOVE = 5.0;
 	
 	/**
 	 * Width of the paddle.
