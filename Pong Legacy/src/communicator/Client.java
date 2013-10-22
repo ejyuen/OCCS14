@@ -42,7 +42,7 @@ public class Client implements Communicator{
 	
 	public void sendObject(Object o){
 		try {
-			objOutput.writeObject(o);
+			objOutput.writeUnshared(o);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

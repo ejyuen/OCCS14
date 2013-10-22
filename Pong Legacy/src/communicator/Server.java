@@ -62,7 +62,7 @@ public class Server implements Communicator{
 	public void sendObject(Object o, int client){
 		if(objOutputs.get(client) != null){
 			try {
-				objOutputs.get(client).writeObject(o);
+				objOutputs.get(client).writeUnshared(o);
 			} catch (IOException e) {
 				System.out.println("connection probably lost: server");
 				removeFromClients(client);
