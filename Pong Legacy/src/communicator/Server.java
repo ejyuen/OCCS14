@@ -31,6 +31,19 @@ public class Server implements Communicator{
 		}
 	}
 	
+	public void reset(){
+		for(ObjectOutputStream out: objOutputs){
+			try {
+				if(out != null){
+					out.reset();
+				}
+			} catch (IOException e) {
+				System.out.println("reset did not work");
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public int getNumClients(){
 		return clientSockets.size();
 	}
@@ -47,11 +60,14 @@ public class Server implements Communicator{
 	}
 	
 	public void sendObject(Object o, int client){
-		try {
-			objOutputs.get(client).writeObject(o);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(objOutputs.get(client) != null){
+			try {
+				objOutputs.get(client).writeObject(o);
+			} catch (IOException e) {
+				System.out.println("connection probably lost: server");
+				removeFromClients(client);
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -62,16 +78,30 @@ public class Server implements Communicator{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			System.out.println("connection probably lost: server");
+			removeFromClients(client);
 			e.printStackTrace();
 		}
 		return ret;
+	}
+	
+	public ArrayList<ObjectInputStream> getObjInputs(){
+		return objInputs;
+	}
+	
+	private void removeFromClients(int client){
+		objOutputs.set(client, null);	
+		objInputs.set(client, null);		
+		clientSockets.set(client, null);
 	}
 	
 	public void close() {
 		try {
 			for(int i = 0; i<clientSockets.size(); i++){
 				objOutputs.get(i).close();
+				objInputs.get(i).close();
 				clientSockets.get(i).close();
+				removeFromClients(i);
 			}
 			serverSocket.close();
 		} catch (IOException e) {

@@ -49,41 +49,6 @@ public class Client implements Communicator{
 		}
 	}
 	
-	/* string parsing method !notcomplete/ is this how2protocol {
-	 * 	String ball location;
-	 * 	String ball radius;
-	 *  String ball direction;
-	 *  int j = 0;
-	 *  int endIndexLocation;
-	 *  int endIndexRadius;
-		for(int i = 0; i < string.lenghth(); i ++){
-				switch(j){
-				case 0:
-					if(string[i] == " "){
-						location = string.substring(0,i);
-						j++;
-						endIndexLocation = i;
-						break;
-						}
-					}
-				case 1{
-					if(string[i] == " "){
-						radius = string.substring(endIndexLocation, i);
-						j++;
-						endIndexRadius = i;
-						break;
-						}
-					}
-				case 2{
-					if(string[i] == " "){
-						direction = string.substring(endRadiusLocation, i);
-						break;
-						}
-					}
-				
-			}
-		}
-	*/
 	public Object getNextObject(){
 		Object ret = null;
 		try {
@@ -91,7 +56,9 @@ public class Client implements Communicator{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			System.out.println("connection probably lost: client");
 			e.printStackTrace();
+			System.exit(0);
 		}
 		return ret;
 	}

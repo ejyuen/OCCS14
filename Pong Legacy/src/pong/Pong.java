@@ -99,6 +99,7 @@ public class Pong {
 		for (int i = 0; i < polygon.getSides().length; i += 2) {
 			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
 		}
+		
 		comm.sendObject(polygon);
 
 		new Thread(new BallPause(ball, 1000)).start();
@@ -111,6 +112,7 @@ public class Pong {
 		new Timer(36, new TimeAction()).start();
 		
 		for (int i = 0; i < sides/2-1; i++) { //begin reading from players
+			((Server)comm).sendObject(new Integer((i+1)*2), i);
 			new Thread(new RunServer((Server) comm, i, this)).start();
 		}
 	}
@@ -188,10 +190,11 @@ public class Pong {
 			score.printScore();
 			
 			if(comm instanceof Server){
+				((Server) comm).reset();
 				comm.sendObject(score);
 				comm.sendObject(polygon);
 			}
-
+			
 			ball = new Ball(comm);
 			new Thread(new BallPause(ball, 1000)).start();
 		}

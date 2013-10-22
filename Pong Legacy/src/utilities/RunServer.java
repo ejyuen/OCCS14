@@ -23,7 +23,7 @@ public class RunServer implements Runnable{
 	}
 	
 	public void run() {
-    	while(true){
+    	while(server.getObjInputs().get(client)!=null){
 			Object o = server.getNextObject(client);
 			
 			if(o instanceof double[]){ //paddlelocation in the format [side, location]
