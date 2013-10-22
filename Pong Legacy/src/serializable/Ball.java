@@ -22,7 +22,12 @@ import communicator.Server;
  */
 public class Ball implements Serializable{
 
-    /*
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8616302313026116271L;
+
+	/*
      * The location of the ball.
      */
     private Point2D location;
@@ -31,11 +36,6 @@ public class Ball implements Serializable{
      * The radius of the ball.
      */
     private int radius;
-    
-    /**
-     *The side the ball last hit
-     */
-    private Side side;
 
     /**
      * Direction of the Ball in radians with 0 being to the east.

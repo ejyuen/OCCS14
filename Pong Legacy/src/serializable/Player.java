@@ -4,7 +4,6 @@
 package serializable;
 
 import java.awt.event.*;
-import java.io.Serializable;
 
 /**
  * The human interface in the Pong Legacy Game
@@ -15,6 +14,10 @@ import java.io.Serializable;
 public class Player extends Side implements KeyListener {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7449848015610274550L;
+	/**
      * Player name
      */
     private String name;

@@ -15,6 +15,11 @@ import java.io.Serializable;
  */
 public class Paddle implements Serializable{
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8919975105092892784L;
+
+	/**
 	 * The default width of a paddle as percent of the entire side length. 
          * Has to be >= 0 and <=100.
 	 */

@@ -16,7 +16,11 @@ import java.io.Serializable;
  */
 public class Polygon extends java.awt.Polygon implements Serializable{
 
-    private int[] xArray, yArray;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -743886217744386449L;
+	private int[] xArray, yArray;
     private Side[] sides;
     private java.awt.Polygon container; // smaller Polygon object for collisions. I know it shouldn't be public but it's for a quick test.
     public static final short RADIUS = 1000;

@@ -16,7 +16,12 @@ import java.io.Serializable;
  */
 public class Side extends Line2D.Double implements Serializable{
 
-    public static enum Status {VACANT, OCCUPIED}
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8038223638236127416L;
+
+	public static enum Status {VACANT, OCCUPIED}
 
     private Status status;
     private int numSide;

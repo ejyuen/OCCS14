@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 public class Score implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9117177017232278926L;
 	private int[] strikes;
 	
 	public Score(int numPlayers){
