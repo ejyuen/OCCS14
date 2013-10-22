@@ -114,12 +114,14 @@ public class Server implements Communicator{
 			int i = 0;
 			while(true){
 				try {
+					System.out.println("\nwaiting for client");
 					Socket client = serverSocket.accept();
 					ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 					ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
 					clientSockets.add(client);
 					objInputs.add(in);
 					objOutputs.add(out);
+					System.out.println("client " + i + " connected");
 					sendObject(new Integer((i+1)*2), i);
 					i++;
 				} catch (IOException e) {
