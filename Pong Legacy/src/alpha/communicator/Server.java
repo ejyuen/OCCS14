@@ -32,7 +32,6 @@ public class Server implements Communicator{
 	}
 	
 	public int getNumClients(){
-		System.out.println(clientSockets.size());
 		return clientSockets.size();
 	}
 	

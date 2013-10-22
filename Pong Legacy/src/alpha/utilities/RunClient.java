@@ -6,6 +6,7 @@ import alpha.Pong;
 import alpha.communicator.Client;
 import alpha.serializable.Ball;
 import alpha.serializable.Polygon;
+import alpha.serializable.Score;
 
 public class RunClient implements Runnable{
 	Client client = null;
@@ -32,6 +33,10 @@ public class RunClient implements Runnable{
 				if(c_side != pong.getSide()){
 					pong.getPolygon().getSide(c_side).getPaddle().setCenter(center[1]);
 				}
+			}
+			else if(o instanceof Score){
+				pong.setScore((Score)o);
+				pong.getScore().printScore();
 			}
 			else if(o instanceof Polygon){
 				pong.setPolygon((Polygon) o); //this will only work once, afterwards reset required

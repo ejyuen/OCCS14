@@ -17,6 +17,7 @@ import alpha.communicator.Server;
 import alpha.serializable.Ball;
 import alpha.serializable.Player;
 import alpha.serializable.Polygon;
+import alpha.serializable.Score;
 import alpha.utilities.*;
 
 /**
@@ -30,12 +31,10 @@ public class Pong {
 	private Ball ball; // game ball
 	private Polygon polygon; // n-sided polygon
 	private Graphics graphics; // awt graphics
-	private Thread pause;
 	private Communicator comm = null;
-	private int numPlayers;
+	private Score score = null;
 	private int side = -1;
-	private int[] strikes;
-	private boolean ready = false;
+	private boolean ready = false; //only useful if a server
 
 	/**
 	 * Defult pong game square window size.
@@ -60,15 +59,13 @@ public class Pong {
 		this.comm = comm;
 		// ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
 		polygon = new Polygon(n);
-		numPlayers = n / 2;
-		strikes = new int[n / 2];
 		ball = new Ball(comm);
+		score = new Score(n);
 
-		if (comm instanceof Server) {
-		} else if (comm instanceof Client) {
+		if (comm instanceof Client) {
 			initClient();
 		} else {
-			System.out.println("no client or server initialized");
+			System.out.println("Probably a server");
 		}
 	}
 
@@ -86,6 +83,9 @@ public class Pong {
 		}
 		
 		int sides = (((Server)comm).getNumClients() + 1) * 2;
+		
+		score = new Score(sides/2); //setting score
+		
 		polygon = new Polygon(sides); //creating the polygon
 		for (int i = 0; i < polygon.getSides().length; i += 2) {
 			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
@@ -144,6 +144,14 @@ public class Pong {
 	public void setSide(int side) {
 		this.side = side;
 	}
+	
+	public Score getScore(){
+		return score;
+	}
+	
+	public void setScore(Score score){
+		this.score = score; 
+	}
 
 	/**
 	 * Updates ball direction and moves ball. Updates score if there is a goal.
@@ -153,37 +161,29 @@ public class Pong {
 		// Update ball position.
 		// RED_FLAG: this is too much Ball code in Pong
 		double minDist = polygon.getSide(0).ptLineDist(ball.getLocation());
-		int loseSide;
+		
 		polygon.checkCollision(ball);
 		ball.move();
 		// Check for scoring.
-
 		if (!polygon.contains(ball.getLocation())) {
 			ball.stop();
-			loseSide = 0;
-			for (int i = 0; i < numPlayers * 2; i += 2) {
+			int loseSide = 0;
+			for (int i = 0; i < score.getNumPlayers() * 2; i += 2) {
 				if (polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist) {
 					minDist = polygon.getSide(i).ptLineDist(ball.getLocation());
 					loseSide = i;
 				}
 			}
-			System.out.println("Loseside = " + loseSide);
-			strikes[loseSide / 2] = strikes[loseSide / 2] + 1;
-
-			for (int i = 0; i < strikes.length; i++)
-				System.out.println("Player " + (i + 1) + " : " + strikes[i] + " strikes");
+			
+			score.addStrike(loseSide/2);
+			score.printScore();
+			
+			if(comm instanceof Server){
+				comm.sendObject(score);
+			}
 
 			ball = new Ball(comm);
-			// polygon = new Polygon(8); //Testing and stuff
 			new Thread(new BallPause(ball, 1000)).start();
-			// RED_FLAG: there are too many null checks in this method
-			Player lastPlayer = ball.getLastHit();
-			if (lastPlayer != null) {
-				Statistics lastStatistics = Statistics.getStatistics(lastPlayer.getName());
-				if (lastStatistics != null) {
-					lastStatistics.scores(); // does not handle own goals
-				}
-			}
 		}
 	}
 
