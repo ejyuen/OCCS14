@@ -58,29 +58,13 @@ public class Pong {
 
 	public Pong(int n, Communicator comm) {
 		this.comm = comm;
-		ball = new Ball(comm);
 		// ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
-		while (!ready) {
-			try {
-				TimeUnit.NANOSECONDS.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		if (comm instanceof Server) {
-		}
 		polygon = new Polygon(n);
 		numPlayers = n / 2;
 		strikes = new int[n / 2];
-		new Thread(new BallPause(ball, 1000)).start();
+		ball = new Ball(comm);
 
 		if (comm instanceof Server) {
-			polygon = new Polygon(((Server) (comm)).getNumClients() * 2);
-			for (int i = 0; i < n; i += 2) {
-				polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
-			}
-			initServer();
 		} else if (comm instanceof Client) {
 			initClient();
 		} else {
@@ -92,13 +76,32 @@ public class Pong {
 		ready = true;
 	}
 
-	private void initServer() {
+	public void initServer() {
+		while (!ready) { //wait until server says ready
+			try {
+				TimeUnit.NANOSECONDS.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		int sides = (((Server)comm).getNumClients() + 1) * 2;
+		polygon = new Polygon(sides); //creating the polygon
+		for (int i = 0; i < polygon.getSides().length; i += 2) {
+			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
+		}
 		comm.sendObject(polygon);
+
+		new Thread(new BallPause(ball, 1000)).start();
 		side = 0;
 		graphics = new Graphics(this, side); // begin graphics
-		new Timer(36, new TimeAction()).start(); // begin ball movement
-
-		for (int i = 0; i < numPlayers - 1; i++) {
+		
+		ball = new Ball(comm); // begin ball movement
+		new Thread(new BallPause(ball, 1000)).start();
+		
+		new Timer(36, new TimeAction()).start();
+		
+		for (int i = 0; i < sides/2-1; i++) { //begin reading from players
 			new Thread(new RunServer((Server) comm, i, this)).start();
 		}
 	}

@@ -32,6 +32,7 @@ public class Server implements Communicator{
 	}
 	
 	public int getNumClients(){
+		System.out.println(clientSockets.size());
 		return clientSockets.size();
 	}
 	
@@ -90,7 +91,7 @@ public class Server implements Communicator{
 					clientSockets.add(client);
 					objInputs.add(in);
 					objOutputs.add(out);
-					sendObject(i, new Integer((i+1)*2));
+					sendObject(new Integer((i+1)*2), i);
 					i++;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

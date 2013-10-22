@@ -27,10 +27,10 @@ public class Client implements Communicator{
 		try {
 			echoSocket = new Socket(HOST, PORT);
 			OutputStream os = echoSocket.getOutputStream();
-			objOutput = new ObjectOutputStream(new BufferedOutputStream(os));
+			objOutput = new ObjectOutputStream(os);
 			
 			InputStream is = echoSocket.getInputStream();
-			objInput = new ObjectInputStream(new BufferedInputStream(is));
+			objInput = new ObjectInputStream(is);
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: " + HOST);
 			System.exit(0);

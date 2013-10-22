@@ -14,7 +14,7 @@ public class ServerUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private boolean ready = false;
+	private Pong p = null;
 	
 	public ServerUI() {
 		setTitle("Pong Legacy");
@@ -49,19 +49,18 @@ public class ServerUI extends JFrame {
 		
 		//int players = Integer.parseInt(textField.getText());
 		
-		final Pong p = new Pong(8, new Server());
+		p = new Pong(8, new Server());
+		new Thread(new InitializePong()).start();
 		
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) { //re did a bit of stuff here, check it over andy
+			public void actionPerformed(ActionEvent arg0) {
 				p.nowReady();
 				setVisible(false);
 			}
 		});
 		btnStartGame.setBounds(47, 400, 200, 25);
 		contentPane.add(btnStartGame);
-		
-		
 		
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
@@ -71,5 +70,12 @@ public class ServerUI extends JFrame {
 		});
 		btnExit.setBounds(117, 436, 60, 25);
 		contentPane.add(btnExit);
+	}
+	
+	class InitializePong implements Runnable{
+		public void run() {
+			p.initServer();
+		}
+		
 	}
 }
