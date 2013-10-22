@@ -1,4 +1,4 @@
-package menues;
+package menus;
 
 
 import java.awt.event.ActionEvent;
