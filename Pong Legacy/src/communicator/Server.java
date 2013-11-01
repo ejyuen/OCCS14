@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Server implements Communicator{
 	final int PORT = 4444;
 	ServerSocket serverSocket = null;
+	ServerSocket broadcastSocket = null;
 	ArrayList<Socket> clientSockets = null;
 	ArrayList<ObjectOutputStream> objOutputs = null;
 	ArrayList<ObjectInputStream> objInputs = null;
@@ -25,6 +26,9 @@ public class Server implements Communicator{
 			objOutputs = new ArrayList<ObjectOutputStream>();
 			objInputs = new ArrayList<ObjectInputStream>();
 			accepting();
+			
+			broadcastSocket = new ServerSocket(PORT+1);
+			new Thread(new Broadcast()).start();			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,6 +110,19 @@ public class Server implements Communicator{
 			serverSocket.close();
 		} catch (IOException e) {
 			System.out.println("Sockets failed to close.");
+		}
+	}
+	
+	class Broadcast implements Runnable{
+		public void run(){
+			while(true){
+				try{
+					broadcastSocket.accept();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
