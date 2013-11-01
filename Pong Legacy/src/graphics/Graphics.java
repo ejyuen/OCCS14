@@ -88,7 +88,14 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         //g2.drawPolygon(test);
         
     }
-
+    
+    private void paintScoreField(java.awt.Graphics g){
+    	Graphics2D g2 = (Graphics2D) g;
+    	g2.drawRect(-300, -150, 600, 300);
+    	g2.drawString(str, x, y);
+    	g2.setColor(Color.BLACK);
+    }
+    
     /**
      * Paints a transformed Ball object to the screen.
      * @param g the Graphics context in which to paint
@@ -148,7 +155,8 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         Graphics2D bufferGraphics = (Graphics2D) bufferImage.getGraphics();
         bufferGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         paintPolygon(bufferGraphics);
-        paintBall(bufferGraphics);
+        paintBall(bufferGraphics); 
+        paintScoreField(bufferGraphics);
         for(int i = 0; i < pong.getPolygon().npoints; i++)
             paintSide(pong.getPolygon().getSide(i), bufferGraphics);
         g.drawImage(bufferImage, 0, 0, this);

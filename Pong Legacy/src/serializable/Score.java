@@ -31,4 +31,12 @@ public class Score implements Serializable{
 		System.out.println();
 	
 	}
+	
+	public String getScore() {
+		String score = "";
+		for(int i = 0; i < getNumPlayers(); i++){
+			score += "player " + i + " : " + strikes[i] + "/n";
+		}
+		return score;
+	}
 }
