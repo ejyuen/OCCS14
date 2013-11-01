@@ -92,7 +92,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     private void paintScoreField(java.awt.Graphics g){
     	Graphics2D g2 = (Graphics2D) g;
     	g2.drawRect(-300, -150, 600, 300);
-    	g2.drawString(str, x, y);
+    	g2.drawString(pong.getScore().stringScore(), -270, -120);
     	g2.setColor(Color.BLACK);
     }
     

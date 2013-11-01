@@ -137,7 +137,7 @@ public class Pong {
 	public Ball getBall() {
 		return ball;
 	}
-
+	
 	public void setBall(Ball b) {
 		ball = b;
 	}
