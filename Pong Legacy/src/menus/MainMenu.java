@@ -1,6 +1,5 @@
 package menus;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -32,19 +31,23 @@ public class MainMenu extends JFrame {
 		JButton btnStartServer = new JButton("Start Server");
 		btnStartServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// new Statistics(textField.getText()); Move this elsewhere.
-				// Work on it when implementing chat client.
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							ServerUI frame = new ServerUI();
-							frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
+				if (textField.getText().length() < 3) {
+					JOptionPane.showMessageDialog(getParent(), "Please input a valid username (Longer than 3 characters)");
+				} else {
+					// new Statistics(textField.getText()); Move this elsewhere.
+					// Work on it when implementing chat client.
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								ServerUI frame = new ServerUI();
+								frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
-					}
-				});
-				setVisible(false);
+					});
+					setVisible(false);
+				}
 			}
 		});
 		btnStartServer.setBounds(97, 364, 100, 25);
@@ -53,17 +56,21 @@ public class MainMenu extends JFrame {
 		JButton btnStartClient = new JButton("Start Client");
 		btnStartClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							ClientUI frame = new ClientUI();
-							frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
+				if (textField.getText().length() < 3) {
+					JOptionPane.showMessageDialog(getParent(), "Please input a valid username (Longer than 3 characters)");
+				} else {
+					EventQueue.invokeLater(new Runnable() {
+						public void run() {
+							try {
+								ClientUI frame = new ClientUI();
+								frame.setVisible(true);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
-					}
-				});
-				setVisible(false);
+					});
+					setVisible(false);
+				}
 			}
 		});
 		btnStartClient.setBounds(97, 400, 100, 25);
