@@ -51,9 +51,12 @@ public class Paddle implements Serializable{
 	 * Constructs a paddle and initializes its width and center with
          * default values.
 	 */
+	private boolean moving;
+	
 	public Paddle() {
 		this.width = DEFAULT_WIDTH;
 		this.center = DEFAULT_CENTER;
+		this.moving = false;
 	}
 
 	/**
@@ -62,6 +65,7 @@ public class Paddle implements Serializable{
 	public Paddle(double widthPercent) {
 		this.width = widthPercent;
 		this.center = DEFAULT_CENTER;
+		this.moving = false;
 	}
 	
 	/**
@@ -88,15 +92,26 @@ public class Paddle implements Serializable{
 		center = c;
 	}
 	
+	public boolean getMoving(){
+		return moving;
+	}
+	
+	public void changeMoving(){
+		moving = !moving;
+	}
+	
 	/**
 	 * Moves the paddle the designated number of moves to the right.
      * @param moves number of default movements to move
      * @return true if the paddle moved; false if it could not.
 	 */
 	public boolean moveRight(int moves) {
+		changeMoving();
 		center -= moves * ONE_MOVE;
 		if(center > 100 - (width / 2)){ center = 100 - (width / 2); return false; }
+		changeMoving();
 		return true;
+		
 	}
 
 	/**
@@ -105,8 +120,11 @@ public class Paddle implements Serializable{
      * @return true if the paddle moved; false if it could not.
 	 */
 	public boolean moveLeft(int moves) {
+		changeMoving();
 		center += moves * ONE_MOVE;
 		if(center < width / 2){ center = width / 2; return false; }
+		changeMoving();
+		System.out.println(" we dont blah");
 		return true;
 	}
 
@@ -116,10 +134,12 @@ public class Paddle implements Serializable{
 	 * @return true if the paddle moved; false if it could not.
 	 */
 	public boolean moveRight() {
+		changeMoving();
 		if(center + ONE_MOVE <= 100 - (width / 2))
 		{
 			center += ONE_MOVE; return true;	
 		}
+		changeMoving();
 		return false;
 	}
 	
@@ -129,10 +149,13 @@ public class Paddle implements Serializable{
 	 * @return true if the paddle moved; false if it could not.
 	 */
 	public boolean moveLeft() {
+		changeMoving();
 		if(center - ONE_MOVE >= (width / 2))
 		{
 			center -= ONE_MOVE; return true;
 		}
+		changeMoving();
+		System.out.println("we use this oneb hufes");
 		return false;
 	}
 
