@@ -106,10 +106,8 @@ public class Paddle implements Serializable{
      * @return true if the paddle moved; false if it could not.
 	 */
 	public boolean moveRight(int moves) {
-		changeMoving();
 		center -= moves * ONE_MOVE;
 		if(center > 100 - (width / 2)){ center = 100 - (width / 2); return false; }
-		changeMoving();
 		return true;
 		
 	}
@@ -120,11 +118,8 @@ public class Paddle implements Serializable{
      * @return true if the paddle moved; false if it could not.
 	 */
 	public boolean moveLeft(int moves) {
-		changeMoving();
 		center += moves * ONE_MOVE;
 		if(center < width / 2){ center = width / 2; return false; }
-		changeMoving();
-		System.out.println(" we dont blah");
 		return true;
 	}
 
@@ -155,7 +150,6 @@ public class Paddle implements Serializable{
 			center -= ONE_MOVE; return true;
 		}
 		changeMoving();
-		System.out.println("we use this oneb hufes");
 		return false;
 	}
 
