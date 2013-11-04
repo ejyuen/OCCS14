@@ -11,14 +11,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+
 import javax.swing.*;
 
 import pong.Pong;
-
 import serializable.Ball;
 import serializable.Polygon;
 import serializable.Side;
-
 import communicator.Client;
 import communicator.Communicator;
 import communicator.Server;
@@ -91,8 +91,16 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     
     private void paintScoreField(java.awt.Graphics g){
     	Graphics2D g2 = (Graphics2D) g;
-    	g2.drawRect(-300, -150, 600, 300);
-    	g2.drawString(pong.getScore().stringScore(), -270, -120);
+    	Font font = new Font("Serif", Font.PLAIN, 32);
+        g2.setFont(font);
+    	FontMetrics fm = g2.getFontMetrics();
+    	Rectangle2D r = fm.getStringBounds(pong.getScore().stringScore(), g2);
+    	int scoreRectX = (int)(-1*r.getWidth())-20;
+    	int scoreRectY = (int)(-1*r.getHeight())-50;
+    	g2.drawRect(scoreRectX, scoreRectY, -2*scoreRectX, -2*scoreRectY);
+    	int x = 0 - (int)(r.getWidth()/2);
+    	int y = 0 - (int)(r.getHeight()/2) + (int)fm.getAscent();
+    	g2.drawString(pong.getScore().stringScore(), x, y);
     	g2.setColor(Color.BLACK);
     }
     
@@ -104,7 +112,6 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         Graphics2D g2 = (Graphics2D) g;
         Ball ball = pong.getBall();
         g2.setColor(Color.BLACK);
-
         g2.fillOval((int) ((ball.getLocation().getX() - ball.getRadius())),
                     (int) ((ball.getLocation().getY() - ball.getRadius())),
                     (int) (ball.getRadius() * 2),
@@ -187,6 +194,10 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     	} else {
     		System.out.println("no server or client");
     	}
+    }
+    
+    public static void main(String[] args){
+    	System.out.println();
     }
 
     class TimeAction extends AbstractAction {

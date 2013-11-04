@@ -174,6 +174,7 @@ public class Pong {
 		polygon.checkCollision(ball);
 		ball.move();
 		
+		System.out.println(ball.getLocation()); // for testing, sorry -Neil
 		
 		// Check for scoring.
 		if (!polygon.contains(ball.getLocation())) {
@@ -185,20 +186,7 @@ public class Pong {
 					loseSide = i;
 				}
 			}
-			/*Ignore this!!! -Neil
-			 * 
-			 * D.Double[-54.0935293600956, -458.8222859467143]
-					Point2D.Double[-58.30860956997318, -494.5746718646401]
-					Point2D.Double[-62.64077534123625, -531.3201796136194]
-					Point2D.Double[-67.09002667388481, -569.0588091936522]
-					Point2D.Double[-71.77344912930434, -608.783682435792]
-					Point2D.Double[-76.57395714610936, -649.5016775089853]
-					Point2D.Double[-81.49155072429987, -691.212794413232]
-					Point2D.Double[-88.3874857249761, -664.2957612646999]
-					Point2D.Double[-93.53925042593758, -620.5984006983462]
-					Point2D.Double[-98.92518624967005, -574.9147964698855]
-					Point2D.Double[-104.4282076347
-				*/
+			
 			score.addStrike(loseSide/2);
 			score.printScore();
 			
