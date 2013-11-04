@@ -77,6 +77,11 @@ public class MainMenu extends JFrame {
 		contentPane.add(btnStartClient);
 
 		JButton btnOptions = new JButton("Options");
+		btnOptions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(getParent(), "Just kidding. There are no options.");
+			}
+		});
 		btnOptions.setBounds(37, 436, 100, 25);
 		contentPane.add(btnOptions);
 
