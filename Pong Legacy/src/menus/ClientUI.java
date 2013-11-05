@@ -16,7 +16,7 @@ import communicator.Client;
 public class ClientUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final int broadcastPort = 4445;
+	private static final int broadcastPort = 80;
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -78,6 +78,7 @@ public class ClientUI extends JFrame {
 		JButton btnScanForGames = new JButton("Scan for games");
 		btnScanForGames.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				listModel.clear();
 				scanForGames(50);
 			}
 		});
