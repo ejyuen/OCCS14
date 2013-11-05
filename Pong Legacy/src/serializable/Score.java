@@ -34,8 +34,9 @@ public class Score implements Serializable{
 	
 	public String stringScore() {
 		String score = "";
-		for(int i = 0; i < getNumPlayers(); i++){
-			score += "player " + i + " : " + strikes[i] + "/n";
+		for(int i = 1; i <= getNumPlayers(); i++){
+			if(i < getNumPlayers()) score += "Player " + i + " : " + strikes[i-1] + " | ";
+			else score += "Player " + i + " : " + strikes[i-1];
 		}
 		return score;
 	}

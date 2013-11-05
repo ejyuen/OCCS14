@@ -37,6 +37,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     private boolean rightPressed = false;
     private int side = -1;
     private Communicator comm = null;
+	private final int MAX_WIDTH = 1800;
 
     /**
      * Constructs a new Graphics with the Pong that creates it.
@@ -90,16 +91,16 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     }
     
     private void paintScoreField(java.awt.Graphics g){
+    	int fontSize = 48;
     	Graphics2D g2 = (Graphics2D) g;
-    	Font font = new Font("Serif", Font.PLAIN, 32);
-        g2.setFont(font);
+    	g2.setFont(new Font("Serif", Font.BOLD, 36));
     	FontMetrics fm = g2.getFontMetrics();
     	Rectangle2D r = fm.getStringBounds(pong.getScore().stringScore(), g2);
-    	int scoreRectX = (int)(-1*r.getWidth())-20;
-    	int scoreRectY = (int)(-1*r.getHeight())-50;
-    	g2.drawRect(scoreRectX, scoreRectY, -2*scoreRectX, -2*scoreRectY);
+    	int scoreRectX = (int)(-.5*r.getWidth())-40;
+    	int scoreRectY = (int)(-.5*r.getHeight())-50;
+    	g2.drawRect(scoreRectX, scoreRectY+200, -2*scoreRectX, -2*scoreRectY);
     	int x = 0 - (int)(r.getWidth()/2);
-    	int y = 0 - (int)(r.getHeight()/2) + (int)fm.getAscent();
+    	int y = 200 - (int)(r.getHeight()/2) + (int)fm.getAscent();
     	g2.drawString(pong.getScore().stringScore(), x, y);
     	g2.setColor(Color.BLACK);
     }
