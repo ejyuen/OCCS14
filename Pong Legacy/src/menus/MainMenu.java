@@ -32,7 +32,7 @@ public class MainMenu extends JFrame {
 		btnStartServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textField.getText().length() < 3) {
-					JOptionPane.showMessageDialog(getParent(), "Please input a valid username (Longer than 3 characters)");
+					JOptionPane.showMessageDialog(getParent(), "Please input a valid username (At least 3 characters)");
 				} else {
 					// new Statistics(textField.getText()); Move this elsewhere.
 					// Work on it when implementing chat client.
