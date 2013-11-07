@@ -7,6 +7,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Line2D;
 import java.io.Serializable;
 
+import pong.Pong;
+
 /**
  * The Polygon class represents the absolute positioning of the polygon,
  * in addition to the code for collision detection. SOMETHING ABOUT 
@@ -19,6 +21,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     /**
 	 * 
 	 */
+	private Pong pong;
 	private static final long serialVersionUID = -743886217744386449L;
 	private int[] xArray, yArray;
     private Side[] sides;
@@ -26,21 +29,26 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     public static final short RADIUS = 1000;
     public static final short CONTAINER_RADIUS = 1000; //It's possible to change radius of ball without changing Ball.DEFAULT_RADIUS.
 
+    
+    
+
     /**
      * Constructs a regular polygon in an absolute frame of reference.
      * Also constructs a hidden, smaller polygon used for collision detection.
      * @param numSides Number of sides in the polygon
      */
-    public Polygon(int numSides) {
+    public Polygon(int numSides, Pong pong) {
         super(calculateX(RADIUS, numSides), calculateY(RADIUS, numSides), numSides);
+        this.pong = pong;
         container = new java.awt.Polygon(calculateX(CONTAINER_RADIUS, numSides), calculateY(CONTAINER_RADIUS, numSides), numSides);
         xArray = calculateX(RADIUS, numSides);
         yArray = calculateY(RADIUS, numSides);
         sides = createSides();
     }
     
-    public Polygon(Polygon p){
+    public Polygon(Polygon p, Pong pong){
     	super(p.xpoints, p.ypoints, p.npoints);
+    	this.pong = pong;
     	container = p.container;
     	xArray = p.xArray;
     	yArray = p.yArray;
@@ -153,7 +161,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
                 System.out.printf("Paddle: %s %s\n", wall.getP1(), wall.getP2());
 */
                 if (wall.intersectsLine(trajectory)) {
-                    ball.changeDirection(bounce(wall, direction));
+                    ball.changeDirection(bounce(side, direction));
 /*
                     System.out.printf("%s %s %s %s %s\n", 
                         wall.getP1(), wall.getP2(),
@@ -177,15 +185,30 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     public boolean contains(Point2D location) {
         return container.contains(location);
     }
-
-    private double bounce(Line2D wall, double direction) {
-        double rise = wall.getY2() - wall.getY1();
-        double run = wall.getX2() - wall.getX1();
+    
+    private double bounce(Side side, double direction) {
+    	double spin = pong.getBall().getSpin();
+        double rise = side.getY2() - side.getY1();
+        double run = side.getX2() - side.getX1();
         double wallAngle = Math.atan(rise / run);
-        // Trigonometry tells us that:
-        // newDirection = wallAngle - (180 - WallAngle - (180 - direction))
+        //Trigonometry tells us that:
+        //newDirection = wallAngle - (180 - WallAngle - (180 - direction))
         //              = 2 * wallAngle - direction
-        return (-2) * wallAngle - direction;// RED_FLAG: explain the negative
+        double returnDirection = (-2) * wallAngle - direction;// RED_FLAG: explain the negative
+        if(side.getPaddle().getMoving()){
+        	if(returnDirection > ((Math.PI)/2-wallAngle)){
+        		returnDirection += spin;
+        	}
+        	else{
+        		returnDirection -= spin;
+        	}
+        }
+        else {
+        	returnDirection += spin/30;
+        }
+        pong.getBall().setSpin((Math.PI/6)*(Math.random()));
+        return returnDirection;
+    	
     }
 
     /**

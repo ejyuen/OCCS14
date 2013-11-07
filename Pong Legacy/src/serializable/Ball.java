@@ -50,11 +50,6 @@ public class Ball implements Serializable{
     /**
      * Server for the ball to send info across
      */
-    
-    private double spin;
-    /**
-     * Spin for the ball
-     */
     private Server server = null;
     
     /**
@@ -62,6 +57,10 @@ public class Ball implements Serializable{
      */
     public static final int DEFAULT_RADIUS = 20;
 
+    /**
+     * Spin for the ball
+     */
+    private double spin;
     
     /*
      * Default ball location.
@@ -120,10 +119,18 @@ public class Ball implements Serializable{
         }
     	setLocation(location);
         setRadius(radius);
-        setSpin((Math.random() * ((Math.PI)/3)) - ((Math.PI)/6));
         changeDirection(direction);
         changeSpeed(speed);
         lastHit = null;
+        spin = (Math.PI/6)*Math.random();
+    }
+
+    public double getSpin(){
+    	return spin;
+    }
+    
+    public void setSpin(double d){
+    	spin = d;
     }
 
     public void stop() {
@@ -249,14 +256,6 @@ public class Ball implements Serializable{
      * @returns player who last hit ball
      */
     
-    public double getSpin(){
-    	return spin;
-    }
-    
-    public void setSpin(double d){
-    	spin = d;
-    
-    }
     public Player getLastHit() {
         return (Player)lastHit;
     }

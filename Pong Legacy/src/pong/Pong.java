@@ -65,7 +65,7 @@ public class Pong {
 	public Pong(int n, Communicator comm) {
 		this.comm = comm;
 		// ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
-		polygon = new Polygon(n);
+		polygon = new Polygon(n, this);
 		ball = new Ball(comm);
 		score = new Score(n);
 
@@ -93,7 +93,7 @@ public class Pong {
 		
 		score = new Score(sides/2); //setting score
 		
-		polygon = new Polygon(sides); //creating the polygon
+		polygon = new Polygon(sides, this); //creating the polygon
 		for (int i = 0; i < polygon.getSides().length; i += 2) {
 			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
 		}
@@ -173,8 +173,6 @@ public class Pong {
 		
 		polygon.checkCollision(ball);
 		ball.move();
-		
-		System.out.println(ball.getLocation()); // for testing, sorry -Neil
 		
 		// Check for scoring.
 		if (!polygon.contains(ball.getLocation())) {
