@@ -10,6 +10,7 @@ import graphics.Graphics;
 
 import java.awt.event.*;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
@@ -65,8 +66,8 @@ public class Pong {
 	public Pong(int n, Communicator comm) {
 		this.comm = comm;
 		// ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
-		polygon = new Polygon(n, this);
 		ball = new Ball(comm);
+		polygon = new Polygon(n, ball);
 		score = new Score(n);
 
 		if (comm instanceof Client) {
@@ -93,7 +94,7 @@ public class Pong {
 		
 		score = new Score(sides/2); //setting score
 		
-		polygon = new Polygon(sides, this); //creating the polygon
+		polygon = new Polygon(sides, ball); //creating the polygon
 		for (int i = 0; i < polygon.getSides().length; i += 2) {
 			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
 		}
@@ -195,6 +196,7 @@ public class Pong {
 			}
 			
 			ball = new Ball(comm);
+			polygon.setBall(ball);
 			new Thread(new BallPause(ball, 1000)).start();
 		}
 	}

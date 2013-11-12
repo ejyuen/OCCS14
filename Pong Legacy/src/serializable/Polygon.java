@@ -21,7 +21,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     /**
 	 * 
 	 */
-	private Pong pong;
+	private Ball ball;
 	private static final long serialVersionUID = -743886217744386449L;
 	private int[] xArray, yArray;
     private Side[] sides;
@@ -37,22 +37,22 @@ public class Polygon extends java.awt.Polygon implements Serializable{
      * Also constructs a hidden, smaller polygon used for collision detection.
      * @param numSides Number of sides in the polygon
      */
-    public Polygon(int numSides, Pong pong) {
+    public Polygon(int numSides, Ball ball) {
         super(calculateX(RADIUS, numSides), calculateY(RADIUS, numSides), numSides);
-        this.pong = pong;
         container = new java.awt.Polygon(calculateX(CONTAINER_RADIUS, numSides), calculateY(CONTAINER_RADIUS, numSides), numSides);
         xArray = calculateX(RADIUS, numSides);
         yArray = calculateY(RADIUS, numSides);
         sides = createSides();
+        this.ball = ball;
     }
     
-    public Polygon(Polygon p, Pong pong){
+    public Polygon(Polygon p){
     	super(p.xpoints, p.ypoints, p.npoints);
-    	this.pong = pong;
     	container = p.container;
     	xArray = p.xArray;
     	yArray = p.yArray;
     	sides = p.sides;
+    	ball = p.ball;
     }
 
     /**
@@ -187,7 +187,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     }
     
     private double bounce(Side side, double direction) {
-    	double spin = pong.getBall().getSpin();
+    	double spin = ball.getSpin();
         double rise = side.getY2() - side.getY1();
         double run = side.getX2() - side.getX1();
         double wallAngle = Math.atan(rise / run);
@@ -206,9 +206,13 @@ public class Polygon extends java.awt.Polygon implements Serializable{
         else {
         	returnDirection += spin/30;
         }
-        pong.getBall().setSpin((Math.PI/6)*(Math.random()));
+        ball.setSpin((Math.PI/6)*(Math.random()));
         return returnDirection;
     	
+    }
+    
+    public void setBall(Ball b){
+    	ball = b;
     }
 
     /**

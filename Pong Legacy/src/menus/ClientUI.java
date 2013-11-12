@@ -116,8 +116,11 @@ public class ClientUI extends JFrame {
 	private void scanForGames(int timeout) {
 		for (int i = 0; i < 255; i++) {
 			try {
-				if (portIsOpen(InetAddress.getLocalHost().getHostAddress().substring(0, 10) + i, broadcastPort, timeout)) {
-					listModel.addElement("" + InetAddress.getLocalHost().getHostAddress().substring(0, 10) + i);
+				String ipAddress = InetAddress.getLocalHost().getHostAddress();
+				String beginningIp = ipAddress.substring(0, ipAddress.lastIndexOf(".")+1);
+				System.out.println(beginningIp + i);
+				if (portIsOpen(beginningIp + i, broadcastPort, timeout)) {
+					listModel.addElement("" + beginningIp + i);
 				}
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
