@@ -42,7 +42,7 @@ public class RunClient implements Runnable{
 		public void run() {
 			Point2D prevLocation = new Point2D.Double(0, 0);
 			while(true){
-				if(location != null && !location.equals(prevLocation)){
+				if(!location.equals(prevLocation)){
 					pong.getBall().setLocation((Point2D) location);
 					prevLocation = location;
 				}
