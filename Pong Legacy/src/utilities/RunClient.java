@@ -20,7 +20,7 @@ public class RunClient implements Runnable{
 	public RunClient(Client client, Pong pong){
 		this.client = client;
 		this.pong = pong;
-		new Thread(new ProcessBall());
+		new Thread(new ProcessBall()).start();
 	}
 	
 	public void run() {
