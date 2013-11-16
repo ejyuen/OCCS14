@@ -15,10 +15,12 @@ import communicator.Client;
 public class RunClient implements Runnable{
 	Client client = null;
 	Pong pong = null;
+	Point2D location = null;
 	
 	public RunClient(Client client, Pong pong){
 		this.client = client;
 		this.pong = pong;
+		new Thread(new ProcessBall());
 	}
 	
 	public void run() {
@@ -29,11 +31,23 @@ public class RunClient implements Runnable{
 				continue;
 			} 
 			else if(o instanceof Point2D){ //Point2D always a ball location
-				pong.getBall().setLocation((Point2D) o);
+				location = (Point2D) o;
 			} else {
 				new Thread(new ProcessObject(o)).start();
 			}
     	}
+	}
+	
+	class ProcessBall implements Runnable{
+		public void run() {
+			Point2D prevLocation = null;
+			while(true){
+				if(!prevLocation.equals(location) && location != null){
+					pong.getBall().setLocation((Point2D) location);
+					prevLocation = location;
+				}
+			}
+		}
 	}
 	
 	class ProcessObject implements Runnable{
