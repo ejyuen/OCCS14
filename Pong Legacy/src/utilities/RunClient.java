@@ -30,8 +30,19 @@ public class RunClient implements Runnable{
 			} 
 			else if(o instanceof Point2D){ //Point2D always a ball location
 				pong.getBall().setLocation((Point2D) o);
-			} 
-			else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
+			} else {
+				new Thread(new ProcessObject(o)).start();
+			}
+    	}
+	}
+	
+	class ProcessObject implements Runnable{
+		Object o;
+		public ProcessObject(Object o){
+			this.o = o;
+		}
+		public void run() {
+			if(o instanceof double[]){ //double[] is paddle centers of the ball objects
 				double[] center = (double[]) o;
 				int c_side = (int)Math.round(center[0]);
 				if(c_side != pong.getSide()){
@@ -55,7 +66,6 @@ public class RunClient implements Runnable{
 				System.out.println("not understood object type");
 				System.out.println(o);
 			}
-			
-    	}
+		}
 	}
 }
