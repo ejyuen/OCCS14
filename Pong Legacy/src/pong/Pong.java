@@ -107,7 +107,7 @@ public class Pong {
 		ball = new Ball(comm); // begin ball movement
 		new Thread(new BallPause(ball, 1000)).start();
 		
-		new Timer(72, new TimeAction()).start();
+		new Timer(36, new TimeAction()).start();
 		
 		for (int i = 0; i < sides/2-1; i++) { //begin reading from players
 			((Server)comm).sendObject(new Integer((i+1)*2), i);
