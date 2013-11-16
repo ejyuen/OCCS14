@@ -16,7 +16,7 @@ import communicator.Client;
 public class ClientUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final int broadcastPort = 4445;
+	private static final int broadcastPort = 80;
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -116,11 +116,8 @@ public class ClientUI extends JFrame {
 	private void scanForGames(int timeout) {
 		for (int i = 0; i < 255; i++) {
 			try {
-				String ipAddress = InetAddress.getLocalHost().getHostAddress();
-				String beginningIp = ipAddress.substring(0, ipAddress.lastIndexOf(".")+1);
-				System.out.println(beginningIp + i);
-				if (portIsOpen(beginningIp + i, broadcastPort, timeout)) {
-					listModel.addElement("" + beginningIp + i);
+				if (portIsOpen(InetAddress.getLocalHost().getHostAddress().substring(0, 10) + i, broadcastPort, timeout)) {
+					listModel.addElement("" + InetAddress.getLocalHost().getHostAddress().substring(0, 10) + i);
 				}
 			} catch (UnknownHostException e) {
 				e.printStackTrace();

@@ -58,7 +58,6 @@ public class Server implements Communicator{
 	}
 	
 	public void sendObject(Object o){
-		System.out.println(o);
 		for(int i = 0; i<objOutputs.size(); i++){
 			sendObject(o, i);
 		}
