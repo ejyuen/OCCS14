@@ -169,7 +169,7 @@ public class Pong {
 	public void move() {
 		// Update ball position.
 		// RED_FLAG: this is too much Ball code in Pong
-		double minDist = polygon.getSide(0).ptLineDist(ball.getLocation());
+		
 		
 		polygon.checkCollision(ball);
 		ball.move();
@@ -177,15 +177,9 @@ public class Pong {
 		// Check for scoring.
 		if (!polygon.contains(ball.getLocation())) {
 			ball.stop();
-			int loseSide = 0;
-			for (int i = 0; i < score.getNumPlayers() * 2; i += 2) {
-				if (polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist) {
-					minDist = polygon.getSide(i).ptLineDist(ball.getLocation());
-					loseSide = i;
-				}
-			}
+
 			
-			score.addStrike(loseSide/2);
+			score.addStrike(polygon.getClosestPlayer(ball));
 			score.printScore();
 			
 			if(comm instanceof Server){
