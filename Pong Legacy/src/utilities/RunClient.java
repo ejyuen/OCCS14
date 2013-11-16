@@ -15,7 +15,7 @@ import communicator.Client;
 public class RunClient implements Runnable{
 	Client client = null;
 	Pong pong = null;
-	Point2D location = null;
+	Point2D location = new Point2D.Double(0, 0);;
 	
 	public RunClient(Client client, Pong pong){
 		this.client = client;
@@ -40,9 +40,9 @@ public class RunClient implements Runnable{
 	
 	class ProcessBall implements Runnable{
 		public void run() {
-			Point2D prevLocation = null;
+			Point2D prevLocation = new Point2D.Double(0, 0);
 			while(true){
-				if(!prevLocation.equals(location) && location != null){
+				if(location != null && !location.equals(prevLocation)){
 					pong.getBall().setLocation((Point2D) location);
 					prevLocation = location;
 				}
