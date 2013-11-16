@@ -53,6 +53,10 @@ public class Paddle implements Serializable{
 	 */
 	private boolean moving;
 	
+	public enum Direction {
+		LEFT, STILL, RIGHT
+	}
+	
 	public Paddle() {
 		this.width = DEFAULT_WIDTH;
 		this.center = DEFAULT_CENTER;
