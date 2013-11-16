@@ -16,7 +16,7 @@ import communicator.Client;
 public class ClientUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final int broadcastPort = 80;
+	private static final int broadcastPort = 4445;
 
 	private JPanel contentPane;
 	private JTextField textField;
