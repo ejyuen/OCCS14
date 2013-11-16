@@ -174,8 +174,6 @@ public class Pong {
 		polygon.checkCollision(ball);
 		ball.move();
 		
-		System.out.println(ball.getLocation()); // for testing, sorry -Neil
-		
 		// Check for scoring.
 		if (!polygon.contains(ball.getLocation())) {
 			ball.stop();
