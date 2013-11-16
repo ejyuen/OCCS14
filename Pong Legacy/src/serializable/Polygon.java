@@ -181,7 +181,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     private double bounce(Line2D wall, double direction) {
         double rise = wall.getY2() - wall.getY1();
         double run = wall.getX2() - wall.getX1();
-        double wallAngle = Math.atan(rise / run) + (Math.random() * ((Math.PI)/3)) - ((Math.PI)/6);
+        double wallAngle = Math.atan(rise / run) + (Math.random() * ((Math.PI)/6)) - ((Math.PI)/12);
         // Trigonometry tells us that:
         // newDirection = wallAngle - (180 - WallAngle - (180 - direction))
         //              = 2 * wallAngle - direction
