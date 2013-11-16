@@ -27,12 +27,7 @@ public class RunClient implements Runnable{
 		Object o = null;
     	while(true){
 			o = client.getNextObject();
-			if(o == null){
-				continue;
-			} 
-			else if(o instanceof Point2D){ //Point2D always a ball location
-				location = (Point2D) o;
-			} else {
+			if(o != null){
 				new Thread(new ProcessObject(o)).start();
 			}
     	}
@@ -61,8 +56,12 @@ public class RunClient implements Runnable{
 		public ProcessObject(Object o){
 			this.o = o;
 		}
+		
 		public void run() {
-			if(o instanceof double[]){ //double[] is paddle centers of the ball objects
+			if(o instanceof Point2D){ //Point2D always a ball location
+				location = (Point2D) o;
+			}
+			else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
 				double[] center = (double[]) o;
 				int c_side = (int)Math.round(center[0]);
 				if(c_side != pong.getSide()){
