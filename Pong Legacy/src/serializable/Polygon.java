@@ -205,6 +205,22 @@ public class Polygon extends java.awt.Polygon implements Serializable{
         }
         return result.append("]").toString();
     }
+    
+    public int getClosestPlayer(Ball ball) //return side # of closest player
+    {
+    	
+    	double minDist = getSide(0).ptLineDist(ball.getLocation());
+    	int loseSide = 0;
+		for (int i = 0; i < sides.length; i ++) {
+			if(getSide(0) instanceof Player){
+				if (getSide(i).ptLineDist(ball.getLocation()) < minDist) {
+					minDist = getSide(i).ptLineDist(ball.getLocation());
+					loseSide = i;
+				}
+			}
+		}
+		return loseSide/2;
+    }
 
     /**
      * DESCRIPTION (see
