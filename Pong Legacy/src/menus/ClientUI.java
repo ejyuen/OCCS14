@@ -118,8 +118,7 @@ public class ClientUI extends JFrame {
 		for (int i = 0; i < 255; i++) {
 			try {
 				String ipAddress = InetAddress.getLocalHost().getHostAddress();
-				String beginningIp = ipAddress.substring(0,
-						ipAddress.lastIndexOf(".") + 1);
+				String beginningIp = ipAddress.substring(0, ipAddress.lastIndexOf(".") + 1);
 				// System.out.println(beginningIp + i);
 				if (portIsOpen(beginningIp + i, broadcastPort, timeout)) {
 					listModel.addElement("" + beginningIp + i);

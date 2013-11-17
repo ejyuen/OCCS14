@@ -33,6 +33,27 @@ public class RunClient implements Runnable{
 			o = client.getNextObject();
 			if(o != null){
 				new Thread(new ProcessObject(o)).start();
+			} else if(o instanceof Point2D){ //Point2D always a ball location
+				setLocation((Point2D) o);
+			} else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
+				double[] center = (double[]) o;
+				int c_side = (int)Math.round(center[0]);
+				if(c_side != pong.getSide()){
+					pong.getPolygon().getSide(c_side).getPaddle().setCenter(center[1]);
+				}
+			} else if(o instanceof Score){
+				pong.setScore((Score)o);
+				pong.getScore().printScore();
+			} else if(o instanceof Polygon){
+				pong.setPolygon((Polygon) o); //this will only work once, afterwards reset required
+			} else if(o instanceof Ball){
+				System.out.println("Ball");
+				pong.setBall((Ball) o); //this will only work once, afterwards reset required
+			} else if(o instanceof Integer){ //Integers are sides
+				pong.setSide((Integer) o);
+			} else {
+				System.out.println("not understood object type");
+				System.out.println(o);
 			}
     	}
 	}
