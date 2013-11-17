@@ -3,9 +3,6 @@ package ai;
  * AI.java
  */
 
-
-import java.awt.geom.Line2D;
-
 import serializable.Ball;
 import serializable.Side;
 
