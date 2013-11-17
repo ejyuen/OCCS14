@@ -32,7 +32,6 @@ public class Client implements Communicator {
 	
 	public synchronized void sendObject(Object o) {
 		try {
-			objOutput.reset();
 			objOutput.writeUnshared(o);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

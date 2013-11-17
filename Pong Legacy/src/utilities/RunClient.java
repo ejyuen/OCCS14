@@ -23,6 +23,10 @@ public class RunClient implements Runnable{
 		new Thread(new ProcessBall()).start();
 	}
 	
+	public synchronized void setLocation(Point2D p){
+		location = p;
+	}
+	
 	public void run() {
 		Object o = null;
     	while(true){
@@ -59,7 +63,7 @@ public class RunClient implements Runnable{
 		
 		public void run() {
 			if(o instanceof Point2D){ //Point2D always a ball location
-				location = (Point2D) o;
+				setLocation((Point2D) o);
 			}
 			else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
 				double[] center = (double[]) o;
