@@ -14,14 +14,10 @@ import serializable.Side;
  * <a href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
  */
 public class AI extends Side {
+	private static final long serialVersionUID = 1L;
 	/**
 	 * The Ball object which is used for Coordinates
 	 */
-	private Ball ball;
-	/**
-	 * The Paddle's movement variable
-	 */
-	private final int MOVE = 1;
 	/**
 	 * Constructs a new AI object
 	 * @param X1 The first X coordinate for the paddle
@@ -33,7 +29,6 @@ public class AI extends Side {
 	 */
 	public AI(double X1, double Y1, double X2, double Y2, int numSide, Ball x) {
 		super(X1, Y1, X2, Y2, Side.Status.OCCUPIED, numSide);
-		ball = x;
 	}
 	
 	public boolean ballInt$$() {

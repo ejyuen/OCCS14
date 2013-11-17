@@ -100,24 +100,22 @@ public class Pong {
 		new Thread(new RunClient((Client) comm, this)).start();
 	}
 
-	public static int getClosestPlayer() // return side # of closest player
-	{
+	public static int getClosestPlayer() {
 		double minDist = polygon.getSide(0).ptLineDist(ball.getLocation());
-		int loseSide = 0;
+		int side = 0;
 
 		for (int i = 0; i < polygon.getSides().length; i++) {
 			if (polygon.getSide(0) instanceof Player) {
 				if (polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist) {
 					minDist = polygon.getSide(i).ptLineDist(ball.getLocation());
-					loseSide = i;
+					side = i;
 				}
 			}
 		}
-		return loseSide;
+		return side;
 	}
 
 	public static int getClosestSide() {
-
 		double minDist = polygon.getSide(0).ptLineDist(ball.getLocation());
 		int side = 0;
 
