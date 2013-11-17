@@ -68,11 +68,11 @@ public class Server implements Communicator {
 		new Thread(new Accepter()).start();
 	}
 	
-	public synchronized void sendBallLocation(Point2D p){
+	public void sendBallLocation(Point2D p){
 		for(int i = 0; i<ballOutputs.size(); i++){
 			if(ballOutputs.get(i) != null) {
 				try {
-					ballOutputs.get(i).writeUnshared(p);
+					ballOutputs.get(i).writeObject(p);
 				} catch (IOException e) {
 					System.out.println("connection probably lost: server");
 					removeFromClients(i);
