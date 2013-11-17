@@ -22,7 +22,7 @@ public class BallPause implements Runnable {
 		}
 		ball.changeSpeed(10);
 		ball.start();
-		for (int i = 1; i < ball.DEFAULT_SPEED - 10; i++) {
+		for (int i = 1; i < Ball.DEFAULT_SPEED - 10; i++) {
 			ball.changeSpeed(10 + i);
 			try {
 				Thread.sleep(30);
@@ -31,7 +31,7 @@ public class BallPause implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		ball.changeSpeed(ball.DEFAULT_SPEED);
+		ball.changeSpeed(Ball.DEFAULT_SPEED);
 		return;
 	}	
 }
