@@ -1,23 +1,16 @@
 package menus;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import pong.Pong;
-
 import communicator.Server;
 
-
-
 public class ServerUI extends JFrame {
-
+	private static final long serialVersionUID = 1019782401351695809L;
 	private JPanel contentPane;
-	private JTextField textField;
+//	private JTextField textField;
 	private Pong p = null;
 	
 	public ServerUI() {
@@ -50,8 +43,7 @@ public class ServerUI extends JFrame {
 //		});
 //		btnLaunchServer.setBounds(47, 400, 200, 25);
 //		contentPane.add(btnLaunchServer);
-		
-		//int players = Integer.parseInt(textField.getText());
+//		int players = Integer.parseInt(textField.getText());
 		
 		p = new Pong(8, new Server());
 		new Thread(new InitializePong()).start();
@@ -80,6 +72,5 @@ public class ServerUI extends JFrame {
 		public void run() {
 			p.initServer();
 		}
-		
 	}
 }
