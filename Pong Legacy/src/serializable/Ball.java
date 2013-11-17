@@ -63,7 +63,7 @@ public class Ball implements Serializable{
     public static final int DEFAULT_RADIUS = 20;
 
     
-    /*
+    /**
      * Default ball location.
      */
     public static final Point2D DEFAULT_LOCATION = new Point2D.Double(0, 0);
@@ -74,8 +74,6 @@ public class Ball implements Serializable{
     public static final int DEFAULT_SPEED = 80;
 
     private boolean moving = false;
-    
-    private Side lastHit;
 
     /**
      * Creates a Ball with default location, radius, and speed, but with
@@ -123,7 +121,6 @@ public class Ball implements Serializable{
         setSpin(0);
         changeDirection(direction);
         changeSpeed(speed);
-        lastHit = null;
     }
 
     public void stop() {
@@ -159,15 +156,6 @@ public class Ball implements Serializable{
         }
     }
     
-    /**
-     * Used by client mainly
-     * 
-     * @param x x coordinate of new location
-     * @param y y coordinate of new location
-     */
-    public void setLocation(double x, double y){
-    	this.location.setLocation(x, y);
-    }
     /**
      * Returns location that the Ball will move to next.
      * 
@@ -243,17 +231,6 @@ public class Ball implements Serializable{
     }
 
     /**
-     * Changes side last hit to wall, if wall is-a Player.
-     *
-     * @param side side last hit
-     */
-    public void setLastHit(Side side) {
-        if(side instanceof Player) {
-           lastHit = side;
-        }
-    }
-
-    /**
      * Gets player who last hit ball, or null if no player has yet hit ball.
      *
      * @returns player who last hit ball
@@ -266,9 +243,6 @@ public class Ball implements Serializable{
     public void setSpin(double d){
     	spin = d;
     
-    }
-    public Player getLastHit() {
-        return (Player)lastHit;
     }
     
     public String toString(){

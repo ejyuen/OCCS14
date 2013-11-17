@@ -55,11 +55,11 @@ public class RunClient implements Runnable{
 	
 	class ProcessBall implements Runnable{
 		public void run() {
-			double[] o = null;
+			Point2D p = null;
 			while(true){
-				o = client.getNextBallLocation();
-				if(o!=null){
-					pong.getBall().setLocation(new Point2D.Double(o[0],o[1]));
+				p = client.getNextBallLocation();
+				if(p!=null){
+					pong.getBall().setLocation(p);
 				}
 				try {
 					Thread.sleep(20);
