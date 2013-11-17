@@ -1,17 +1,15 @@
 package communicator;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
 
 
-public class Server implements Communicator{
+public class Server implements Communicator {
 	final int PORT = 4444;
 	ServerSocket serverSocket = null;
 	ServerSocket broadcastSocket = null;
@@ -19,7 +17,7 @@ public class Server implements Communicator{
 	ArrayList<ObjectOutputStream> objOutputs = null;
 	ArrayList<ObjectInputStream> objInputs = null;
 	
-	public Server(){
+	public Server() {
 		try {
 			serverSocket = new ServerSocket(PORT);
 			clientSockets = new ArrayList<Socket>();
@@ -35,8 +33,8 @@ public class Server implements Communicator{
 		}
 	}
 	
-	public void reset(){
-		for(ObjectOutputStream out: objOutputs){
+	public void reset() {
+		for(ObjectOutputStream out: objOutputs) {
 			try {
 				if(out != null){
 					out.reset();
@@ -48,23 +46,23 @@ public class Server implements Communicator{
 		}
 	}
 	
-	public int getNumClients(){
+	public int getNumClients() {
 		return clientSockets.size();
 	}
 	
 	
-	public void accepting(){
+	public void accepting() {
 		new Thread(new Accepter()).start();
 	}
 	
-	public void sendObject(Object o){
-		for(int i = 0; i<objOutputs.size(); i++){
+	public void sendObject(Object o) {
+		for(int i = 0; i<objOutputs.size(); i++) {
 			sendObject(o, i);
 		}
 	}
 	
-	public synchronized void sendObject(Object o, int client){
-		if(objOutputs.get(client) != null){
+	public synchronized void sendObject(Object o, int client) {
+		if(objOutputs.get(client) != null) {
 			try {
 				objOutputs.get(client).reset();
 				objOutputs.get(client).writeUnshared(o);
@@ -76,7 +74,7 @@ public class Server implements Communicator{
 		}
 	}
 	
-	public Object getNextObject(int client){
+	public Object getNextObject(int client) {
 		Object ret = null;
 		try {
 			ret = objInputs.get(client).readObject();
@@ -90,11 +88,11 @@ public class Server implements Communicator{
 		return ret;
 	}
 	
-	public ArrayList<ObjectInputStream> getObjInputs(){
+	public ArrayList<ObjectInputStream> getObjInputs() {
 		return objInputs;
 	}
 	
-	private void removeFromClients(int client){
+	private void removeFromClients(int client) {
 		objOutputs.set(client, null);	
 		objInputs.set(client, null);		
 		clientSockets.set(client, null);
@@ -102,7 +100,7 @@ public class Server implements Communicator{
 	
 	public void close() {
 		try {
-			for(int i = 0; i<clientSockets.size(); i++){
+			for(int i = 0; i<clientSockets.size(); i++) {
 				objOutputs.get(i).close();
 				objInputs.get(i).close();
 				clientSockets.get(i).close();
@@ -114,9 +112,9 @@ public class Server implements Communicator{
 		}
 	}
 	
-	class Broadcast implements Runnable{
-		public void run(){
-			while(true){
+	class Broadcast implements Runnable {
+		public void run() {
+			while(true) {
 				try{
 					broadcastSocket.accept();
 				} catch (IOException e) {
@@ -127,10 +125,10 @@ public class Server implements Communicator{
 		}
 	}
 	
-	class Accepter implements Runnable{
+	class Accepter implements Runnable {
 		public void run() {
 			int i = 0;
-			while(true){
+			while(true) {
 				try {
 					System.out.println("\nwaiting for client");
 					Socket client = serverSocket.accept();

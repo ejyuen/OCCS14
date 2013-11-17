@@ -13,10 +13,6 @@ package main;
  *            - Tim
  */
 
-
-
-import java.awt.geom.*;
-
 import javax.swing.UIManager;
 
 import menus.MainMenu;

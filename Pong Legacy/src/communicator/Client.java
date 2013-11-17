@@ -1,19 +1,12 @@
 package communicator;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Client implements Communicator{
+public class Client implements Communicator {
 	
 	final String HOST; 
 	final int PORT = 4444;
@@ -37,7 +30,7 @@ public class Client implements Communicator{
 		}
 	}
 	
-	public synchronized  void sendObject(Object o){
+	public synchronized void sendObject(Object o) {
 		try {
 			objOutput.reset();
 			objOutput.writeUnshared(o);
@@ -47,7 +40,7 @@ public class Client implements Communicator{
 		}
 	}
 	
-	public Object getNextObject(){
+	public Object getNextObject() {
 		Object ret = null;
 		try {
 			ret = objInput.readObject();
