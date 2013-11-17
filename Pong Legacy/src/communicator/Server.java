@@ -72,7 +72,7 @@ public class Server implements Communicator {
 		for(int i = 0; i<ballOutputs.size(); i++){
 			if(ballOutputs.get(i) != null) {
 				try {
-					ballOutputs.get(i).writeObject(p);
+					ballOutputs.get(i).writeUnshared(p);
 				} catch (IOException e) {
 					System.out.println("connection probably lost: server");
 					removeFromClients(i);

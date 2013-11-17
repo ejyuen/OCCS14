@@ -5,7 +5,6 @@ import java.awt.geom.Point2D;
 
 import pong.Pong;
 
-import serializable.Ball;
 import serializable.Polygon;
 import serializable.Score;
 

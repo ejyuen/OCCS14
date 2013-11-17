@@ -48,13 +48,9 @@ public class Client implements Communicator {
 	}
 	
 	public Point2D getNextBallLocation(){
-		Point2D ret = null;
-		Object o;
+		Object ret = null;
 		try {
-			o = ballInput.readObject();
-			if(o != null){
-				ret = (Point2D) o;
-			}
+			ret = ballInput.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -62,7 +58,7 @@ public class Client implements Communicator {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		return ret;
+		return (ret instanceof Point2D? (Point2D)ret : null);
 	}
 	
 	public Object getNextObject() {
@@ -75,7 +71,6 @@ public class Client implements Communicator {
 			System.out.println("connection probably lost: client");
 			e.printStackTrace();
 			System.exit(1);
-		
 		}
 		return ret;
 	}
