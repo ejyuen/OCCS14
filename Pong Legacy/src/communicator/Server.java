@@ -35,7 +35,7 @@ public class Server implements Communicator{
 		}
 	}
 	
-	public void reset(){
+	public synchronized void reset(){
 		for(ObjectOutputStream out: objOutputs){
 			try {
 				if(out != null){
@@ -66,7 +66,6 @@ public class Server implements Communicator{
 	public synchronized void sendObject(Object o, int client){
 		if(objOutputs.get(client) != null){
 			try {
-				objOutputs.get(client).reset();
 				objOutputs.get(client).writeUnshared(o);
 			} catch (IOException e) {
 				System.out.println("connection probably lost: server");
