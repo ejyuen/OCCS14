@@ -37,7 +37,7 @@ public class Client implements Communicator{
 		}
 	}
 	
-	public void sendObject(Object o){
+	public synchronized  void sendObject(Object o){
 		try {
 			objOutput.reset();
 			objOutput.writeUnshared(o);
