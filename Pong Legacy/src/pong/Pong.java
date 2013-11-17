@@ -1,47 +1,21 @@
 package pong;
-/*
- * Pong.java
- */
-
-
-
 
 import graphics.Graphics;
-
 import java.awt.event.*;
-import java.awt.geom.Point2D;
-import java.net.Socket;
 import java.util.concurrent.TimeUnit;
-
 import javax.swing.*;
+import communicator.*;
+import serializable.*;
+import utilities.*;
 
-import communicator.Client;
-import communicator.Communicator;
-import communicator.Server;
-
-import serializable.Ball;
-import serializable.Player;
-import serializable.Polygon;
-import serializable.Score;
-import utilities.BallPause;
-import utilities.RunClient;
-import utilities.RunServer;
-
-/**
- * DESCRIPTION
- * 
- * @author 2009-2010 WHS <a
- *         href="http://winchester.k12.ma.us/~dpetty/apcs/">APCS</a> class
- */
 public class Pong {
 
 	private static Ball ball; // game ball
 	private static Polygon polygon; // n-sided polygon
-	private Graphics graphics; // awt graphics
 	private Communicator comm = null;
 	private Score score = null;
 	private int side = -1;
-	private boolean ready = false; //only useful if a server
+	private boolean ready = false; // only useful if a server
 
 	/**
 	 * Defult pong game square window size.
@@ -81,36 +55,36 @@ public class Pong {
 	}
 
 	public void initServer() {
-		while (!ready) { //wait until server says ready
+		while (!ready) { // wait until server says ready
 			try {
 				TimeUnit.NANOSECONDS.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		int sides = (((Server)comm).getNumClients() + 1) * 2;
-		
-		score = new Score(sides/2); //setting score
-		
-		polygon = new Polygon(sides); //creating the polygon
+
+		int sides = (((Server) comm).getNumClients() + 1) * 2;
+
+		score = new Score(sides / 2); // setting score
+
+		polygon = new Polygon(sides); // creating the polygon
 		for (int i = 0; i < polygon.getSides().length; i += 2) {
 			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
 		}
-		
+
 		comm.sendObject(polygon);
 
 		new Thread(new BallPause(ball, 1000)).start();
 		side = 0;
-		graphics = new Graphics(this, side); // begin graphics
-		
+		new Graphics(this, side);
+
 		ball = new Ball(comm); // begin ball movement
 		new Thread(new BallPause(ball, 1000)).start();
-		
+
 		new Timer(36, new TimeAction()).start();
-		
-		for (int i = 0; i < sides/2-1; i++) { //begin reading from players
-			((Server)comm).sendObject(new Integer((i+1)*2), i);
+
+		for (int i = 0; i < sides / 2 - 1; i++) { // begin reading from players
+			((Server) comm).sendObject(new Integer((i + 1) * 2), i);
 			new Thread(new RunServer((Server) comm, i, this)).start();
 		}
 	}
@@ -122,18 +96,17 @@ public class Pong {
 		}
 		assert side != -1; // make sure a side has been set
 
-		graphics = new Graphics(this, side);
+		new Graphics(this, side);
 		new Thread(new RunClient((Client) comm, this)).start();
 	}
-	
-	
-	public static int getClosestPlayer() //return side # of closest player
-    {
+
+	public static int getClosestPlayer() // return side # of closest player
+	{
 		double minDist = polygon.getSide(0).ptLineDist(ball.getLocation());
 		int loseSide = 0;
-    	
-		for (int i = 0; i < polygon.getSides().length; i ++) {
-			if(polygon.getSide(0) instanceof Player){
+
+		for (int i = 0; i < polygon.getSides().length; i++) {
+			if (polygon.getSide(0) instanceof Player) {
 				if (polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist) {
 					minDist = polygon.getSide(i).ptLineDist(ball.getLocation());
 					loseSide = i;
@@ -141,22 +114,22 @@ public class Pong {
 			}
 		}
 		return loseSide;
-    }
-	
+	}
+
 	public static int getClosestSide() {
-		
+
 		double minDist = polygon.getSide(0).ptLineDist(ball.getLocation());
 		int side = 0;
-		
+
 		for (int i = 0; i < polygon.getSides().length; i++)
-			if(polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist) {
+			if (polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist) {
 				minDist = polygon.getSide(i).ptLineDist(ball.getLocation());
 				side = i;
 			}
-		
+
 		return side;
 	}
-	
+
 	public Polygon getPolygon() {
 		return polygon;
 	}
@@ -168,7 +141,7 @@ public class Pong {
 	public Ball getBall() {
 		return ball;
 	}
-	
+
 	public void setBall(Ball b) {
 		ball = b;
 	}
@@ -184,13 +157,13 @@ public class Pong {
 	public void setSide(int side) {
 		this.side = side;
 	}
-	
-	public Score getScore(){
+
+	public Score getScore() {
 		return score;
 	}
-	
-	public void setScore(Score score){
-		this.score = score; 
+
+	public void setScore(Score score) {
+		this.score = score;
 	}
 
 	/**
@@ -200,31 +173,31 @@ public class Pong {
 	public void move() {
 		// Update ball position.
 		// RED_FLAG: this is too much Ball code in Pong
-		
-		
+
 		polygon.checkCollision(ball);
 		ball.move();
-		
+
 		// Check for scoring.
 		if (!polygon.contains(ball.getLocation())) {
 			ball.stop();
 
-			
-			score.addStrike(getClosestPlayer()/2);
+			score.addStrike(getClosestPlayer() / 2);
 			score.printScore();
-			
-			if(comm instanceof Server){
+
+			if (comm instanceof Server) {
 				((Server) comm).reset();
 				comm.sendObject(score);
 				comm.sendObject(polygon);
 			}
-			
+
 			ball = new Ball(comm);
 			new Thread(new BallPause(ball, 1000)).start();
 		}
 	}
 
 	class TimeAction extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
 		public void actionPerformed(ActionEvent e) {
 			if (ball.getState() == true) {
 				move();
