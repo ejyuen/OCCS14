@@ -23,6 +23,7 @@ public class RunServer implements Runnable {
 				double[] paddleLocation = (double[]) o;
 				pong.getPolygon().getSide((int) (paddleLocation[0] + .5))
 						.getPaddle().setCenter(paddleLocation[1]);
+				pong.getGraphics().repaint();
 				server.sendObject(paddleLocation);
 			}
 		}

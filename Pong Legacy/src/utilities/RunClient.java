@@ -32,6 +32,7 @@ public class RunClient implements Runnable{
 					pong.getPolygon().getSide(side)
 							.getPaddle().setCenter(center[1]);
 				}
+				pong.getGraphics().repaint();
 			} else if(o instanceof Score){
 				pong.setScore((Score)o);
 				pong.getScore().printScore();
@@ -59,6 +60,7 @@ public class RunClient implements Runnable{
 				p = client.getNextBallLocation();
 				if(p != null){
 					pong.getBall().setLocation(p);
+					pong.getGraphics().repaint();
 				}
 				try {
 					Thread.sleep(15);
