@@ -28,9 +28,9 @@ public class RunClient implements Runnable{
 			o = client.getNextObject();
 			if(o == null){
 				continue;
-			} else if(o instanceof double[]){ //double[] is paddle centers of the ball objects
+			} else if(o instanceof double[]){ //double[] is paddles in the form [side, location]
 				double[] center = (double[]) o;
-				int c_side = (int)Math.round(center[0]);
+				int c_side = (int) (center[0] + .5);
 				if(c_side != pong.getSide()){
 					pong.getPolygon().getSide(c_side).getPaddle().setCenter(center[1]);
 				}
@@ -38,15 +38,18 @@ public class RunClient implements Runnable{
 				pong.setScore((Score)o);
 				pong.getScore().printScore();
 			} else if(o instanceof Polygon){
-				pong.setPolygon((Polygon) o); //this will only work once, afterwards reset required
-			} else if(o instanceof Ball){
-				System.out.println("Ball");
-				pong.setBall((Ball) o); //this will only work once, afterwards reset required
+				pong.setPolygon((Polygon) o);
 			} else if(o instanceof Integer){ //Integers are sides
 				pong.setSide((Integer) o);
 			} else {
 				System.out.println("not understood object type");
 				System.out.println(o);
+			}
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
     	}
 	}
@@ -58,6 +61,11 @@ public class RunClient implements Runnable{
 				o = client.getNextBallLocation();
 				if(o!=null){
 					pong.getBall().setLocation((Point2D) o);
+				}
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		}

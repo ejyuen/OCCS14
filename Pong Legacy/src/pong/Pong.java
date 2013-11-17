@@ -16,6 +16,7 @@ public class Pong {
 	private Score score = null;
 	private int side = -1;
 	private boolean ready = false; // only useful if a server
+	private Graphics graphics = null;
 
 	/**
 	 * Defult pong game square window size.
@@ -73,15 +74,16 @@ public class Pong {
 		}
 
 		comm.sendObject(polygon);
+		comm.sendObject(score);
 
 		new Thread(new BallPause(ball, 1000)).start();
 		side = 0;
-		new Graphics(this, side);
+		graphics = new Graphics(this, side);
 
 		ball = new Ball(comm); // begin ball movement
 		new Thread(new BallPause(ball, 1000)).start();
 
-		new Timer(36, new TimeAction()).start();
+		new Timer(36, new BallAction()).start();
 
 		for (int i = 0; i < sides / 2 - 1; i++) { // begin reading from players
 			((Server) comm).sendObject(new Integer((i + 1) * 2), i);
@@ -96,7 +98,7 @@ public class Pong {
 		}
 		assert side != -1; // make sure a side has been set
 
-		new Graphics(this, side);
+		graphics = new Graphics(this, side);
 		new Thread(new RunClient((Client) comm, this)).start();
 	}
 
@@ -126,6 +128,10 @@ public class Pong {
 			}
 
 		return side;
+	}
+	
+	public Graphics getGraphics(){
+		return graphics;
 	}
 
 	public Polygon getPolygon() {
@@ -164,41 +170,40 @@ public class Pong {
 		this.score = score;
 	}
 
-	/**
-	 * Updates ball direction and moves ball. Updates score if there is a goal.
-	 * RED_FLAG : handle ownGoal
-	 */
-	public void move() {
-		// Update ball position.
-		// RED_FLAG: this is too much Ball code in Pong
-
-		polygon.checkCollision(ball);
-		ball.move();
-
-		// Check for scoring.
-		if (!polygon.contains(ball.getLocation())) {
-			ball.stop();
-
-			score.addStrike(getClosestPlayer() / 2);
-			score.printScore();
-
-			if (comm instanceof Server) {
-				((Server) comm).reset();
-				comm.sendObject(score);
-				comm.sendObject(polygon);
-			}
-
-			ball = new Ball(comm);
-			new Thread(new BallPause(ball, 1000)).start();
-		}
-	}
-
-	class TimeAction extends AbstractAction {
+	class BallAction extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		public void actionPerformed(ActionEvent e) {
 			if (ball.getState() == true) {
 				move();
+			}
+		}
+		
+		/**
+		 * Updates ball direction and moves ball. Updates score if there is a goal.
+		 *
+		 */
+		private void move() {
+			// Update ball position.
+			// RED_FLAG: this is too much Ball code in Pong
+
+			polygon.checkCollision(ball);
+			ball.move();
+
+			// Check for scoring.
+			if (!polygon.contains(ball.getLocation())) {
+				ball.stop();
+
+				score.addStrike(getClosestPlayer() / 2);
+				score.printScore();
+
+				if (comm instanceof Server) {
+					comm.sendObject(score);
+					comm.sendObject(polygon);
+				}
+
+				ball = new Ball(comm);
+				new Thread(new BallPause(ball, 1000)).start();
 			}
 		}
 	}

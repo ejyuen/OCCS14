@@ -52,14 +52,15 @@ public class Client implements Communicator {
 		Object o;
 		try {
 			o = ballInput.readObject();
-			if(o != null && o instanceof Point2D){
+			if(o != null){
 				ret = (Point2D) o;
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("ball location fail");
+			System.out.println("ball disconnected: connection probably lost");
 			e.printStackTrace();
+			System.exit(1);
 		}
 		return ret;
 	}
