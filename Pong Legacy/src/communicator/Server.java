@@ -1,5 +1,6 @@
 package communicator;
 
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,25 +8,37 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import utilities.Constants;
+
 
 
 public class Server implements Communicator {
-	final int PORT = 4444;
-	ServerSocket serverSocket = null;
 	ServerSocket broadcastSocket = null;
+	
+	ServerSocket serverSocket = null;
 	ArrayList<Socket> clientSockets = null;
 	ArrayList<ObjectOutputStream> objOutputs = null;
 	ArrayList<ObjectInputStream> objInputs = null;
 	
+	ServerSocket ballServerSocket = null;
+	ArrayList<Socket> ballSockets = null;
+	ArrayList<ObjectOutputStream> ballOutputs = null;
+	
 	public Server() {
 		try {
-			serverSocket = new ServerSocket(PORT);
+			serverSocket = new ServerSocket(Constants.PORT);
+			ballServerSocket = new ServerSocket(Constants.BALL_PORT);
+			
 			clientSockets = new ArrayList<Socket>();
 			objOutputs = new ArrayList<ObjectOutputStream>();
 			objInputs = new ArrayList<ObjectInputStream>();
+			
+			ballSockets = new ArrayList<Socket>();
+			ballOutputs = new ArrayList<ObjectOutputStream>();
+			
 			accepting();
 			
-			broadcastSocket = new ServerSocket(PORT+1);
+			broadcastSocket = new ServerSocket(Constants.BROADCAST_PORT);
 			new Thread(new Broadcast()).start();			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -53,6 +66,20 @@ public class Server implements Communicator {
 	
 	public void accepting() {
 		new Thread(new Accepter()).start();
+	}
+	
+	public synchronized void sendBallLocation(Point2D p){
+		for(int i = 0; i<ballOutputs.size(); i++){
+			if(ballOutputs.get(i) != null) {
+				try {
+					ballOutputs.get(i).writeUnshared(p);
+				} catch (IOException e) {
+					System.out.println("connection probably lost: server");
+					removeFromClients(i);
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	public void sendObject(Object o) {
@@ -95,6 +122,8 @@ public class Server implements Communicator {
 		objOutputs.set(client, null);	
 		objInputs.set(client, null);		
 		clientSockets.set(client, null);
+		ballSockets.set(client, null);
+		ballOutputs.set(client, null);
 	}
 	
 	public void close() {
@@ -103,6 +132,9 @@ public class Server implements Communicator {
 				objOutputs.get(i).close();
 				objInputs.get(i).close();
 				clientSockets.get(i).close();
+				
+				ballOutputs.get(i).close();
+				ballSockets.get(i).close();
 				removeFromClients(i);
 			}
 			serverSocket.close();
@@ -117,7 +149,6 @@ public class Server implements Communicator {
 				try{
 					broadcastSocket.accept();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -136,6 +167,12 @@ public class Server implements Communicator {
 					clientSockets.add(client);
 					objInputs.add(in);
 					objOutputs.add(out);
+					
+					Socket ballSocket = ballServerSocket.accept();
+					ObjectOutputStream ballOut = new ObjectOutputStream(ballSocket.getOutputStream());
+					ballSockets.add(ballSocket);
+					ballOutputs.add(ballOut);
+					
 					System.out.println("client " + i + " connected");
 					sendObject(new Integer((i+1)*2), i);
 					i++;

@@ -10,14 +10,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import pong.Pong;
+import utilities.Constants;
 
 import communicator.Client;
 
 public class ClientUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private static final int broadcastPort = 4445;
-
 	private JPanel contentPane;
 	private JTextField textField;
 	private JRadioButton rdbtnSelectAServer, rdbtnManualConnection;
@@ -120,7 +119,7 @@ public class ClientUI extends JFrame {
 				String ipAddress = InetAddress.getLocalHost().getHostAddress();
 				String beginningIp = ipAddress.substring(0, ipAddress.lastIndexOf(".") + 1);
 				// System.out.println(beginningIp + i);
-				if (portIsOpen(beginningIp + i, broadcastPort, timeout)) {
+				if (portIsOpen(beginningIp + i, Constants.BROADCAST_PORT, timeout)) {
 					listModel.addElement("" + beginningIp + i);
 				}
 			} catch (UnknownHostException e) {

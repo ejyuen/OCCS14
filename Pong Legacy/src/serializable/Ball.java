@@ -155,7 +155,7 @@ public class Ball implements Serializable{
     public void setLocation(Point2D location) {
         this.location = location;
         if(server != null){
-        	server.sendObject(location);
+        	server.sendBallLocation(location);
         }
     }
     /**

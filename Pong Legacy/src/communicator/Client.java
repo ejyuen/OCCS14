@@ -1,26 +1,34 @@
 package communicator;
 
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import utilities.Constants;
+
 public class Client implements Communicator {
 	
 	final String HOST; 
-	final int PORT = 4444;
-	Socket echoSocket = null;
+	Socket socket = null;
 	ObjectOutputStream objOutput = null;
 	ObjectInputStream objInput = null;
+	
+	Socket ballSocket = null;
+	ObjectInputStream ballInput = null;
 	
 	public Client(String ipIdentifier) {
 		HOST = ipIdentifier;
 		
 		try {
-			echoSocket = new Socket(HOST, PORT);
-			objOutput = new ObjectOutputStream(echoSocket.getOutputStream());
-			objInput = new ObjectInputStream(echoSocket.getInputStream());
+			socket = new Socket(HOST, Constants.PORT);
+			objOutput = new ObjectOutputStream(socket.getOutputStream());
+			objInput = new ObjectInputStream(socket.getInputStream());
+			
+			ballSocket = new Socket(HOST, Constants.BALL_PORT);
+			ballInput = new ObjectInputStream(ballSocket.getInputStream());
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host: " + HOST);
 			System.exit(0);
@@ -37,6 +45,23 @@ public class Client implements Communicator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public Point2D getNextBallLocation(){
+		Point2D ret = null;
+		Object o;
+		try {
+			o = ballInput.readObject();
+			if(o != null && o instanceof Point2D){
+				ret = (Point2D) o;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("ball location fail");
+			e.printStackTrace();
+		}
+		return ret;
 	}
 	
 	public Object getNextObject() {
@@ -58,7 +83,10 @@ public class Client implements Communicator {
 		try {
 			objOutput.close();
 			objInput.close();
-			echoSocket.close();
+			socket.close();
+			
+			ballInput.close();
+			ballSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
