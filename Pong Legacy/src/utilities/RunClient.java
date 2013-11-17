@@ -31,8 +31,8 @@ public class RunClient implements Runnable{
 				if(side != pong.getSide()){
 					pong.getPolygon().getSide(side)
 							.getPaddle().setCenter(center[1]);
+					pong.getGraphics().repaint();
 				}
-				pong.getGraphics().repaint();
 			} else if(o instanceof Score){
 				pong.setScore((Score)o);
 				pong.getScore().printScore();

@@ -204,8 +204,6 @@ public class Pong {
 				ball = new Ball(comm);
 				new Thread(new BallPause(ball, 1000)).start();
 			}
-			
-			graphics.repaint();
 		}
 	}
 }
