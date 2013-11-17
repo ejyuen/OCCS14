@@ -20,14 +20,17 @@ public class Client implements Communicator{
 	Socket echoSocket = null;
 	ObjectOutputStream objOutput = null;
 	ObjectInputStream objInput = null;
+	InputStream in = null;
 	
 	public Client(String ipIdentifier) {
 		HOST = ipIdentifier;
 		
 		try {
 			echoSocket = new Socket(HOST, PORT);
-			objOutput = new ObjectOutputStream(echoSocket.getOutputStream());			
-			objInput = new ObjectInputStream(echoSocket.getInputStream());
+			objOutput = new ObjectOutputStream(echoSocket.getOutputStream());
+			
+			in = echoSocket.getInputStream();
+			objInput = new ObjectInputStream(in);
 			
 			sendObject(echoSocket.getLocalSocketAddress());
 		} catch (UnknownHostException e) {
@@ -55,9 +58,13 @@ public class Client implements Communicator{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("connection probably lost: client");
-			e.printStackTrace();
-			System.exit(0);
+			try {
+				in.reset();
+			} catch (IOException e1) {
+				System.out.println("connection probably lost: client");
+				e1.printStackTrace();
+				System.exit(1);
+			}
 		}
 		return ret;
 	}
