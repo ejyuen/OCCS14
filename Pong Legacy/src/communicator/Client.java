@@ -47,7 +47,7 @@ public class Client implements Communicator {
 		}
 	}
 	
-	public Point2D getNextBallLocation(){
+	public double[] getNextBallLocation(){
 		Object ret = null;
 		try {
 			ret = ballInput.readObject();
@@ -58,7 +58,7 @@ public class Client implements Communicator {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		return (ret instanceof Point2D? (Point2D)ret : null);
+		return (ret instanceof double[]? (double[])ret : null);
 	}
 	
 	public Object getNextObject() {

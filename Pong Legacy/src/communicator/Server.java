@@ -70,9 +70,10 @@ public class Server implements Communicator {
 	
 	public void sendBallLocation(Point2D p){
 		for(int i = 0; i<ballOutputs.size(); i++){
+			double[] location = {p.getX(), p.getY()};
 			if(ballOutputs.get(i) != null) {
 				try {
-					ballOutputs.get(i).writeUnshared(p);
+					ballOutputs.get(i).writeUnshared(location);
 				} catch (IOException e) {
 					System.out.println("connection probably lost: server");
 					removeFromClients(i);

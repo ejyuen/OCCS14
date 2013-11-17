@@ -153,10 +153,14 @@ public class Ball implements Serializable{
      * @param location new ball location
      */
     public void setLocation(Point2D location) {
-        this.location = location;
+        this.location.setLocation(location);
         if(server != null){
         	server.sendBallLocation(location);
         }
+    }
+    
+    public void setLocation(double x, double y){
+    	this.location.setLocation(x, y);
     }
     /**
      * Returns location that the Ball will move to next.
