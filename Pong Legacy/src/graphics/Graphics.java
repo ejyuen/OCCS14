@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.*;
@@ -108,9 +109,10 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     private void paintBall(java.awt.Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         Ball ball = pong.getBall();
+        Point2D location = ball.getLocation();
         g2.setColor(Color.BLACK);
-        g2.fillOval((int) ((ball.getLocation().getX() - ball.getRadius())),
-                    (int) ((ball.getLocation().getY() - ball.getRadius())),
+        g2.fillOval((int) ((location.getX() - ball.getRadius())),
+                    (int) ((location.getY() - ball.getRadius())),
                     (int) (ball.getRadius() * 2),
                     (int) (ball.getRadius() * 2));
     }
