@@ -7,6 +7,8 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Line2D;
 import java.io.Serializable;
 
+import pong.Pong;
+
 /**
  * The Polygon class represents the absolute positioning of the polygon,
  * in addition to the code for collision detection. SOMETHING ABOUT 
@@ -179,9 +181,15 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     }
 
     private double bounce(Line2D wall, double direction) {
+    	int side = Pong.getClosestPlayer();
+    	double newSpin = 0;
+    	
+    	if (getSide(Pong.getClosestSide()) instanceof Player)
+    		newSpin = getSide((int) (side / 2)).getPaddle().getMoving() * Math.PI/8;
+    	
         double rise = wall.getY2() - wall.getY1();
         double run = wall.getX2() - wall.getX1();
-        double wallAngle = Math.atan(rise / run) + (Math.random() * ((Math.PI)/6)) - ((Math.PI)/12);
+        double wallAngle = Math.atan(rise / run) + (newSpin);
         // Trigonometry tells us that:
         // newDirection = wallAngle - (180 - WallAngle - (180 - direction))
         //              = 2 * wallAngle - direction
@@ -204,22 +212,6 @@ public class Polygon extends java.awt.Polygon implements Serializable{
             delimiter = ", ";
         }
         return result.append("]").toString();
-    }
-    
-    public int getClosestPlayer(Ball ball) //return side # of closest player
-    {
-    	
-    	double minDist = getSide(0).ptLineDist(ball.getLocation());
-    	int loseSide = 0;
-		for (int i = 0; i < sides.length; i ++) {
-			if(getSide(0) instanceof Player){
-				if (getSide(i).ptLineDist(ball.getLocation()) < minDist) {
-					minDist = getSide(i).ptLineDist(ball.getLocation());
-					loseSide = i;
-				}
-			}
-		}
-		return loseSide/2;
     }
 
     /**

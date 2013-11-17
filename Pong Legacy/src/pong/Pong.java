@@ -35,8 +35,8 @@ import utilities.RunServer;
  */
 public class Pong {
 
-	private Ball ball; // game ball
-	private Polygon polygon; // n-sided polygon
+	private static Ball ball; // game ball
+	private static Polygon polygon; // n-sided polygon
 	private Graphics graphics; // awt graphics
 	private Communicator comm = null;
 	private Score score = null;
@@ -125,7 +125,38 @@ public class Pong {
 		graphics = new Graphics(this, side);
 		new Thread(new RunClient((Client) comm, this)).start();
 	}
-
+	
+	
+	public static int getClosestPlayer() //return side # of closest player
+    {
+		double minDist = polygon.getSide(0).ptLineDist(ball.getLocation());
+		int loseSide = 0;
+    	
+		for (int i = 0; i < polygon.getSides().length; i ++) {
+			if(polygon.getSide(0) instanceof Player){
+				if (polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist) {
+					minDist = polygon.getSide(i).ptLineDist(ball.getLocation());
+					loseSide = i;
+				}
+			}
+		}
+		return loseSide;
+    }
+	
+	public static int getClosestSide() {
+		
+		double minDist = polygon.getSide(0).ptLineDist(ball.getLocation());
+		int side = 0;
+		
+		for (int i = 0; i < polygon.getSides().length; i++)
+			if(polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist) {
+				minDist = polygon.getSide(i).ptLineDist(ball.getLocation());
+				side = i;
+			}
+		
+		return side;
+	}
+	
 	public Polygon getPolygon() {
 		return polygon;
 	}
@@ -179,7 +210,7 @@ public class Pong {
 			ball.stop();
 
 			
-			score.addStrike(polygon.getClosestPlayer(ball));
+			score.addStrike(getClosestPlayer()/2);
 			score.printScore();
 			
 			if(comm instanceof Server){

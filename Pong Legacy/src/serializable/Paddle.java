@@ -51,16 +51,13 @@ public class Paddle implements Serializable{
 	 * Constructs a paddle and initializes its width and center with
          * default values.
 	 */
-	private boolean moving;
 	
-	public enum Direction {
-		LEFT, STILL, RIGHT
-	}
+	public int moving;
 	
 	public Paddle() {
 		this.width = DEFAULT_WIDTH;
 		this.center = DEFAULT_CENTER;
-		this.moving = false;
+		this.moving = 0;
 	}
 
 	/**
@@ -69,7 +66,7 @@ public class Paddle implements Serializable{
 	public Paddle(double widthPercent) {
 		this.width = widthPercent;
 		this.center = DEFAULT_CENTER;
-		this.moving = false;
+		this.moving = 0;
 	}
 	
 	/**
@@ -96,12 +93,12 @@ public class Paddle implements Serializable{
 		center = c;
 	}
 	
-	public boolean getMoving(){
+	public int getMoving(){
 		return moving;
 	}
 	
-	public void changeMoving(){
-		moving = !moving;
+	public void changeMoving(int n){
+		moving = n;
 	}
 	
 	/**
@@ -133,12 +130,12 @@ public class Paddle implements Serializable{
 	 * @return true if the paddle moved; false if it could not.
 	 */
 	public boolean moveRight() {
-		changeMoving();
+		changeMoving(1);
 		if(center + ONE_MOVE <= 100 - (width / 2))
 		{
 			center += ONE_MOVE; return true;	
 		}
-		changeMoving();
+		changeMoving(0);
 		return false;
 	}
 	
@@ -148,12 +145,12 @@ public class Paddle implements Serializable{
 	 * @return true if the paddle moved; false if it could not.
 	 */
 	public boolean moveLeft() {
-		changeMoving();
+		changeMoving(-1);
 		if(center - ONE_MOVE >= (width / 2))
 		{
 			center -= ONE_MOVE; return true;
 		}
-		changeMoving();
+		changeMoving(0);
 		return false;
 	}
 

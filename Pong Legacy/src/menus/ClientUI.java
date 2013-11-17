@@ -66,7 +66,8 @@ public class ClientUI extends JFrame {
 				if (rdbtnManualConnection.isSelected()) {
 					ipAddress = textField.getText();
 				} else if (rdbtnSelectAServer.isSelected()) {
-					ipAddress = (String)(listModel.getElementAt(list.getLeadSelectionIndex()));
+					ipAddress = (String) (listModel.getElementAt(list
+							.getLeadSelectionIndex()));
 				}
 				new Pong(new Client(ipAddress));
 				setVisible(false);
@@ -79,12 +80,12 @@ public class ClientUI extends JFrame {
 		btnScanForGames.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				listModel.clear();
-				scanForGames(50);
+				scanForGames(100);
 			}
 		});
 		btnScanForGames.setBounds(47, 290, 200, 25);
 		contentPane.add(btnScanForGames);
-		
+
 		listModel = new DefaultListModel();
 		list = new JList(listModel);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -111,14 +112,15 @@ public class ClientUI extends JFrame {
 		}
 	}
 
-	// Scans ip addresses *.*.*. to *.*.*.255, checking for responses within
+	// Scans ip addresses *.*.*.0 to *.*.*.255, checking for responses within
 	// [timeout] milliseconds
 	private void scanForGames(int timeout) {
 		for (int i = 0; i < 255; i++) {
 			try {
 				String ipAddress = InetAddress.getLocalHost().getHostAddress();
-				String beginningIp = ipAddress.substring(0, ipAddress.lastIndexOf(".")+1);
-				System.out.println(beginningIp + i);
+				String beginningIp = ipAddress.substring(0,
+						ipAddress.lastIndexOf(".") + 1);
+				// System.out.println(beginningIp + i);
 				if (portIsOpen(beginningIp + i, broadcastPort, timeout)) {
 					listModel.addElement("" + beginningIp + i);
 				}

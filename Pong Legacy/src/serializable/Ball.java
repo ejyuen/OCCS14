@@ -120,7 +120,7 @@ public class Ball implements Serializable{
         }
     	setLocation(location);
         setRadius(radius);
-        setSpin((Math.random() * ((Math.PI)/3)) - ((Math.PI)/6));
+        setSpin(0);
         changeDirection(direction);
         changeSpeed(speed);
         lastHit = null;
