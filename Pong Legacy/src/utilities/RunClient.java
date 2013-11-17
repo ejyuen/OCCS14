@@ -25,13 +25,12 @@ public class RunClient implements Runnable{
 		Object o = null;
     	while(true){
 			o = client.getNextObject();
-			if(o == null){
-				continue;
-			} else if(o instanceof double[]){ //double[] is paddles in the form [side, location]
+			if(o instanceof double[]){ //double[] is paddles in the form [side, location]
 				double[] center = (double[]) o;
-				int c_side = (int) (center[0] + .5);
-				if(c_side != pong.getSide()){
-					pong.getPolygon().getSide(c_side).getPaddle().setCenter(center[1]);
+				int side = (int)(center[0] + .5);
+				if(side != pong.getSide()){
+					pong.getPolygon().getSide(side)
+							.getPaddle().setCenter(center[1]);
 				}
 			} else if(o instanceof Score){
 				pong.setScore((Score)o);
@@ -58,15 +57,17 @@ public class RunClient implements Runnable{
 			Point2D p = null;
 			while(true){
 				p = client.getNextBallLocation();
-				if(p!=null){
+				if(p != null){
 					pong.getBall().setLocation(p);
 				}
 				try {
-					Thread.sleep(20);
+					Thread.sleep(15);
 				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+			
 		}
 		
 	}

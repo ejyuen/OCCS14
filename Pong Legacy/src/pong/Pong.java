@@ -76,7 +76,6 @@ public class Pong {
 		comm.sendObject(polygon);
 		comm.sendObject(score);
 
-		new Thread(new BallPause(ball, 1000)).start();
 		side = 0;
 		graphics = new Graphics(this, side);
 

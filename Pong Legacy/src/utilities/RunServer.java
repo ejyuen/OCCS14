@@ -19,10 +19,9 @@ public class RunServer implements Runnable {
 		while (server.getObjInputs().get(client) != null) {
 			Object o = server.getNextObject(client);
 
-			if (o instanceof double[]) { // paddlelocation in the format [side,
-											// location]
+			if (o instanceof double[]) { // paddlelocation in the format [side, location]
 				double[] paddleLocation = (double[]) o;
-				pong.getPolygon().getSide((int) Math.round(paddleLocation[0]))
+				pong.getPolygon().getSide((int) (paddleLocation[0] + .5))
 						.getPaddle().setCenter(paddleLocation[1]);
 				server.sendObject(paddleLocation);
 			}
