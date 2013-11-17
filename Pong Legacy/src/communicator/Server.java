@@ -35,7 +35,7 @@ public class Server implements Communicator{
 		}
 	}
 	
-	public synchronized void reset(){
+	public void reset(){
 		for(ObjectOutputStream out: objOutputs){
 			try {
 				if(out != null){
@@ -63,7 +63,7 @@ public class Server implements Communicator{
 		}
 	}
 	
-	public synchronized void sendObject(Object o, int client){
+	public void sendObject(Object o, int client){
 		if(objOutputs.get(client) != null){
 			try {
 				objOutputs.get(client).writeUnshared(o);
