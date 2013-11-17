@@ -31,10 +31,6 @@ public class RunServer implements Runnable{
 				pong.getPolygon().getSide((int)Math.round(paddleLocation[0])).
 						getPaddle().setCenter(paddleLocation[1]);
 				server.sendObject(paddleLocation);
-			} else if(o instanceof String){
-				if("Reset Please".equals((String) o)){
-					server.reset();
-				}
 			}
     	}
 	}
