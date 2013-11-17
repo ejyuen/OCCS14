@@ -32,6 +32,7 @@ public class Client implements Communicator{
 	
 	public void sendObject(Object o){
 		try {
+			objOutput.reset();
 			objOutput.writeUnshared(o);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -47,6 +48,8 @@ public class Client implements Communicator{
 			e.printStackTrace();
 		} catch (IOException e) {
 			sendObject("Reset Please");
+			System.out.println("trying to reset");
+			e.printStackTrace();
 		}
 		return ret;
 	}
