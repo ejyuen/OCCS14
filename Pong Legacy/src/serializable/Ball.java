@@ -30,7 +30,7 @@ public class Ball implements Serializable{
 	/*
      * The location of the ball.
      */
-    private Point2D location;
+    private Point2D location = new Point2D.Double(0, 0);
 
     /**
      * The radius of the ball.
@@ -159,6 +159,12 @@ public class Ball implements Serializable{
         }
     }
     
+    /**
+     * Used by client mainly
+     * 
+     * @param x x coordinate of new location
+     * @param y y coordinate of new location
+     */
     public void setLocation(double x, double y){
     	this.location.setLocation(x, y);
     }
