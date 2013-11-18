@@ -82,6 +82,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         Polygon poly = pong.getPolygon();
         //java.awt.Polygon test = pong.getPolygon().container; // To test the container. It looks right.
         g2.transform(transformPolygon(poly));
+        g2.rotate(rotatePolygon(poly, pong.getPolygon().getSides().length));
         g2.drawPolygon(poly);
         //g2.drawPolygon(test);
         
@@ -92,8 +93,8 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
     	g2.setFont(new Font("Serif", Font.BOLD, 36));
     	FontMetrics fm = g2.getFontMetrics();
     	Rectangle2D r = fm.getStringBounds(pong.getScore().stringScore(), g2);
-    	int scoreRectX = (int) (-.5*r.getWidth())-40;
-    	int scoreRectY = (int) (-.5*r.getHeight())-50;
+    	int scoreRectX = (int) (-.5*r.getWidth()) - 40;
+    	int scoreRectY = (int) (-.5*r.getHeight()) - 50;
     	g2.drawRect(scoreRectX, scoreRectY+200, -2*scoreRectX, -2*scoreRectY);
     	int x = 0 - (int) (r.getWidth()/2);
     	int y = 200 - (int) (r.getHeight()/2) + (int)fm.getAscent();
@@ -145,6 +146,18 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         transform.rotate(Math.toRadians(degrees));
         return transform;
     }
+    
+    /**
+     * 
+     * @param poly
+     * @param sideNum
+     * @param totalSides
+     * @return angle of rotation
+     */
+    private double rotatePolygon(Polygon poly, int numSides) {
+    	double rotationFactor = 2 * Math.PI / numSides * side;
+    	return rotationFactor;
+    }
 
     /**
      * Paints Graphics object to screen
@@ -156,9 +169,10 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         Image bufferImage = createImage(this.getSize().width, this.getSize().height);
         Graphics2D bufferGraphics = (Graphics2D) bufferImage.getGraphics();
         bufferGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        paintPolygon(bufferGraphics);
+        paintPolygon(bufferGraphics);        
         paintBall(bufferGraphics); 
         paintScoreField(bufferGraphics);
+
         for(int i = 0; i < pong.getPolygon().npoints; i++)
             paintSide(pong.getPolygon().getSide(i), bufferGraphics);
         g.drawImage(bufferImage, 0, 0, this);
