@@ -49,10 +49,13 @@ public class Server implements Communicator {
 	}
 	
 	public void reset() {
-		for(ObjectOutputStream out: objOutputs) {
+		for(int i = 0; i<objOutputs.size(); i++) {
 			try {
-				if(out != null){
-					out.reset();
+				if(objOutputs.get(i) != null){
+					objOutputs.get(i).reset();
+				}
+				if(ballOutputs.get(i) != null){
+					ballOutputs.get(i).reset();
 				}
 			} catch (IOException e) {
 				System.out.println("reset did not work");
