@@ -8,35 +8,41 @@ public class Score implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -9117177017232278926L;
-	private int[] strikes;
+	private int[] lives;
 	
 	public Score(int numPlayers){
-		strikes = new int[numPlayers];
-		Arrays.fill(strikes, 0);
+		lives = new int[numPlayers];
+		Arrays.fill(lives, 50);
 	}
 	
 	public int getNumPlayers(){
-		return strikes.length;
+		return lives.length;
 	}
 	
-	public void addStrike(int player){
-		strikes[player] += 1;
+	public void loseLife(int player){
+		lives[player] -= 1;
 	}
 	
+	public int getLives(int player){
+		return lives[player];
+	}
 	public void printScore(){
 		System.out.println("Scores");
 		for(int i = 0; i < getNumPlayers(); i++){
-			System.out.println("player " + i + " : " + strikes[i]);
+			System.out.println("player " + i + " : " + lives[i]);
 		}
 		System.out.println();
-	
 	}
 	
+	public boolean isAlive(int player)
+	{
+		return (lives[player] > 0);
+	}
 	public String stringScore() {
 		String score = "";
 		for(int i = 1; i <= getNumPlayers(); i++){
-			if(i < getNumPlayers()) score += "Player " + i + " : " + strikes[i-1] + " | ";
-			else score += "Player " + i + " : " + strikes[i-1];
+			if(i < getNumPlayers()) score += "Player " + i + " : " + lives[i-1] + " | ";
+			else score += "Lives " + i + " : " + lives[i-1];
 		}
 		return score;
 	}

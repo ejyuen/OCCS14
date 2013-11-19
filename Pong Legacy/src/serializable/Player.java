@@ -95,4 +95,9 @@ public class Player extends Side implements KeyListener {
     public String getName() {
         return name;
     }
+    
+    public void killPlayer()
+    {
+        setSideStatus(Status.VACANT);
+    }
 }
