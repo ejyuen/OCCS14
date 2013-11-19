@@ -38,7 +38,7 @@ public class Server implements Communicator {
 			ballSockets = new ArrayList<Socket>();
 			ballOutputs = new ArrayList<ObjectOutputStream>();
 			
-			accepting();
+			new Thread(new Accepter()).start();
 			
 			broadcastSocket = new ServerSocket(Constants.BROADCAST_PORT);
 			new Thread(new Broadcast()).start();			
@@ -48,7 +48,7 @@ public class Server implements Communicator {
 		}
 	}
 	
-	public void reset() {
+	public synchronized void reset() {
 		for(int i = 0; i<objOutputs.size(); i++) {
 			try {
 				if(objOutputs.get(i) != null){
@@ -68,12 +68,7 @@ public class Server implements Communicator {
 		return clientSockets.size();
 	}
 	
-	
-	public void accepting() {
-		new Thread(new Accepter()).start();
-	}
-	
-	public void sendBallLocation(Point2D p){
+	public synchronized void sendBallLocation(Point2D p){
 		for(int i = 0; i<ballOutputs.size(); i++){
 			if(ballOutputs.get(i) != null) {
 				try {
@@ -87,7 +82,7 @@ public class Server implements Communicator {
 		}
 	}
 	
-	public void sendObject(Object o) {
+	public synchronized void sendObject(Object o) {
 		for(int i = 0; i<objOutputs.size(); i++) {
 			sendObject(o, i);
 		}
