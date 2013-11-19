@@ -82,8 +82,11 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         Polygon poly = pong.getPolygon();
         //java.awt.Polygon test = pong.getPolygon().container; // To test the container. It looks right.
         g2.transform(transformPolygon(poly));
+        AffineTransform old = g2.getTransform();
         g2.rotate(rotatePolygon(poly, pong.getPolygon().getSides().length));
+        
         g2.drawPolygon(poly);
+        g2.setTransform(old);
         //g2.drawPolygon(test);
         
     }
