@@ -19,6 +19,8 @@ public class Client implements Communicator {
 	Socket ballSocket = null;
 	ObjectInputStream ballInput = null;
 	
+	int writeCount = 0;
+	
 	public Client(String ipIdentifier) {
 		HOST = ipIdentifier;
 		
@@ -41,6 +43,11 @@ public class Client implements Communicator {
 	public synchronized void sendObject(Object o) {
 		try {
 			objOutput.writeUnshared(o);
+			if(writeCount == 1000){
+				objOutput.reset();
+				writeCount = 0;
+			}
+			writeCount++;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

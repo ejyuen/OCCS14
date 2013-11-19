@@ -24,6 +24,8 @@ public class Server implements Communicator {
 	ArrayList<Socket> ballSockets = null;
 	ArrayList<ObjectOutputStream> ballOutputs = null;
 	
+	int writeCount = 0;
+	
 	public Server() {
 		try {
 			serverSocket = new ServerSocket(Constants.PORT);
@@ -86,6 +88,11 @@ public class Server implements Communicator {
 		for(int i = 0; i<objOutputs.size(); i++) {
 			sendObject(o, i);
 		}
+		if(writeCount == 1000){
+			reset();
+			writeCount = 0;
+		}
+		writeCount++;
 	}
 	
 	public synchronized void sendObject(Object o, int client) {
