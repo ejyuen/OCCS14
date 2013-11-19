@@ -115,9 +115,13 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     public static int[] calculateX(int radius, int numSides) {
         int[] xPoints = new int[numSides];
         double theta = (2 * Math.PI) / numSides;
-        double angle = theta / 2;
         for (int i = 0; i < numSides; i++) {
-            xPoints[i] = (int) (Math.cos((i + 1) * theta) * radius);
+        	if(numSides == 4)
+        		xPoints[i] = (int) (Math.cos(Math.PI/4 + (i * theta)) * radius);
+        	else if(numSides == 6)
+        		xPoints[i] = (int) (Math.cos(Math.PI/3 + (i * theta)) * radius);
+        	else
+        		xPoints[i] = (int) (Math.cos(Math.PI/3 + Math.pow(0.5, numSides/2 - 3) * Math.PI/12 + (i * theta)) * radius);
         }
         return xPoints;
     }
@@ -131,9 +135,13 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     public static int[] calculateY(int radius, int numSides) {
         int[] yPoints = new int[numSides];
         double theta = (2 * Math.PI) / numSides;
-        double angle = theta / 2;
         for (int i = 0; i < numSides; i++) {
-            yPoints[i] = (int) (Math.sin((i + 1) * theta) * radius);
+        	if(numSides == 4)
+        		yPoints[i] = (int) (Math.sin(Math.PI/4 + (i * theta)) * radius);
+        	else if(numSides == 6)
+        		yPoints[i] = (int) (Math.sin(Math.PI/3 + (i * theta)) * radius);
+        	else
+        		yPoints[i] = (int) (Math.sin(Math.PI/3 + Math.pow(0.5, numSides/2 - 3) * Math.PI/12 + (i * theta)) * radius);
         }
         return yPoints;
     }
