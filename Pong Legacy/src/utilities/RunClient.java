@@ -34,6 +34,7 @@ public class RunClient implements Runnable{
 					pong.getGraphics().repaint();
 				}
 			} else if(o instanceof Score){
+				System.out.println(o);
 				pong.setScore((Score)o);
 				pong.getScore().printScore();
 			} else if(o instanceof Polygon){

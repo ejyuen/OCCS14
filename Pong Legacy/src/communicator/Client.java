@@ -50,7 +50,7 @@ public class Client implements Communicator {
 	public Point2D getNextBallLocation(){
 		Object ret = null;
 		try {
-			ret = ballInput.readObject();
+			ret = ballInput.readUnshared();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -64,7 +64,7 @@ public class Client implements Communicator {
 	public Object getNextObject() {
 		Object ret = null;
 		try {
-			ret = objInput.readObject();
+			ret = objInput.readUnshared();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

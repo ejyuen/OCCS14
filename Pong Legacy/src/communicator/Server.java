@@ -103,7 +103,7 @@ public class Server implements Communicator {
 	public Object getNextObject(int client) {
 		Object ret = null;
 		try {
-			ret = objInputs.get(client).readObject();
+			ret = objInputs.get(client).readUnshared();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

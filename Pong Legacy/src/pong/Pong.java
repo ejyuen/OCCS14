@@ -197,6 +197,7 @@ public class Pong {
 				score.printScore();
 
 				if (comm instanceof Server) {
+					((Server) comm).reset();
 					comm.sendObject(score);
 					comm.sendObject(polygon);
 				}
