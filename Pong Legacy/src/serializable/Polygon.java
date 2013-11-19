@@ -117,7 +117,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
         double theta = (2 * Math.PI) / numSides;
         double angle = theta / 2;
         for (int i = 0; i < numSides; i++) {
-            xPoints[i] = (int) (Math.cos(angle + (i * theta)) * radius);
+            xPoints[i] = (int) (Math.cos((i + 1) * theta) * radius);
         }
         return xPoints;
     }
@@ -133,7 +133,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
         double theta = (2 * Math.PI) / numSides;
         double angle = theta / 2;
         for (int i = 0; i < numSides; i++) {
-            yPoints[i] = (int) (Math.sin(angle + (i * theta)) * radius);
+            yPoints[i] = (int) (Math.sin((i + 1) * theta) * radius);
         }
         return yPoints;
     }
