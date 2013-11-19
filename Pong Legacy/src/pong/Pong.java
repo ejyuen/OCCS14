@@ -133,7 +133,7 @@ public class Pong {
 		return graphics;
 	}
 
-	public Polygon getPolygon() {
+	public static Polygon getPolygon() {
 		return polygon;
 	}
 

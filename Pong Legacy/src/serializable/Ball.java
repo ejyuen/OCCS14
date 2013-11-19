@@ -10,6 +10,8 @@ package serializable;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
 
+import pong.Pong;
+
 import communicator.Communicator;
 import communicator.Server;
 
@@ -95,7 +97,7 @@ public class Ball implements Serializable{
      * @param radius radius of the ball
      */
     public Ball(int speed, int radius) {
-        this(DEFAULT_LOCATION, radius, Math.random() * (2 * Math.PI), speed, null);
+        this(DEFAULT_LOCATION, radius, (Math.PI/(int)(Pong.getPolygon().getNumSides() / 2)) * (Math.random() * (int)(Pong.getPolygon().getNumSides() / 2)) + Math.random() * (Math.PI/(int)(Pong.getPolygon().getNumSides())), speed, null);
     }
     
     public Ball(Ball b){

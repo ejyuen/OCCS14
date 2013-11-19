@@ -67,6 +67,10 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     public Side[] getSides(){
     	return sides;
     }
+    
+    public int getNumSides(){
+    	return sides.length;
+    }
 
     /**
      * Set side at position.
