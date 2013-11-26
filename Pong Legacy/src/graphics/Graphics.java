@@ -86,7 +86,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         g2.rotate(rotatePolygon(poly, pong.getPolygon().getSides().length));
         
         g2.drawPolygon(poly);
-        g2.setTransform(old);
+//        g2.setTransform(old);
         //g2.drawPolygon(test);
         
     }
@@ -158,7 +158,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
      * @return angle of rotation
      */
     private double rotatePolygon(Polygon poly, int numSides) {
-    	double rotationFactor = 2 * Math.PI / numSides * side;
+    	double rotationFactor = -2 * Math.PI / numSides * side;
     	return rotationFactor;
     }
 

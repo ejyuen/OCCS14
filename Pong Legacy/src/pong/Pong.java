@@ -193,7 +193,7 @@ public class Pong {
 			if (!polygon.contains(ball.getLocation())) {
 				ball.stop();
 
-				score.addStrike(getClosestPlayer() / 2);
+//				score.addStrike(getClosestPlayer() / 2);
 				score.printScore();
 
 				if (comm instanceof Server) {
