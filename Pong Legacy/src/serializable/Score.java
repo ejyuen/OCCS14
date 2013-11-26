@@ -19,12 +19,18 @@ public class Score implements Serializable{
 		return lives.length;
 	}
 	
+	
 	public void loseLife(int player){
 		lives[player] -= 1;
 	}
 	
 	public int getLives(int player){
 		return lives[player];
+	}
+	
+	public int[] getLives()
+	{
+		return lives;
 	}
 	public void printScore(){
 		System.out.println("Scores");
@@ -34,6 +40,10 @@ public class Score implements Serializable{
 		System.out.println();
 	}
 	
+	public void changeScore(int player, int newScore){
+		lives[player] = newScore;
+	}
+	
 	public boolean isAlive(int player)
 	{
 		return (lives[player] > 0);
@@ -41,7 +51,7 @@ public class Score implements Serializable{
 	public String stringScore() {
 		String score = "";
 		for(int i = 1; i <= getNumPlayers(); i++){
-			if(i < getNumPlayers()) score += "Player " + i + " : " + lives[i-1] + " | ";
+			if(i < getNumPlayers()) score += "Player " + (i + 1) + " : " + lives[i-1] + " | ";
 			else score += "Lives " + i + " : " + lives[i-1];
 		}
 		return score;

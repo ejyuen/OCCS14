@@ -91,6 +91,10 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
         
     }
     
+    private void paintLeaderName(java.awt.Graphics g, int player){
+    	 g.drawString("The Winner is Player " + player + "!!!", getWidth() / 2, getHeight() /2);
+    }
+    
     private void paintScoreField(java.awt.Graphics g) {
     	Graphics2D g2 = (Graphics2D) g;
     	g2.setFont(new Font("Serif", Font.BOLD, 36));

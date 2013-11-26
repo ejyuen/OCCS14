@@ -63,12 +63,16 @@ public class Pong {
 				e.printStackTrace();
 			}
 		}
-
+		
+		if(comm instanceof Server){
+			((Server) comm).setPong(this);
+		}
 		int sides = (((Server) comm).getNumClients() + 1) * 2;
 
 		score = new Score(sides / 2); // setting score
 
 		polygon = new Polygon(sides); // creating the polygon
+		
 		for (int i = 0; i < polygon.getSides().length; i += 2) {
 			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
 		}
@@ -168,6 +172,17 @@ public class Pong {
 	public void setScore(Score score) {
 		this.score = score;
 	}
+	
+	public void killPlayer(int playerNumber){
+		if(polygon.getSide(playerNumber) instanceof Player){
+			((Player) polygon.getSide(playerNumber)).killPlayer();
+		}
+		score.changeScore(playerNumber, 0);
+	}
+	
+	public void endGame(){
+		System.exit(0);
+	}
 
 	class BallAction extends AbstractAction {
 		private static final long serialVersionUID = 1L;
@@ -177,6 +192,8 @@ public class Pong {
 				move();
 			}
 		}
+		
+
 		
 		/**
 		 * Updates ball direction and moves ball. Updates score if there is a goal.
@@ -195,11 +212,33 @@ public class Pong {
 
 				score.loseLife(getClosestPlayer() / 2);
 				score.printScore();
+				
+				killPlayer(getClosestPlayer()/2);				
+				
 
 				if (comm instanceof Server) {
 					((Server) comm).reset();
 					comm.sendObject(score);
 					comm.sendObject(polygon);
+				}
+				
+				int winner = 0;
+				boolean isWinner = false;
+				int[] lives = score.getLives();
+				
+				for(int i = 0; i<lives.length; i++){
+					if(lives[i] != 0){
+						isWinner = !isWinner;
+						if(!isWinner){
+							break;
+						}
+						winner = i;
+					}
+				}
+				
+				if(isWinner){
+					System.out.println("The Winner is Player " + winner + "!!!");
+					endGame();
 				}
 
 				ball = new Ball(comm);

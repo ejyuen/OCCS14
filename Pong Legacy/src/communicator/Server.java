@@ -8,6 +8,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import pong.Pong;
+
+import serializable.Player;
 import utilities.Constants;
 
 
@@ -25,6 +28,7 @@ public class Server implements Communicator {
 	ArrayList<ObjectOutputStream> ballOutputs = null;
 	
 	int writeCount = 0;
+	Pong pong = null;
 	
 	public Server() {
 		try {
@@ -46,6 +50,10 @@ public class Server implements Communicator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void setPong(Pong pong){
+		this.pong = pong;
 	}
 	
 	public synchronized void reset() {
@@ -129,6 +137,7 @@ public class Server implements Communicator {
 		clientSockets.set(client, null);
 		ballSockets.set(client, null);
 		ballOutputs.set(client, null);
+		if(pong!=null) pong.killPlayer(client);
 	}
 	
 	public void close() {
