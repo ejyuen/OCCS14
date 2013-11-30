@@ -2,24 +2,30 @@ package main;
 //Reference the required Java libraries
 import java.applet.Applet; 
 import java.awt.*; 
+import javax.swing.*;
+
+
+import menus.MainMenu;
 
 //The applet code
 public class PongLegacyApplet extends Applet {
-
-	public void init(){
-		String[] arguments = new String[] {""};
-		PongLegacy.main(arguments);
+	Button clickOnMe;
+	public void init (){
+		clickOnMe = new Button("Start Pong Legacy!");	
+		add(clickOnMe);
 		
 	}
 	public void paint(Graphics g) {
-
-     //Draw a rectangle width=250, height=100
-     g.drawRect(0,0,250,100); 
-
-     //Set the color to blue
-     g.setColor(Color.blue); 
-
-     //Write the message to the web page
-     g.drawString("Look at me, I'm a homosexual!",10,50); 
+		g.drawRect(40,0,150,150); 
+		g.setColor(Color.blue);
+		g.drawString(" Multiplayer Pong Game.",50,50);
+		g.drawString("have fun with your friends!", 45,60);
   }
+  
+	public boolean action (Event e, Object args){ 
+		JFrame frame = new MainMenu();
+		frame.show();
+		return true;
+	   }
+	
 } 
