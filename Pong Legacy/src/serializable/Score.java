@@ -12,7 +12,7 @@ public class Score implements Serializable{
 	
 	public Score(int numPlayers){
 		lives = new int[numPlayers];
-		Arrays.fill(lives, 5);
+		Arrays.fill(lives, 50);
 	}
 	
 	public int getNumPlayers(){
