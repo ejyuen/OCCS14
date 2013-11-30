@@ -35,7 +35,7 @@ public class Score implements Serializable{
 	public void printScore(){
 		System.out.println("Scores");
 		for(int i = 0; i < getNumPlayers(); i++){
-			System.out.println("player " + i + " : " + lives[i]);
+			System.out.println("player " + (i +1) + " : " + lives[i]);
 		}
 		System.out.println();
 	}
@@ -51,8 +51,8 @@ public class Score implements Serializable{
 	public String stringScore() {
 		String score = "";
 		for(int i = 1; i <= getNumPlayers(); i++){
-			if(i < getNumPlayers()) score += "Player " + (i + 1) + " : " + lives[i-1] + " | ";
-			else score += "Lives " + i + " : " + lives[i-1];
+			if(i < getNumPlayers()) score += "Player " + (i) + " : " + lives[i-1] + " | ";
+			else score += "Player " + i + " : " + lives[i-1];
 		}
 		return score;
 	}

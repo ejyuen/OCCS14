@@ -218,7 +218,8 @@ public class Pong {
 				score.loseLife(getClosestPlayer() / 2);
 				score.printScore();
 				
-				killPlayer(getClosestPlayer()/2);				
+				if (score.getLives(getClosestPlayer() / 2) <= 0)
+					killPlayer(getClosestPlayer()/2);				
 				
 
 				if (comm instanceof Server) {
