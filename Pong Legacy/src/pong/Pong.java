@@ -19,6 +19,8 @@ public class Pong {
 	
 	private boolean ready = false; // only useful if a server
 	private Timer ballAction = null;
+	private int winner;
+	private boolean playing;
 	
 	/**
 	 * Defult pong game square window size.
@@ -90,6 +92,7 @@ public class Pong {
 
 		ballAction = new Timer(36, new BallAction());
 		ballAction.start();
+		playing = true;
 
 		for (int i = 0; i < sides / 2 - 1; i++) { // begin reading from players
 			((Server) comm).sendObject(new Integer((i + 1) * 2), i);
@@ -176,6 +179,14 @@ public class Pong {
 		this.score = score;
 	}
 	
+	public int getWinner(){
+		return winner;
+	}
+	
+	public boolean isPlaying(){
+		return playing;
+	}
+	
 	public void killPlayer(int playerNumber){
 		if(polygon.getSide(playerNumber) instanceof Player){
 			((Player) polygon.getSide(playerNumber)).killPlayer();
@@ -184,9 +195,11 @@ public class Pong {
 	}
 	
 	public void endGame(){
+		playing = false;
 		if(ballAction != null){
 			ballAction.stop();
 		}
+		
 	}
 
 	class BallAction extends AbstractAction {

@@ -106,7 +106,11 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 		g2.drawRect(scoreRectX, scoreRectY+200, -2*scoreRectX, -2*scoreRectY);
 		int x = 0 - (int) (r.getWidth()/2);
 		int y = 200 - (int) (r.getHeight()/2) + (int)fm.getAscent();
-		g2.drawString(pong.getScore().stringScore(), x, y);
+		if(pong.isPlaying()){
+    		g2.drawString(pong.getScore().stringScore(), x, y);
+    	} else {
+    		g2.drawString("The Winner is Player " + (pong.getWinner() + 1) + "!!!", x, y);
+    	}
 		g2.setColor(Color.BLACK);
 	}
 
