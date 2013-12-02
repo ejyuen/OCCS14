@@ -234,13 +234,6 @@ public class Pong {
 				if (score.getLives(getClosestPlayer() / 2) <= 0)
 					killPlayer(getClosestPlayer()/2);				
 				
-
-				if (comm instanceof Server) {
-					((Server) comm).reset();
-					comm.sendObject(score);
-					comm.sendObject(polygon);
-				}
-				
 				int winner = 0;
 				boolean isWinner = false;
 				int[] lives = score.getLives();
@@ -259,7 +252,13 @@ public class Pong {
 					System.out.println("The Winner is Player " + winner + "!!!");
 					endGame();
 				}
-
+				
+				if (comm instanceof Server) {
+					((Server) comm).reset();
+					comm.sendObject(score);
+					comm.sendObject(polygon);
+				}
+				
 				ball = new Ball(comm);
 				new Thread(new BallPause(ball, 1000)).start();
 			}
