@@ -137,7 +137,9 @@ public class Server implements Communicator {
 		clientSockets.set(client, null);
 		ballSockets.set(client, null);
 		ballOutputs.set(client, null);
-		if(pong!=null) pong.killPlayer(client);
+		if(pong!=null){ 
+			pong.killPlayer(client);
+		}
 	}
 	
 	public void close() {
