@@ -119,7 +119,7 @@ public class Pong {
 		int side = 0;
 
 		for (int i = 0; i < polygon.getSides().length; i++) {
-			if (polygon.getSide(0) instanceof Player) {
+			if (polygon.getSide(i) instanceof Player) {
 				if (polygon.getSide(i).ptLineDist(ball.getLocation()) < minDist) {
 					minDist = polygon.getSide(i).ptLineDist(ball.getLocation());
 					side = i;
@@ -194,7 +194,7 @@ public class Pong {
 		if(polygon.getSide(playerNumber) instanceof Player){
 			((Player) polygon.getSide(playerNumber)).killPlayer();
 		}
-		score.changeScore(playerNumber, 0);
+		score.changeScore(playerNumber / 2, 0);
 	}
 	
 	public void endGame(){
@@ -237,7 +237,7 @@ public class Pong {
 				score.printScore();
 				
 				if (score.getLives(getClosestPlayer() / 2) <= 0)
-					killPlayer(getClosestPlayer()/2);		
+					killPlayer(getClosestPlayer());		
 				
 
 			
