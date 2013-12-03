@@ -240,7 +240,9 @@ public class Pong {
 					killPlayer(getClosestPlayer()/2);		
 				
 
-
+			
+				
+				
 				int[] lives = score.getLives();
 				
 				for(int i = 0; i<lives.length; i++){
@@ -259,15 +261,14 @@ public class Pong {
 					System.out.println("The Winner is Player " + (score.getWinner() + 1) + "!!!");
 					endGame();
 				}
-
 				
+
 				if (comm instanceof Server) {
 					((Server) comm).reset();
 					comm.sendObject(score);
 					comm.sendObject(polygon);
-				}
-				
-			
+
+				}				
 
 				ball = new Ball(comm);
 				new Thread(new BallPause(ball, 1000)).start();
