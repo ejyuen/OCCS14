@@ -93,8 +93,18 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 
 	}
 
-	private void paintLeaderName(java.awt.Graphics g, int player){
-		g.drawString("The Winner is Player " + player + "!!!", getWidth() / 2, getHeight() /2);
+	public void paintWinnerName(int player){
+		g2.setFont(new Font("Serif", Font.BOLD, 36));
+		
+		FontMetrics fm = g2.getFontMetrics();
+		Rectangle2D r = fm.getStringBounds("The Winner is Player " + (player + 1) + "!!!", g2);
+		//int rectX = (int) (-.5*r.getWidth()) - 40;
+		//int rectY = (int) (-.5*r.getHeight()) - 50;
+		//g2.drawRect(rectX, rectY + 400, -2*rectX, -2*rectY);
+		int x = 0 - (int) (r.getWidth()/2);
+		int y = (int) (r.getHeight()/2) + (int)fm.getAscent();
+		
+		g2.drawString("The Winner is Player " + (player + 1) + "!!!", x, y);
 	}
 
 	private void paintScoreField() {
@@ -106,11 +116,11 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 		g2.drawRect(scoreRectX, scoreRectY+200, -2*scoreRectX, -2*scoreRectY);
 		int x = 0 - (int) (r.getWidth()/2);
 		int y = 200 - (int) (r.getHeight()/2) + (int)fm.getAscent();
-		if(pong.isPlaying()){
+		//if(pong.isPlaying()){
     		g2.drawString(pong.getScore().stringScore(), x, y);
-    	} else {
-    		g2.drawString("The Winner is Player " + (pong.getWinner() + 1) + "!!!", x, y);
-    	}
+    	//} else {
+    	//	g2.drawString("The Winner is Player " + (pong.getWinner() + 1) + "!!!", x, y);
+    	//}
 		g2.setColor(Color.BLACK);
 	}
 
@@ -184,6 +194,8 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 			paintSide(Pong.getPolygon().getSide(i));
 		g2.setTransform(unrotate);
 		paintScoreField();
+		if (!pong.getScore().isPlaying())
+			paintWinnerName(pong.getScore().getWinner());
 
 		g.drawImage(bufferImage, 0, 0, this);
 	}

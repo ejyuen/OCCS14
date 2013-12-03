@@ -9,10 +9,11 @@ public class Score implements Serializable{
 	 */
 	private static final long serialVersionUID = -9117177017232278926L;
 	private int[] lives;
-	
+	private boolean playing;
+	private int winner;
 	public Score(int numPlayers){
 		lives = new int[numPlayers];
-		Arrays.fill(lives, 50);
+		Arrays.fill(lives, 3);
 	}
 	
 	public int getNumPlayers(){
@@ -26,6 +27,22 @@ public class Score implements Serializable{
 	
 	public int getLives(int player){
 		return lives[player];
+	}
+	
+	public boolean isPlaying(){
+		return playing;
+	}
+	
+	public void setPlaying(boolean b){
+		playing = b;
+	}
+	
+	public int getWinner(){
+		return winner;
+	}
+	
+	public void setWinner(int player){
+		winner = player;
 	}
 	
 	public int[] getLives()
