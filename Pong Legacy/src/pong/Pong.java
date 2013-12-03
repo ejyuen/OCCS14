@@ -19,8 +19,8 @@ public class Pong {
 	
 	private boolean ready = false; // only useful if a server
 	private Timer ballAction = null;
-	private int winner;
-	private boolean playing;
+	//private int winner;
+	//private boolean playing;
 	
 	/**
 	 * Defult pong game square window size.
@@ -47,6 +47,7 @@ public class Pong {
 		polygon = new Polygon(n);
 		ball = new Ball(comm);
 		score = new Score(n);
+		score.setPlaying(true);
 
 		if (comm instanceof Client) {
 			initClient();
@@ -74,6 +75,7 @@ public class Pong {
 		int sides = (((Server) comm).getNumClients() + 1) * 2;
 
 		score = new Score(sides / 2); // setting score
+		score.setPlaying(true);
 
 		polygon = new Polygon(sides); // creating the polygon
 		
@@ -92,7 +94,8 @@ public class Pong {
 
 		ballAction = new Timer(36, new BallAction());
 		ballAction.start();
-		playing = true;
+		
+		
 
 		for (int i = 0; i < sides / 2 - 1; i++) { // begin reading from players
 			((Server) comm).sendObject(new Integer((i + 1) * 2), i);
@@ -179,13 +182,13 @@ public class Pong {
 		this.score = score;
 	}
 	
-	public int getWinner(){
-		return winner;
-	}
-	
-	public boolean isPlaying(){
-		return playing;
-	}
+//	public int getWinner(){
+//		return winner;
+//	}
+//	
+//	public boolean isPlaying(){
+//		return playing;
+//	}
 	
 	public void killPlayer(int playerNumber){
 		if(polygon.getSide(playerNumber) instanceof Player){
@@ -195,7 +198,7 @@ public class Pong {
 	}
 	
 	public void endGame(){
-		playing = false;
+		score.setPlaying(false);
 		if(ballAction != null){
 			ballAction.stop();
 		}
@@ -223,6 +226,8 @@ public class Pong {
 
 			polygon.checkCollision(ball);
 			ball.move();
+			
+			
 
 			// Check for scoring.
 			if (!polygon.contains(ball.getLocation())) {
@@ -232,26 +237,29 @@ public class Pong {
 				score.printScore();
 				
 				if (score.getLives(getClosestPlayer() / 2) <= 0)
-					killPlayer(getClosestPlayer()/2);				
+					killPlayer(getClosestPlayer()/2);		
 				
-				int winner = 0;
-				boolean isWinner = false;
+
+
 				int[] lives = score.getLives();
 				
 				for(int i = 0; i<lives.length; i++){
-					if(lives[i] != 0){
-						isWinner = !isWinner;
-						if(!isWinner){
+					if(lives[i] > 0){
+						score.setPlaying(!score.isPlaying()); 
+						if(score.isPlaying()){
 							break;
 						}
-						winner = i;
+						score.setWinner(i);
+						
 					}
 				}
 				
-				if(isWinner){
-					System.out.println("The Winner is Player " + winner + "!!!");
+				if(!score.isPlaying()){
+					//graphics.paintLeaderName(winner);
+					System.out.println("The Winner is Player " + (score.getWinner() + 1) + "!!!");
 					endGame();
 				}
+
 				
 				if (comm instanceof Server) {
 					((Server) comm).reset();
@@ -259,6 +267,8 @@ public class Pong {
 					comm.sendObject(polygon);
 				}
 				
+			
+
 				ball = new Ball(comm);
 				new Thread(new BallPause(ball, 1000)).start();
 			}
