@@ -19,8 +19,7 @@ public class Pong {
 	
 	private boolean ready = false; // only useful if a server
 	private Timer ballAction = null;
-	//private int winner;
-	//private boolean playing;
+	private String name = null;
 	
 	/**
 	 * Defult pong game square window size.
@@ -33,20 +32,21 @@ public class Pong {
 	 * @param n
 	 *            number of polygon sides
 	 */
-	public Pong() {
-		this(8, null);
+	public Pong(String name) {
+		this(8, null, name);
 	}
 
-	public Pong(Communicator comm) {
-		this(8, comm);
+	public Pong(Communicator comm, String name) {
+		this(8, comm, name);
 	}
 
-	public Pong(int n, Communicator comm) {
+	public Pong(int n, Communicator comm, String name) {
+		this.name = name;
 		this.comm = comm;
 		// ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
 		polygon = new Polygon(n);
 		ball = new Ball(comm);
-		score = new Score(n);
+		score = new Score(polygon);
 		score.setPlaying(true);
 
 		if (comm instanceof Client) {
@@ -73,19 +73,20 @@ public class Pong {
 			((Server) comm).setPong(this);
 		}
 		int sides = (((Server) comm).getNumClients() + 1) * 2;
-
-		score = new Score(sides / 2); // setting score
-		score.setPlaying(true);
-
+		
 		polygon = new Polygon(sides); // creating the polygon
 		
 		for (int i = 0; i < polygon.getSides().length; i += 2) {
 			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
 		}
+		
+		polygon.setPlayer(0, name);
+		
+		score = new Score(polygon); // setting score
+		score.setPlaying(true);
 
 		comm.sendObject(polygon);
 		comm.sendObject(score);
-
 		side = 0;
 		graphics = new Graphics(this, side);
 
@@ -109,8 +110,9 @@ public class Pong {
 			side = (Integer) o;
 		}
 		assert side != -1; // make sure a side has been set
-
+		
 		graphics = new Graphics(this, side);
+		comm.sendObject(name);
 		new Thread(new RunClient((Client) comm, this)).start();
 	}
 
@@ -204,6 +206,12 @@ public class Pong {
 		}
 		
 	}
+	
+	public void resetConnections(){
+		((Server) comm).reset();
+		comm.sendObject(score);
+		comm.sendObject(polygon);
+	}
 
 	class BallAction extends AbstractAction {
 		private static final long serialVersionUID = 1L;
@@ -264,11 +272,8 @@ public class Pong {
 				
 
 				if (comm instanceof Server) {
-					((Server) comm).reset();
-					comm.sendObject(score);
-					comm.sendObject(polygon);
-
-				}				
+					resetConnections();
+				}
 
 				ball = new Ball(comm);
 				new Thread(new BallPause(ball, 1000)).start();

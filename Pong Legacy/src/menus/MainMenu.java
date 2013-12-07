@@ -42,7 +42,7 @@ public class MainMenu extends JFrame {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								ServerUI frame = new ServerUI();
+								ServerUI frame = new ServerUI(textField.getText());
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -67,7 +67,7 @@ public class MainMenu extends JFrame {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								ClientUI frame = new ClientUI();
+								ClientUI frame = new ClientUI(textField.getText());
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();

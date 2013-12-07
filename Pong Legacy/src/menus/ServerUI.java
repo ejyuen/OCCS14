@@ -13,7 +13,7 @@ public class ServerUI extends JFrame {
 //	private JTextField textField;
 	private Pong p = null;
 	
-	public ServerUI() {
+	public ServerUI(String name) {
 		setTitle("Pong Legacy");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +45,7 @@ public class ServerUI extends JFrame {
 //		contentPane.add(btnLaunchServer);
 //		int players = Integer.parseInt(textField.getText());
 		
-		p = new Pong(8, new Server());
+		p = new Pong(new Server(), name);
 		new Thread(new InitializePong()).start();
 		
 		JButton btnStartGame = new JButton("Start Game");

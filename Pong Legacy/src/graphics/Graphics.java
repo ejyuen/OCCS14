@@ -95,16 +95,17 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 
 	public void paintWinnerName(int player){
 		g2.setFont(new Font("Serif", Font.BOLD, 36));
+		String winner = pong.getPolygon().getSide(player*2).getName();
 		
 		FontMetrics fm = g2.getFontMetrics();
-		Rectangle2D r = fm.getStringBounds("The Winner is Player " + (player + 1) + "!!!", g2);
+		Rectangle2D r = fm.getStringBounds("The Winner is " + winner + "!!!", g2);
 		//int rectX = (int) (-.5*r.getWidth()) - 40;
 		//int rectY = (int) (-.5*r.getHeight()) - 50;
 		//g2.drawRect(rectX, rectY + 400, -2*rectX, -2*rectY);
 		int x = 0 - (int) (r.getWidth()/2);
 		int y = (int) (r.getHeight()/2) + (int)fm.getAscent();
 		
-		g2.drawString("The Winner is Player " + (player + 1) + "!!!", x, y);
+		g2.drawString("The Winner is Player " + winner + "!!!", x, y);
 	}
 
 	private void paintScoreField() {

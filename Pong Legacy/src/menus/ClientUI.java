@@ -23,7 +23,7 @@ public class ClientUI extends JFrame {
 	private JList list;
 	private DefaultListModel listModel;
 
-	public ClientUI() {
+	public ClientUI(final String name) {
 		setTitle("Pong Legacy");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,7 +68,7 @@ public class ClientUI extends JFrame {
 					ipAddress = (String) (listModel.getElementAt(list
 							.getLeadSelectionIndex()));
 				}
-				new Pong(new Client(ipAddress));
+				new Pong(new Client(ipAddress), name);
 				setVisible(false);
 			}
 		});

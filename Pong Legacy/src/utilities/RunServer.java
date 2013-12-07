@@ -25,6 +25,9 @@ public class RunServer implements Runnable {
 						.getPaddle().setCenter(paddleLocation[1]);
 				pong.getGraphics().repaint();
 				server.sendObject(paddleLocation);
+			} else if (o instanceof String){ //assume it's the name
+				pong.getPolygon().setPlayer((client+1)*2, (String) o);
+				pong.resetConnections();
 			}
 		}
 	}

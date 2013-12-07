@@ -11,9 +11,12 @@ public class Score implements Serializable{
 	private int[] lives;
 	private boolean playing;
 	private int winner;
-	public Score(int numPlayers){
-		lives = new int[numPlayers];
+	private Polygon polygon;
+	
+	public Score(Polygon polygon){
+		lives = new int[polygon.getNumSides()/2];
 		Arrays.fill(lives, 3);
+		this.polygon = polygon;
 	}
 	
 	public int getNumPlayers(){
@@ -61,15 +64,18 @@ public class Score implements Serializable{
 		lives[player] = newScore;
 	}
 	
-	public boolean isAlive(int player)
-	{
+	public boolean isAlive(int player){
 		return (lives[player] > 0);
 	}
-	public String stringScore() {
+	
+	public String stringScore(){
 		String score = "";
-		for(int i = 1; i <= getNumPlayers(); i++){
-			if(i < getNumPlayers()) score += "Player " + (i) + " : " + lives[i-1] + " | ";
-			else score += "Player " + i + " : " + lives[i-1];
+		for(int i = 0; i < getNumPlayers(); i++){
+			if(i < getNumPlayers()-1){
+				score += polygon.getSide(i*2).getName() + " : " + lives[i] + " | ";
+			} else {
+				score += polygon.getSide(i*2).getName() + " : " + lives[i];
+			}
 		}
 		return score;
 	}

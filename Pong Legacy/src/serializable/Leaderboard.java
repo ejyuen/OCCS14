@@ -19,11 +19,10 @@ public class Leaderboard extends Score{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7683903530289737107L;
+	private static final long serialVersionUID = 7683903530289737107L;	
 	
-		    
-	public Leaderboard(int numPlayers) {
-		super(numPlayers);
+	public Leaderboard(int numPlayers, Polygon polygon) {
+		super(polygon);
 		// TODO Auto-generated constructor stub
 	}
 	
