@@ -8,6 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import menus.ServerUI;
+
 import pong.Pong;
 
 import serializable.Player;
@@ -26,12 +28,14 @@ public class Server implements Communicator {
 	ServerSocket ballServerSocket = null;
 	ArrayList<Socket> ballSockets = null;
 	ArrayList<ObjectOutputStream> ballOutputs = null;
+	ServerUI sUI = null;
 	
 	int writeCount = 0;
 	Pong pong = null;
 	
-	public Server() {
+	public Server(ServerUI sUI) {
 		try {
+			this.sUI = sUI;
 			serverSocket = new ServerSocket(Constants.PORT);
 			ballServerSocket = new ServerSocket(Constants.BALL_PORT);
 			
@@ -176,7 +180,7 @@ public class Server implements Communicator {
 			int i = 0;
 			while(true) {
 				try {
-					System.out.println("\nwaiting for client");
+					sUI.printToWindow("\nwaiting for client");
 					Socket client = serverSocket.accept();
 					ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 					ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
@@ -189,7 +193,7 @@ public class Server implements Communicator {
 					ballSockets.add(ballSocket);
 					ballOutputs.add(ballOut);
 					
-					System.out.println("client " + i + " connected");
+					sUI.printToWindow("client " + i + " connected");
 					sendObject(new Integer((i+1)*2), i);
 					i++;
 				} catch (IOException e) {
