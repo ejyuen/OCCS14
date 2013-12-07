@@ -12,8 +12,6 @@ public class ServerUI extends JFrame {
 	private JPanel contentPane;
 //	private JTextField textField;
 	private Pong p = null;
-	private JList list;
-	private DefaultListModel listModel;
 	
 	public ServerUI(String name) {
 		setTitle("Pong Legacy");
@@ -47,14 +45,8 @@ public class ServerUI extends JFrame {
 //		contentPane.add(btnLaunchServer);
 //		int players = Integer.parseInt(textField.getText());
 		
-		p = new Pong(new Server(this), name);
+		p = new Pong(new Server(), name);
 		new Thread(new InitializePong()).start();
-		
-		listModel = new DefaultListModel();
-		list = new JList(listModel);
-		//list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setBounds(47, 50, 200, 225);
-		contentPane.add(list);
 		
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
@@ -74,11 +66,6 @@ public class ServerUI extends JFrame {
 		});
 		btnExit.setBounds(117, 436, 60, 25);
 		contentPane.add(btnExit);
-	}
-	
-	public synchronized void printToWindow(String s){
-		System.out.println(s);
-		listModel.addElement(s);
 	}
 	
 	class InitializePong implements Runnable{
