@@ -8,6 +8,8 @@ import java.awt.geom.Line2D;
 import java.awt.event.*;
 import java.io.Serializable;
 
+import utilities.Constants;
+
 /**
  * A side of the polygon that may or may not be occupied by a paddle.
  *
@@ -78,6 +80,17 @@ public class Side extends Line2D.Double implements Serializable{
         double paddleY2 = this.getY1() + ((this.getY2() - this.getY1()) * ((paddle.getCenter() + (paddle.getWidth() / 2)) / 100.0));
 
         return new Line2D.Double(paddleX1, paddleY1, paddleX2, paddleY2);
+    }
+    
+    public Line2D.Double adjustedPaddleLocation() {
+    	double width = paddle.getWidth() + Constants.LINE_ADJUSTMENT;
+        double paddleX1 = this.getX1() + ((this.getX2() - this.getX1()) * ((paddle.getCenter() - (width / 2)) / 100.0));
+        double paddleY1 = this.getY1() + ((this.getY2() - this.getY1()) * ((paddle.getCenter() - (width / 2)) / 100.0));
+        double paddleX2 = this.getX1() + ((this.getX2() - this.getX1()) * ((paddle.getCenter() + (width / 2)) / 100.0));
+        double paddleY2 = this.getY1() + ((this.getY2() - this.getY1()) * ((paddle.getCenter() + (width / 2)) / 100.0));
+
+        return new Line2D.Double(paddleX1, paddleY1, paddleX2, paddleY2);
+    	
     }
     
     /**

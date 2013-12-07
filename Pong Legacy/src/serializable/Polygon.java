@@ -162,7 +162,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
             Point2D location = ball.getLocation();
             Line2D trajectory = new Line2D.Double(location, nextLocation);
             for (Side side : sides) {
-                Line2D wall = side.paddleLocation();
+                Line2D wall = side.adjustedPaddleLocation();
 /*
                 System.out.printf("Paddle: %s %s\n", wall.getP1(), wall.getP2());
 */

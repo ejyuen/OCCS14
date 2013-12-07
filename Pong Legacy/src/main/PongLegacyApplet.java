@@ -13,7 +13,6 @@ public class PongLegacyApplet extends Applet {
 	public void init (){
 		clickOnMe = new Button("Start Pong Legacy!");	
 		add(clickOnMe);
-		
 	}
 	public void paint(Graphics g) {
 		g.drawRect(40,0,150,150); 
@@ -22,10 +21,11 @@ public class PongLegacyApplet extends Applet {
 		g.drawString("have fun with your friends!", 45,60);
   }
   
+	@SuppressWarnings("deprecation")
 	public boolean action (Event e, Object args){ 
-		JFrame frame = new MainMenu();
-		frame.show();
-		return true;
-	   }
-	
+		String[] hoz = {};
+		PongLegacy.main(hoz);
+	   
+	return true;
+	}
 } 
