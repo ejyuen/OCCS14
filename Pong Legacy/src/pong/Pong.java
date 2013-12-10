@@ -235,8 +235,6 @@ public class Pong {
 			polygon.checkCollision(ball);
 			ball.move();
 			
-			
-
 			// Check for scoring.
 			if (!polygon.contains(ball.getLocation())) {
 				ball.stop();
@@ -246,11 +244,7 @@ public class Pong {
 				
 				if (score.getLives(getClosestPlayer() / 2) <= 0)
 					killPlayer(getClosestPlayer());		
-				
-
-			
-				
-				
+					
 				int[] lives = score.getLives();
 				
 				for(int i = 0; i<lives.length; i++){
@@ -259,8 +253,7 @@ public class Pong {
 						if(score.isPlaying()){
 							break;
 						}
-						score.setWinner(i);
-						
+						score.setWinner(i);		
 					}
 				}
 				

@@ -162,7 +162,12 @@ public class Polygon extends java.awt.Polygon implements Serializable{
             Point2D location = ball.getLocation();
             Line2D trajectory = new Line2D.Double(location, nextLocation);
             for (Side side : sides) {
-                Line2D wall = side.adjustedPaddleLocation();
+            	Line2D wall = null;
+            	if(side instanceof Player){
+            		wall = side.adjustedPaddleLocation();
+            	} else {
+            		wall = side.paddleLocation();
+            	}
 /*
                 System.out.printf("Paddle: %s %s\n", wall.getP1(), wall.getP2());
 */
@@ -194,10 +199,20 @@ public class Polygon extends java.awt.Polygon implements Serializable{
 
     private double bounce(Line2D wall, double direction) {
     	int side = Pong.getClosestPlayer();
+    	int wallCounter = 0;
     	double newSpin = 0;
     	
     	if (getSide(Pong.getClosestSide()) instanceof Player)
     		newSpin = getSide((int) (side / 2)).getPaddle().getMoving() * Math.PI/8;
+    	else
+    		wallCounter++;
+    	if (wallCounter > 2) {
+    		if (Math.random() > 0.5)
+    			newSpin = Math.PI/6 * Math.random();
+    		else 
+    			newSpin = -Math.PI/6 * Math.random();
+    		wallCounter = 0;
+    	}
     	
         double rise = wall.getY2() - wall.getY1();
         double run = wall.getX2() - wall.getX1();
