@@ -206,7 +206,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
     		newSpin = getSide((int) (side / 2)).getPaddle().getMoving() * Math.PI/8;
     	else //if (getSide(Pong.getClosestSide()).getNumSide() % 2 == 0)
     		wallCounter++;
-    	if (wallCounter > 3) {
+    	if (wallCounter > 5) {
     		if (Math.random() > 0.5)
     			newSpin = Math.PI/12;
     		else 
