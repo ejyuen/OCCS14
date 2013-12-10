@@ -8,7 +8,7 @@ import javax.swing.border.*;
 
 public class MainMenu extends JFrame {
 	private static final long serialVersionUID = 1667157157626059967L;
-	private JTextField textField;
+	public static JTextField textField;
 
 	public MainMenu() {
 		setTitle("Pong Legacy");
@@ -33,9 +33,7 @@ public class MainMenu extends JFrame {
 		btnStartServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textField.getText().length() < 3) {
-					JOptionPane
-							.showMessageDialog(getParent(),
-									"Please input a valid username (At least 3 characters)");
+					JOptionPane.showMessageDialog(getParent(), "Please input a valid username (At least 3 characters)");
 				} else {
 					// new Statistics(textField.getText()); Move this elsewhere.
 					// Work on it when implementing chat client.
@@ -60,9 +58,7 @@ public class MainMenu extends JFrame {
 		btnStartClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (textField.getText().length() < 3) {
-					JOptionPane
-							.showMessageDialog(getParent(),
-									"Please input a valid username (Longer than 3 characters)");
+					JOptionPane.showMessageDialog(getParent(), "Please input a valid username (Longer than 3 characters)");
 				} else {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
@@ -84,8 +80,7 @@ public class MainMenu extends JFrame {
 		JButton btnOptions = new JButton("Options");
 		btnOptions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(getParent(),
-						"Just kidding. There are no options.");
+				JOptionPane.showMessageDialog(getParent(), "Just kidding. There are no options.");
 			}
 		});
 		btnOptions.setBounds(37, 436, 100, 25);
