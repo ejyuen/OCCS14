@@ -128,6 +128,10 @@ public class Side extends Line2D.Double implements Serializable{
          return name;
      }
      
+     public int getNumSide() {
+    	 return numSide;
+     }
+     
      public Status getStatus() {
          return status;
      }

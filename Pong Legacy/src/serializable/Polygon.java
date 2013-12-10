@@ -24,6 +24,7 @@ public class Polygon extends java.awt.Polygon implements Serializable{
 	private static final long serialVersionUID = -743886217744386449L;
 	private int[] xArray, yArray;
     private Side[] sides;
+    private int wallCounter = 0;
     private java.awt.Polygon container; // smaller Polygon object for collisions. I know it shouldn't be public but it's for a quick test.
     public static final short RADIUS = 1000;
     public static final short CONTAINER_RADIUS = 1000; //It's possible to change radius of ball without changing Ball.DEFAULT_RADIUS.
@@ -199,14 +200,13 @@ public class Polygon extends java.awt.Polygon implements Serializable{
 
     private double bounce(Line2D wall, double direction) {
     	int side = Pong.getClosestPlayer();
-    	int wallCounter = 0;
     	double newSpin = 0;
     	
     	if (getSide(Pong.getClosestSide()) instanceof Player)
     		newSpin = getSide((int) (side / 2)).getPaddle().getMoving() * Math.PI/8;
-    	else
+    	else //if (getSide(Pong.getClosestSide()).getNumSide() % 2 == 0)
     		wallCounter++;
-    	if (wallCounter > 4) {
+    	if (wallCounter > 3) {
     		if (Math.random() > 0.5)
     			newSpin = Math.PI/12;
     		else 
