@@ -141,6 +141,23 @@ public class Server implements Communicator {
 			pong.killPlayer(client);
 		}
 	}
+	
+	public void cleanUp(){
+		int size = clientSockets.size();
+		for(int i = 0; i < size; i++) {
+			if(clientSockets.get(i) == null){
+				objOutputs.remove(i);
+				objInputs.remove(i);
+				clientSockets.remove(i);
+				ballOutputs.remove(i);
+				ballSockets.remove(i);
+				size--;
+				i--;
+			} else {
+				sendObject(new Integer((i + 1) * 2), i);
+			}
+		}
+	}
 
 	public void close() {
 		try {

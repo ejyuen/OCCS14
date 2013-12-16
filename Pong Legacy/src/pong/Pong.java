@@ -68,9 +68,9 @@ public class Pong {
 				e.printStackTrace();
 			}
 		}
-		
 		if(comm instanceof Server){
 			((Server) comm).setPong(this);
+			((Server) comm).cleanUp();
 		}
 		int sides = (((Server) comm).getNumClients() + 1) * 2;
 		
