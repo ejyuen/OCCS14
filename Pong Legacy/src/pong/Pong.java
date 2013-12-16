@@ -68,6 +68,7 @@ public class Pong {
 				e.printStackTrace();
 			}
 		}
+		
 		if(comm instanceof Server){
 			((Server) comm).setPong(this);
 			((Server) comm).cleanUp();
@@ -105,6 +106,7 @@ public class Pong {
 	}
 
 	private void initClient() {
+		comm.sendObject(name); //send so it can print on serverUI
 		Object o = ((Client) comm).getNextObject();
 		if (o instanceof Integer) {
 			side = (Integer) o;
@@ -112,7 +114,7 @@ public class Pong {
 		assert side != -1; // make sure a side has been set
 		
 		graphics = new Graphics(this, side);
-		comm.sendObject(name);
+		comm.sendObject(name); //send so it will print in the actual game
 		new Thread(new RunClient((Client) comm, this)).start();
 	}
 

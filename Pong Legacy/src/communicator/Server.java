@@ -207,7 +207,12 @@ public class Server implements Communicator {
 					ballOutputs.add(ballOut);
 
 					System.out.println("client " + i + " connected");
-					ServerUI.listModel.addElement("Player " + (i + 1) + " has connected");
+					Object name = getNextObject(i);
+					if(name instanceof String){
+						ServerUI.listModel.addElement("Player " + name + " has connected");
+					} else {
+						ServerUI.listModel.addElement("Player " + (i + 1) + " has connected");
+					}
 					sendObject(new Integer((i + 1) * 2), i);
 					i++;
 				} catch (IOException e) {
