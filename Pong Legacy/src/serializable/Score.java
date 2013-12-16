@@ -15,7 +15,7 @@ public class Score implements Serializable{
 	
 	public Score(Polygon polygon){
 		lives = new int[polygon.getNumSides()/2];
-		Arrays.fill(lives, 10);
+		Arrays.fill(lives, 1);
 		this.polygon = polygon;
 	}
 	

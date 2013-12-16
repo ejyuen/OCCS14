@@ -15,11 +15,14 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.*;
 
+import menus.ServerUI.InitializePong;
+
 import pong.Pong;
 import serializable.Ball;
 import serializable.Polygon;
 import serializable.Side;
 import communicator.Communicator;
+import communicator.Server;
 
 
 /**
@@ -39,6 +42,8 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 	private Graphics2D g2 = null;
 	private AffineTransform unrotate = null;
 	private AffineTransform rotate = null;
+	private Window w; 
+	
 
 	/**
 	 * Constructs a new Graphics with the Pong that creates it.
@@ -55,6 +60,8 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 		comm = pong.getCommunicator();
 		// RED_FlAG: constructor needs title / player name and player number?
 		init("PongLegacy");
+		w = SwingUtilities.getWindowAncestor(Graphics.this);
+
 	}
 
 	/**
@@ -66,7 +73,7 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 		frame.add(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setMinimumSize(new Dimension(480,480));
-		frame.setSize(new Dimension(640, 640));
+		frame.setSize(new Dimension(600, 600));
 		frame.setVisible(true);
 		frame.setFocusable(true);
 		this.setFocusable(true);
@@ -168,10 +175,26 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 	/**
 	 * 
 	 * @param poly
-	 * @param sideNum
 	 * @param totalSides
 	 * @return angle of rotation
 	 */
+	
+	public void addRestartButton(){
+		JButton btnRestartGame = new JButton("Restart Game");
+		
+		btnRestartGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				pong.initServer();
+				
+				pong.nowReady();
+				
+				w.setVisible(false);
+				
+			}
+		});
+		btnRestartGame.setBounds(getWidth() /  2 - 100, getHeight() * 3 / 4 , 200, 25);
+		add(btnRestartGame);
+	}
 	private double rotatePolygon(Polygon poly, int numSides) {
 		double rotationFactor = -2 * Math.PI / numSides * side;
 		return rotationFactor;
@@ -195,8 +218,11 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 			paintSide(Pong.getPolygon().getSide(i));
 		g2.setTransform(unrotate);
 		paintScoreField();
-		if (!pong.getScore().isPlaying())
+		if (!pong.getScore().isPlaying()){
 			paintWinnerName(pong.getScore().getWinner());
+			if(comm instanceof Server)
+				addRestartButton();
+		}
 
 		g.drawImage(bufferImage, 0, 0, this);
 	}
@@ -248,4 +274,10 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 			sendPaddle();
 		}
 	}
+	
+//	public class InitializePong implements Runnable{
+//		public void run() {
+//			pong.initServer();
+//		}
+//	}
 }

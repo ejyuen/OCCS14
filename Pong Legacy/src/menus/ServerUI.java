@@ -14,8 +14,10 @@ public class ServerUI extends JFrame {
 	private Pong p = null;
 	public static DefaultListModel listModel;
 	private JList list;
+	private String name;
 	
 	public ServerUI(String name) {
+		this.name = name;
 		setTitle("Pong Legacy");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,7 +80,11 @@ public class ServerUI extends JFrame {
 		
 	}
 	
-	class InitializePong implements Runnable{
+	public String getName(){
+		return name;
+	}
+	
+	public class InitializePong implements Runnable{
 		public void run() {
 			p.initServer();
 		}
