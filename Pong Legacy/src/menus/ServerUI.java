@@ -14,10 +14,8 @@ public class ServerUI extends JFrame {
 	private Pong p = null;
 	public static DefaultListModel listModel;
 	private JList list;
-	private String name;
 	
-	public ServerUI(String name) {
-		this.name = name;
+	public ServerUI() {
 		setTitle("Pong Legacy");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +48,7 @@ public class ServerUI extends JFrame {
 //		int players = Integer.parseInt(textField.getText());
 		
 		
-		p = new Pong(new Server(), name);
+		p = new Pong(new Server());
 		new Thread(new InitializePong()).start();
 		
 		JButton btnStartGame = new JButton("Start Game");
@@ -79,11 +77,7 @@ public class ServerUI extends JFrame {
 		contentPane.add(list);
 		
 	}
-	
-	public String getName(){
-		return name;
-	}
-	
+
 	public class InitializePong implements Runnable{
 		public void run() {
 			p.initServer();

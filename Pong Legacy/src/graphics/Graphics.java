@@ -20,6 +20,7 @@ import pong.Pong;
 import serializable.Ball;
 import serializable.Polygon;
 import serializable.Side;
+import utilities.Constants;
 import communicator.Communicator;
 import communicator.Server;
 
@@ -137,7 +138,6 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 		// g2.drawString("The Winner is Player " + (pong.getWinner() + 1) +
 		// "!!!", x, y);
 		// }
-		g2.setColor(Color.BLACK);
 	}
 
 	/**
@@ -148,7 +148,6 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 	 */
 	private void paintBall() {
 		Ball ball = pong.getBall();
-		g2.setColor(Color.BLACK);
 		g2.fillOval((int) ((ball.getLocation().getX() - ball.getRadius())), (int) ((ball.getLocation().getY() - ball.getRadius())), (int) (ball.getRadius() * 2), (int) (ball.getRadius() * 2));
 	}
 
@@ -224,6 +223,13 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 
 		bufferGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2 = (Graphics2D) bufferGraphics;
+		g2.setColor(Color.BLACK);
+		
+		if(Constants.retro){ //change colors to black and green
+			g2.fillRect(0, 0, bufferImage.getWidth(null), bufferImage.getHeight(null));
+			g2.setColor(Color.GREEN);
+		}
+		
 		paintPolygon();
 		paintBall();
 		for (int i = 0; i < Pong.getPolygon().npoints; i++)

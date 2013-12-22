@@ -19,7 +19,6 @@ public class Pong {
 	
 	private boolean ready = false; // only useful if a server
 	private Timer ballAction = null;
-	private String name = null;
 	
 	/**
 	 * Defult pong game square window size.
@@ -32,16 +31,15 @@ public class Pong {
 	 * @param n
 	 *            number of polygon sides
 	 */
-	public Pong(String name) {
-		this(8, null, name);
+	public Pong() {
+		this(8, null);
 	}
 
-	public Pong(Communicator comm, String name) {
-		this(8, comm, name);
+	public Pong(Communicator comm) {
+		this(8, comm);
 	}
 
-	public Pong(int n, Communicator comm, String name) {
-		this.name = name;
+	public Pong(int n, Communicator comm) {
 		this.comm = comm;
 		// ball.changeDirection(Math.PI * 1 / 9); // CONSISTENT DIRECTION
 		polygon = new Polygon(n);
@@ -81,7 +79,7 @@ public class Pong {
 			polygon.setPlayer(i, "PLAYER" + (i / 2 + 1));
 		}
 		
-		polygon.setPlayer(0, name);
+		polygon.setPlayer(0, Constants.name);
 		
 		score = new Score(polygon); // setting score
 		score.setPlaying(true);
@@ -106,7 +104,7 @@ public class Pong {
 	}
 
 	private void initClient() {
-		comm.sendObject(name); //send so it can print on serverUI
+		comm.sendObject(Constants.name); //send so it can print on serverUI
 		Object o = ((Client) comm).getNextObject();
 		if (o instanceof Integer) {
 			side = (Integer) o;
@@ -114,7 +112,6 @@ public class Pong {
 		assert side != -1; // make sure a side has been set
 		
 		graphics = new Graphics(this, side);
-		comm.sendObject(name); //send so it will print in the actual game
 		new Thread(new RunClient((Client) comm, this)).start();
 	}
 

@@ -6,6 +6,8 @@ import java.awt.event.*;
 
 import javax.swing.border.*;
 
+import utilities.Constants;
+
 public class MainMenu extends JFrame {
 	private static final long serialVersionUID = 1667157157626059967L;
 	public static JTextField textField;
@@ -40,7 +42,8 @@ public class MainMenu extends JFrame {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								ServerUI frame = new ServerUI(textField.getText());
+								Constants.name = textField.getText();
+								ServerUI frame = new ServerUI();
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -63,7 +66,8 @@ public class MainMenu extends JFrame {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								ClientUI frame = new ClientUI(textField.getText());
+								Constants.name = textField.getText();
+								ClientUI frame = new ClientUI();
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
