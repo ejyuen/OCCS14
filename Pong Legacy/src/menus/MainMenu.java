@@ -13,7 +13,7 @@ public class MainMenu extends JFrame {
 	public static JTextField nameTextField;
 
 	public MainMenu() {
-		setTitle("Pong Legacy");
+		setTitle("Pong Legacy || Version 1.0");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 500);
@@ -109,13 +109,5 @@ public class MainMenu extends JFrame {
 		contentPane.add(btnQuitGame);
 
 		setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-		}
-		new MainMenu();
 	}
 }
