@@ -37,6 +37,8 @@ public class OptionsUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (rdbtnRetro.isSelected()){
 					Constants.retro = true;
+				} else {
+					Constants.retro = false;
 				}
 				setVisible(false);
 			}
