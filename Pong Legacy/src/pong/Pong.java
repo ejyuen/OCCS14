@@ -94,8 +94,6 @@ public class Pong {
 
 		ballAction = new Timer(36, new BallAction());
 		ballAction.start();
-		
-		
 
 		for (int i = 0; i < sides / 2 - 1; i++) { // begin reading from players
 			((Server) comm).sendObject(new Integer((i + 1) * 2), i);
@@ -203,7 +201,7 @@ public class Pong {
 		if(ballAction != null){
 			ballAction.stop();
 		}
-		
+		comm.sendObject("break");
 	}
 	
 	public void resetConnections(){

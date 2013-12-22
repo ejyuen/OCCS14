@@ -40,7 +40,11 @@ public class RunClient implements Runnable{
 				pong.setPolygon((Polygon) o);
 			} else if(o instanceof Integer){ //Integers are sides
 				pong.setSide((Integer) o);
-				pong.getCommunicator().sendObject((String)Constants.name);
+				client.sendObject(Constants.name);
+			} else if(o instanceof String){
+				if(o.equals("break")){
+					client.sendObject("break");
+				}
 			} else {
 				System.out.println("not understood object type");
 				System.out.println(o);

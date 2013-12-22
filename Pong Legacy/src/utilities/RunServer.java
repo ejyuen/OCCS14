@@ -16,7 +16,7 @@ public class RunServer implements Runnable {
 	}
 
 	public void run() {
-		while (server.getObjInputs().get(client) != null) {
+		while(server.getObjInputs().get(client) != null) {
 			Object o = server.getNextObject(client);
 
 			if (o instanceof double[]) { // paddlelocation in the format [side, location]
@@ -25,9 +25,13 @@ public class RunServer implements Runnable {
 						.getPaddle().setCenter(paddleLocation[1]);
 				pong.getGraphics().repaint();
 				server.sendObject(paddleLocation);
-			} else if (o instanceof String){ //assume it's the name
-				pong.getPolygon().setPlayer((client+1)*2, (String) o);
-				pong.resetConnections();
+			} else if (o instanceof String){
+				if(o.equals("break")){ //end of game
+					break;
+				} else { //assume it's the name
+					pong.getPolygon().setPlayer((client+1)*2, (String) o);
+					pong.resetConnections();
+				}
 			}
 		}
 	}
