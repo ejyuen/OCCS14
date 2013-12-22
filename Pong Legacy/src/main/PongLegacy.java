@@ -1,17 +1,4 @@
 package main;
-/*
- * PongLegacy.java
- *
- * NOTE TO THE AUTHOR OF THIS CLASS:
- *     When a player begins their session of pong, they should be greeted
- *     by a dialog box asking them for their name. That name should then be
- *     used to create a new Statistics object for that player via
- *     Statistics localPlayer = new Statistics(playerName);
- *     Also, not sure if this is the proper class or if ball/paddle would be
- *     better, but there needs to be a way to call the hit, miss, and goal
- *     methods of the statistics class. this would probs be server side.
- *            - Tim
- */
 
 import javax.swing.UIManager;
 
@@ -38,12 +25,7 @@ public class PongLegacy {
 		for (String string : args) {
 			System.out.print(string + " ");
 		}
-		// RED_FLAG: test prints out vertices of all Polygons from 3 to 8
-		// Polygon polygon;
-		// for (int i = 3; i <= 8; i++) {
-		// polygon = new Polygon(i);
-		// System.out.println(polygon);
-		// }
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
