@@ -43,6 +43,9 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 	private AffineTransform unrotate = null;
 	private AffineTransform rotate = null;
 	private Window w;
+	private Color textColor = Color.BLACK;
+	private Color ballColor = Color.BLACK;
+	private Color backgroundColor = Color.WHITE;
 	
 	private boolean restartButtonAdded = false;
 
@@ -61,7 +64,12 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 		this.pong = pong;
 		this.side = side;
 		comm = pong.getCommunicator();
-		// RED_FlAG: constructor needs title / player name and player number?
+		if(Constants.retro){
+			textColor = Color.GREEN;
+			ballColor = Color.GREEN;
+			backgroundColor = Color.BLACK;
+		}
+		
 		init("PongLegacy");
 		w = SwingUtilities.getWindowAncestor(Graphics.this);
 
@@ -82,10 +90,14 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 		frame.setVisible(true);
 		frame.setFocusable(true);
 		this.setFocusable(true);
-		this.setBackground(Color.WHITE);
+		this.setBackground(backgroundColor);
 		Timer timer = new Timer(36, new TimeAction());
 		timer.start();
 		frame.addKeyListener(this);
+	}
+	
+	private Color randomColor(){
+		return Constants.colors[(int)(Math.random()*Constants.colors.length)];
 	}
 
 	/**
@@ -147,8 +159,10 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 	 *            the Graphics context in which to paint
 	 */
 	private void paintBall() {
+		g2.setColor(ballColor);
 		Ball ball = pong.getBall();
 		g2.fillOval((int) ((ball.getLocation().getX() - ball.getRadius())), (int) ((ball.getLocation().getY() - ball.getRadius())), (int) (ball.getRadius() * 2), (int) (ball.getRadius() * 2));
+		g2.setColor(textColor);
 	}
 
 	/**
@@ -222,14 +236,28 @@ public class Graphics extends JPanel implements KeyListener, ActionListener {
 		Graphics2D bufferGraphics = (Graphics2D) bufferImage.getGraphics();
 
 		bufferGraphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2 = (Graphics2D) bufferGraphics;
-		g2.setColor(Color.BLACK);
 		
-		if(Constants.retro){ //change colors to black and green
-			g2.fillRect(0, 0, bufferImage.getWidth(null), bufferImage.getHeight(null));
-			g2.setColor(Color.GREEN);
+		if(Constants.backgroundEpilepsy){
+			backgroundColor = randomColor();
+		}
+		if(Constants.textEpilepsy){
+			textColor = randomColor();
+			while(textColor.equals(backgroundColor)){
+				textColor = randomColor();
+			}
+		}
+		if(Constants.ballEpilepsy){
+			ballColor = randomColor();
+			while(ballColor.equals(backgroundColor) || ballColor.equals(textColor)){
+				ballColor = randomColor();
+			}
 		}
 		
+		g2 = (Graphics2D) bufferGraphics;
+		g2.setColor(backgroundColor);
+		g2.fillRect(0, 0, bufferImage.getWidth(null), bufferImage.getHeight(null));
+		
+		g2.setColor(textColor);
 		paintPolygon();
 		paintBall();
 		for (int i = 0; i < Pong.getPolygon().npoints; i++)
