@@ -45,7 +45,7 @@ public class ServerUI extends JFrame {
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(s.getNumClients() == 0){
-					JOptionPane.showMessageDialog(getParent(), "Get some friends, loser!");
+					JOptionPane.showMessageDialog(getParent(), "Have you thought about getting some friends?");
 					return;
 				}
 				try{
