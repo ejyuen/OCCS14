@@ -5,15 +5,16 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import pong.Pong;
+import utilities.Constants;
 import communicator.Server;
 
 public class ServerUI extends JFrame {
 	private static final long serialVersionUID = 1019782401351695809L;
 	private JPanel contentPane;
-//	private JTextField textField;
 	private Pong p = null;
 	public static DefaultListModel listModel;
-	private JList list;
+	private JList list;	
+	public static JTextField livesTextField;
 	
 	public ServerUI() {
 		setTitle("Pong Legacy");
@@ -25,28 +26,15 @@ public class ServerUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-//		JLabel lblMaxPlayerCount = new JLabel("Max Player Count:");
-//		lblMaxPlayerCount.setBounds(97, 25, 100, 15);
-//		contentPane.add(lblMaxPlayerCount);
-//
-//		textField = new JTextField();
-//		textField.setBounds(97, 50, 100, 25);
-//		contentPane.add(textField);
-//		textField.setColumns(10);
-//
-//		JButton btnLaunchServer = new JButton("Launch Server");
-//		btnLaunchServer.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) { //re did a bit of stuff here, check it over andy
-//				int players = Integer.parseInt(textField.getText());
-//				new Pong(players*2, new Server(players-1));
-//				setVisible(false);
-//			}
-//		});
-//		btnLaunchServer.setBounds(47, 400, 200, 25);
-//		contentPane.add(btnLaunchServer);
-//		int players = Integer.parseInt(textField.getText());
 		
+		JLabel lblLives = new JLabel("Lives:");
+		lblLives.setBounds(47, 290, 33, 20);
+		contentPane.add(lblLives);
+		
+		livesTextField = new JTextField();
+		livesTextField.setBounds(80, 290, 86, 20);
+		contentPane.add(livesTextField);
+		livesTextField.setColumns(10);
 		
 		p = new Pong(new Server());
 		new Thread(new InitializePong()).start();
@@ -54,6 +42,16 @@ public class ServerUI extends JFrame {
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try{
+					int lives = Integer.parseInt(livesTextField.getText());
+					if(lives>0){
+						Constants.startingLives = lives;
+					} else {
+						System.out.println("using default lives");
+					}
+				} catch (NumberFormatException nfe){
+					System.out.println("using default lives");
+				}
 				p.nowReady();
 				setVisible(false);
 			}
