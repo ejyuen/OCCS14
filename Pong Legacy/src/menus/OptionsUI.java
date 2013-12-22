@@ -28,7 +28,7 @@ public class OptionsUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		rdbtnRetro = new JRadioButton("Retro Graphics?");
+		rdbtnRetro = new JRadioButton("Retro Graphics?", Constants.retro);
 		rdbtnRetro.setBounds(66, 25, 161, 25);
 		contentPane.add(rdbtnRetro);
 		

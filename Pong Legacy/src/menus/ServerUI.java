@@ -12,6 +12,7 @@ public class ServerUI extends JFrame {
 	private static final long serialVersionUID = 1019782401351695809L;
 	private JPanel contentPane;
 	private Pong p = null;
+	private Server s = null;
 	public static DefaultListModel listModel;
 	private JList list;	
 	public static JTextField livesTextField;
@@ -36,12 +37,17 @@ public class ServerUI extends JFrame {
 		contentPane.add(livesTextField);
 		livesTextField.setColumns(10);
 		
-		p = new Pong(new Server());
+		s = new Server();
+		p = new Pong(s);
 		new Thread(new InitializePong()).start();
 		
 		JButton btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(s.getNumClients() == 0){
+					JOptionPane.showMessageDialog(getParent(), "Get some friends, loser!");
+					return;
+				}
 				try{
 					int lives = Integer.parseInt(livesTextField.getText());
 					if(lives>0){
