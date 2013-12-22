@@ -69,6 +69,7 @@ public class Pong {
 		
 		if(comm instanceof Server){
 			((Server) comm).setPong(this);
+			comm.sendObject("testing");
 			((Server) comm).cleanUp();
 		}
 		int sides = (((Server) comm).getNumClients() + 1) * 2;
@@ -103,11 +104,12 @@ public class Pong {
 
 	private void initClient() {
 		comm.sendObject(Constants.name); //send so it can print on serverUI
-		Object o = ((Client) comm).getNextObject();
-		if (o instanceof Integer) {
-			side = (Integer) o;
+		while(side == -1){
+			Object o = ((Client) comm).getNextObject();
+			if (o instanceof Integer) {
+				side = (Integer) o;
+			}
 		}
-		assert side != -1; // make sure a side has been set
 		
 		graphics = new Graphics(this, side);
 		new Thread(new RunClient((Client) comm, this)).start();
