@@ -30,6 +30,12 @@ public class Driver {
 		while(true){
 			Signal s = queue.poll();
 			driveAction(s);
+			
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
