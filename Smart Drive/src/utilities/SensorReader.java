@@ -16,6 +16,4 @@ public class SensorReader implements Runnable{
 			queue.offer(sensor.getSignal());
 		}
 	}
-	
-	
 }

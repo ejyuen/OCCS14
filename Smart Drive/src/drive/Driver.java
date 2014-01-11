@@ -3,21 +3,22 @@ package drive;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import sensors.*;
 import utilities.*;
 
 public class Driver {
-	Queue<Signal> queue = null;
+	Queue<Signal> queue = null; //make sure implementation is threadsafe
 	State state = null;
 	ArrayList<Sensor> sensors = null;
 	
 	
 	public Driver(){
-		//set default state (start state)
-		queue = new LinkedList<Signal>();
+		state = null;//TODO set default state (start state)
+		queue = new ConcurrentLinkedQueue<Signal>();
 		
-		//add all default sensors to sensors field
+		sensors.add(null);//TODO add all default sensors to sensors field
 		
 		for(Sensor s: sensors){
 			new Thread(new SensorReader(queue, s)).start();
@@ -36,6 +37,6 @@ public class Driver {
 		if(s == null){
 			return;
 		}
-		//put case switch stuff here
+		//TODO put case switch stuff here
 	}
 }
