@@ -15,7 +15,7 @@ public class Driver {
 	
 	
 	public Driver(){
-		state = null;//TODO set default state (start state)
+		state = State.STOP;
 		queue = new ConcurrentLinkedQueue<Signal>();
 		
 		sensors.add(null);//TODO add all default sensors to sensors field
