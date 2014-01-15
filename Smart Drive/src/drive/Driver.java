@@ -77,8 +77,7 @@ public class Driver implements Runnable {
 				break;
 			case PARK:
 				System.out.println("I'm done with this driving stuff, I will now stop, state = null");
-				state = null;
-				done = true;
+				state = State.PARK;
 				break;
 			default: 
 				break;
@@ -122,6 +121,10 @@ public class Driver implements Runnable {
 				break;
 			}
 			break;
+		case PARK:
+			default:
+				done = true;
+				break;
 		}
 	}
 }
