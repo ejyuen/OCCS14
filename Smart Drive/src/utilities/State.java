@@ -1,5 +1,5 @@
 package utilities;
 
 public enum State {
-	STOP, DRIVE, WAIT, BLOCK
+	STOP, DRIVE, WAITSIGN, BLOCK, PARK
 }

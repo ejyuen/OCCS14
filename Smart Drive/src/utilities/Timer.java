@@ -23,6 +23,6 @@ public class Timer implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		queue.offer(Signal.TIMER);
+		queue.offer(Signal.TIMERDONE);
 	}
 }
