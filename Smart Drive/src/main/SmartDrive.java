@@ -22,18 +22,25 @@ public class SmartDrive {
 		//for testing purposes
 		Queue<Signal> queue = d.getQueue();
 		queue.add(Signal.TIMERDONE);
+		
 		queue.add(Signal.INTERSECTION);
+		queue.add(Signal.STRAIGHTEN_DONE);
 		queue.add(Signal.GO);
-		queue.add(Signal.INTERSECTIONDONE);
+		queue.add(Signal.INTERSECTION_DONE);
+		
 		queue.add(Signal.STOP);
 		queue.add(Signal.TIMERDONE);
+		
 		queue.add(Signal.INTERSECTION);
+		queue.add(Signal.STRAIGHTEN_DONE);
 		queue.add(Signal.LEFT);
-		queue.add(Signal.INTERSECTIONDONE);
+		queue.add(Signal.INTERSECTION_DONE);
+		
 		queue.add(Signal.INTERSECTION);
+		queue.add(Signal.STRAIGHTEN_DONE);
 		queue.add(Signal.RIGHT);
-		queue.add(Signal.INTERSECTIONDONE);
-		queue.add(Signal.DONEDRIVING);
-		queue.add(Signal.DONEPARKING);
+		queue.add(Signal.INTERSECTION_DONE);
+		
+		queue.add(Signal.PARK);
 	}
 }

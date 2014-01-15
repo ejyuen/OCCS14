@@ -72,14 +72,25 @@ public class Driver implements Runnable {
 				state = State.STOP;
 				break;
 			case INTERSECTION:
-				System.out.println("signal: Intersection spotted, result: straightening and waiting, state = WAITSIGN");
-				state = State.WAITSIGN;
+				System.out.println("signal: Intersection spotted, result: straightening, state = STRAIGHTEN");
+				state = State.STRAIGHTEN;
 				break;
-			case DONEDRIVING:
-				System.out.println("I'm done with this driving stuff, i will now stop, state = PARK");
-				state = State.PARK;
+			case PARK:
+				System.out.println("I'm done with this driving stuff, I will now stop, state = null");
+				state = null;
+				done = true;
 				break;
 			default: 
+				break;
+			}
+			break;
+		case STRAIGHTEN:
+			switch(signal){
+			case STRAIGHTEN_DONE:
+				System.out.println("signal: done with straighten,  result: will wait for sign, state = WAITSIGN");
+				state = State.WAITSIGN;
+				break;
+			default:
 				break;
 			}
 			break;
@@ -103,7 +114,7 @@ public class Driver implements Runnable {
 			break;
 		case BLOCK:
 			switch(signal){
-			case INTERSECTIONDONE:
+			case INTERSECTION_DONE:
 				System.out.println("signal: done with intersection,  result: will now resume line following, state = DRIVE");
 				state = State.DRIVE;
 				break;
@@ -111,18 +122,6 @@ public class Driver implements Runnable {
 				break;
 			}
 			break;
-		case PARK:
-			switch(signal){
-			case DONEPARKING:
-				System.out.println("Now done with parking");
-				done = true;
-				break;
-			default:
-				break;
-			}
-			break;
-		default:
-			break; 	
 		}
 	}
 }
