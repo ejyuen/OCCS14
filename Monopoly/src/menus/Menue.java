@@ -51,8 +51,17 @@ public class Menue extends JFrame{
 		btnBack.setBounds(100, 436, 100, 25);
 		contentPane.add(btnBack);
 	}
-	
-	public void addMenueButton(String name, final Menue menue, int xBound, int yBound, int wBound, int lBound){
+	/**
+	 * 
+	 * @param name
+	 * @param menue
+	 * @param xBound
+	 * @param yBound
+	 * @param wBound
+	 * @param hBound
+	 * @return
+	 */
+	public JButton addMenueButton(String name, final Menue menue, int xBound, int yBound, int wBound, int hBound){
 		JButton button = new JButton(name);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -68,18 +77,37 @@ public class Menue extends JFrame{
 				});
 			}
 		});
-		button.setBounds(xBound, yBound, wBound, lBound);
+		button.setBounds(xBound, yBound, wBound, hBound);
 		contentPane.add(button);
+		
+		return button;
 	}
 	
-	public void addTextField(){ //add in the required parameters
-		JLabel lblUsername = new JLabel("Username:");
-		lblUsername.setBounds(121, 45, 52, 14);
-		contentPane.add(lblUsername);
-		JTextField nameTextField = new JTextField();
-		nameTextField.setBounds(104, 67, 86, 20);
-		contentPane.add(nameTextField);
-		nameTextField.setColumns(10);
+	/**
+	 * 
+	 * @param word the word printed above the 
+	 * @param xBound the x-coord of the upper right hand corner of the textField
+	 * @param yBound the y-coord of the upper right hand corner of the textField
+	 * @param wBound the width (horzontal) of the textField
+	 * @param hBound the height (vertical) of the textField
+	 * 
+	 * @return returns the textField
+	 */
+	public JTextField addTextField(String word, int xBound, int yBound, int wBound, int hBound){ //add in the required parameters
+		//TODO figure out a better way to setBound for the word, maybe based on word length
+		
+		//add the label
+		JLabel label = new JLabel(word);
+		label.setBounds(xBound, yBound - hBound, wBound, hBound);
+		contentPane.add(label);
+		
+		//add the textfield
+		JTextField textField = new JTextField();
+		textField.setBounds(xBound, yBound, wBound, hBound);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		return textField;
 	}
 	
 	public static void open(Menue menue){
