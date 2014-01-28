@@ -32,4 +32,8 @@ public class Bond {
 		turns++;
 		return false;
 	}
+	
+	public Player getLender(){
+		return lender;
+	}
 }
