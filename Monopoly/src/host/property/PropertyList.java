@@ -32,7 +32,7 @@ public class PropertyList {
 	 * 11  = first property associated to make the group. used to see if they are all owned.
 	 * 12  = second property associated to make the group.
 	 */
-	public final int Properties[][] = {
+	public final static int[][] Properties = {
 //		  00  01  02  03  04  05    06   07  08  09  10  11  12
 		{ -1, -1, -1, -1, -1, -1 ,  -1,  -1, -1, -1, -1, -1, -1},	//Go						0
 		{  0,  0,  2, 10, 30,  90, 160, 250, 60, 30, 50,  3,  3},	//Mediterranean Avenue		1
@@ -79,7 +79,7 @@ public class PropertyList {
 	/**
 	 * list of the names of the properties.
 	 */
-	public final String List[] = {
+	public final static String[] List = {
 		"Go",
 		"Mediterranean Avenue",
 		"Community Chest",

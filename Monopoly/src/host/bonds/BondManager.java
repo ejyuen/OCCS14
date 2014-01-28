@@ -4,7 +4,7 @@ import host.player.Player;
 
 import java.util.ArrayList;
 
-public class BondMarket {
+public class BondManager {
 	private static ArrayList<Bond> bonds; //should be a list of all bonds
 	
 	public static ArrayList<Bond> getLenderBonds(Player player){

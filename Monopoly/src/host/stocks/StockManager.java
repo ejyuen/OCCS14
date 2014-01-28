@@ -5,7 +5,7 @@ import host.player.Player;
 
 import java.util.ArrayList;
 
-public class StockMarket {
+public class StockManager {
 	private static ArrayList<Stock> stocks; //should be a list of all stocks
 	
 	
