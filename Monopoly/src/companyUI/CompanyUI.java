@@ -1,5 +1,7 @@
 package companyUI;
 
-public class CompanyUI {
+import menus.Menue;
+
+public class CompanyUI extends Menue{
 
 }

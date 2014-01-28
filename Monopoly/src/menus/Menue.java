@@ -32,6 +32,6 @@ public class Menue extends JFrame{
 	}
 	
 	public void close(){
-		setVisible(false); 
+		dispose();
 	}
 }

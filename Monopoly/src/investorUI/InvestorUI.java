@@ -1,5 +1,7 @@
 package investorUI;
 
-public class InvestorUI {
+import menus.Menue;
+
+public class InvestorUI extends Menue{
 
 }
