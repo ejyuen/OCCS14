@@ -18,8 +18,8 @@ import javax.swing.*;
  */
 public class PropertyList {
 	/**
-	 * 00  = owner, -1 if cannot be owned, 1 if player1, and 2 if player2, 0 if unowned
-	 * 01  = number of houses.  -1 if houses cannot be put on it
+	 * 00  = -1 if cannot be owned, 0 if can be owned
+	 * 01  = -1 if houses cannot be put on it, 0 if you can put houses
 	 * 02  = price if no houses, just owned
 	 * 03  = price for 1 house.
 	 * 04  = price for 2 houses.

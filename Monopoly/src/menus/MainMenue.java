@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class MainMenue extends Menue{
 	public MainMenue(){
@@ -18,25 +20,5 @@ public class MainMenue extends Menue{
 		
 		//Investor button
 		addMenueButton("Investor", new InvestorMenue(this), 100, 200, 100, 25);
-	}
-	
-	public void addMenueButton(String name, final Menue menue, int xBound, int yBound, int wBound, int lBound){
-		JButton button = new JButton(name);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							Menue.open(menue);
-							Menue.hide(MainMenue.this);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
-			}
-		});
-		button.setBounds(xBound, yBound, wBound, lBound);
-		contentPane.add(button);
 	}
 }
