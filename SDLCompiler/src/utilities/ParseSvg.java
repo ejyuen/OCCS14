@@ -11,6 +11,9 @@ public class ParseSvg {
     public static Pattern arcPattern = 
         // Pattern.compile("([Mm]\\s*([0-9.+-]+),([0-9.+-]+))|([Aa]\\s*([0-9.+-]+),([0-9.+-]+)(\\s*0)*\\s*([0-9.+-]+),([0-9.+-]+))");
         Pattern.compile("([mM]([ 0-9+-.,]+)[aA]([ 0-9+-.,]+))");
+    
+    public static Pattern statePattern = 
+    	Pattern.compile("(M [0-9.]+ [0-9.]+ L.+z)");
 
     public static void main(String argv[]) {
 
