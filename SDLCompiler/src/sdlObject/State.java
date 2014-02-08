@@ -1,4 +1,4 @@
-package utilities;
+package sdlObject;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;

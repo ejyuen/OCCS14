@@ -1,4 +1,4 @@
-package utilities;
+package sdlObject;
 
 import java.awt.geom.Line2D;
 
