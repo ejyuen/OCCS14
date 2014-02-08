@@ -4,7 +4,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class SDLCompiler {
-	public static void main(String[] args){
+	private String xmlText;
+	
+	public String getXmlText(){
+		return xmlText;
+	}
+	public void setXmlText(){
 		String pathFromCurrentDirectory = "SDLCompiler/src/files/SmartDrive.svg";
 		String path = "";
 		try {
@@ -12,7 +17,6 @@ public class SDLCompiler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println(FileReader.readFile(path));
+		xmlText = FileReader.readFile(path);
 	}
 }
