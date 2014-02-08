@@ -6,7 +6,7 @@ import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
 public class ParseSvg {
-    
+    //
     // "M 82.8864,56.6103 A 32.5,32.5 0 0 0 83.6939,85.0485"
     public static Pattern arcPattern = 
         // Pattern.compile("([Mm]\\s*([0-9.+-]+),([0-9.+-]+))|([Aa]\\s*([0-9.+-]+),([0-9.+-]+)(\\s*0)*\\s*([0-9.+-]+),([0-9.+-]+))");
