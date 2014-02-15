@@ -3,8 +3,14 @@ package main;
 import java.io.File;
 import java.io.IOException;
 
+import fileProcessing.FileReader;
+
 public class SDLCompiler {
 	private String xmlText;
+
+	public static void main(String[] args){
+		//todo put main stuff here
+	}
 	
 	public String getXmlText(){
 		return xmlText;

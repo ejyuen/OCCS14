@@ -1,5 +1,7 @@
-package main;
+package fileProcessing;
 import java.util.regex.*;
+
+import main.SDLCompiler;
 public class Parser {
 	public SDLCompiler sdlCompiler = new SDLCompiler();
 	

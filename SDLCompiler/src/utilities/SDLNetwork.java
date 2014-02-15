@@ -1,6 +1,7 @@
-package main;
+package utilities;
 
 import java.util.ArrayList;
+
 import sdlObject.*;
 
 public class SDLNetwork {
