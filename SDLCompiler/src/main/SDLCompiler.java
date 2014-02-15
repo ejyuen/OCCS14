@@ -6,24 +6,24 @@ import java.io.IOException;
 import fileProcessing.FileReader;
 
 public class SDLCompiler {
-	private String xmlText;
 
 	public static void main(String[] args){
-		//todo put main stuff here
+		getxmlText("SDLCompiler/src/files/SmartDrive.svg");
 	}
 	
-	public String getXmlText(){
-		return xmlText;
-	}
-	public void setXmlText(){
-		String pathFromCurrentDirectory = "SDLCompiler/src/files/SmartDrive.svg";
+	/**
+	 * 
+	 * @param pathToFile The path to the file from where you are running this program
+	 * @return the xml in the file as a string
+	 */
+	public static String getxmlText(String pathToFile){
 		String path = "";
 		try {
-			path = new File(new File(".").getAbsolutePath()).getCanonicalPath() + "/" + pathFromCurrentDirectory;
+			path = new File(new File(".").getAbsolutePath()).getCanonicalPath()
+					+ "/" + pathToFile;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		xmlText = FileReader.readFile(path);
+		return FileReader.readFile(path);
 	}
-	
 }
