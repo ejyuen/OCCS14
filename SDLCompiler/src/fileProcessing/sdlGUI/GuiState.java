@@ -2,11 +2,11 @@ package fileProcessing.sdlGUI;
 
 import java.awt.*;
 
-public class State extends Polygon {
+public class GuiState extends Polygon {
 
 	private String name;
 	
-	public State(String n, int x1, int x2, int y1, int y2){
+	public GuiState(String n, int x1, int x2, int y1, int y2){
 		super.xpoints[0] = x1; super.xpoints[1] = x2;
 		super.ypoints[0] = y1; super.ypoints[1] = y2;
 		super.npoints = 4;
