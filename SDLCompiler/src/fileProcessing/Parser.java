@@ -17,14 +17,6 @@ public class Parser {
 			}
 		}
 	}
-	
-	public static void main (String[] args){
-		String path = "";
-		SDLCompiler compiler = new SDLCompiler();
-		compiler.setXmlText();
-		addSDLObjects(FileReader.readFile(compiler.getXmlText()));
-	}
-	
 
 	//TODO takes in the string from file reader and parses it into and SDL network
 }
