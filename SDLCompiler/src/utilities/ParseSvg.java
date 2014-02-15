@@ -69,7 +69,7 @@ public class ParseSvg {
                 }
             };
 
-            saxParser.parse("sdl/SmartDrive.svg", handler);
+            saxParser.parse("SDLCompiler/src/files/SmartDrive.svg", handler);
 
         } catch (Exception e) {
             e.printStackTrace();

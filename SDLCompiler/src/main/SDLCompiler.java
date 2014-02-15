@@ -25,4 +25,5 @@ public class SDLCompiler {
 		}
 		xmlText = FileReader.readFile(path);
 	}
+	
 }
