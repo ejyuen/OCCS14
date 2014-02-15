@@ -14,4 +14,12 @@ public class State{
 	public void addConnection(Connection c){
 		outboundConnections.add(c);
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public ArrayList<Connection> getConnections() {
+		return outboundConnections;
+	}
 }
