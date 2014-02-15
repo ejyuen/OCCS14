@@ -1,10 +1,14 @@
 package sdlObject;
 
-import java.awt.geom.Line2D;
+import java.util.ArrayList;
 
-public class Connection extends Line2D.Double {
+public class Connection extends SDLObject{
+	private State startState;
+	private State endState;
+	private Signal trigger;
+	private ArrayList<Action> actions;
 	
-	public Connection(int x1, int y1, int x2, int y2){
-		super(x1, y1, x2, y2);
+	public Connection(String name){
+		super(name);
 	}
 }
