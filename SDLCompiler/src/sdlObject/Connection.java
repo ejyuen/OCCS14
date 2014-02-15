@@ -8,9 +8,12 @@ public class Connection{
 	private Signal signal;
 	private Action action;
 	
-	public Connection(State startState, State endState){
+	public Connection(State startState, State endState, 
+			Signal signal, Action action){
 		this.startState = startState;
 		this.endState = endState;
+		this.signal = signal;
+		this.action = action;
 	}
 	
 	public State getStartState() {
