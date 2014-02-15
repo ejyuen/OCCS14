@@ -3,8 +3,10 @@ package sdlObject;
 import java.awt.Polygon;
 import java.util.ArrayList;
 
-public class Signal extends SDLObject{	
+public class Signal{
+	private String name;
+	
 	public Signal(String name){
-		super(name);
+		this.name = name;
 	}
 }

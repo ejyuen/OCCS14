@@ -3,8 +3,10 @@ package sdlObject;
 import java.awt.Polygon;
 import java.util.ArrayList;
 
-public class Action extends SDLObject{
+public class Action{
+	private String name;
+	
 	public Action(String name){
-		super(name);
+		this.name = name;
 	}
 }

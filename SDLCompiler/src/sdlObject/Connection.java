@@ -2,13 +2,14 @@ package sdlObject;
 
 import java.util.ArrayList;
 
-public class Connection extends SDLObject{
+public class Connection{
 	private State startState;
 	private State endState;
 	private Signal trigger;
-	private ArrayList<Action> actions;
+	private Action action;
 	
-	public Connection(String name){
-		super(name);
+	public Connection(State startState, State endState){
+		this.startState = startState;
+		this.endState = endState;
 	}
 }

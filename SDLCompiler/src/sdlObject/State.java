@@ -2,11 +2,16 @@ package sdlObject;
 
 import java.util.ArrayList;
 
-public class State extends SDLObject{
+public class State{
 	
 	private ArrayList<Connection> outboundConnections;
+	private String name;
 	
 	public State(String name){
-		super(name);
+		this.name = name;
+	}
+	
+	public void addConnection(Connection c){
+		outboundConnections.add(c);
 	}
 }
