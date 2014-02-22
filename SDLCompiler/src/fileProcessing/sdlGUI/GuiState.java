@@ -6,9 +6,9 @@ public class GuiState extends Polygon {
 
 	private String name;
 	
-	public GuiState(String n, int x1, int x2, int y1, int y2){
-		super.xpoints[0] = x1; super.xpoints[1] = x2;
-		super.ypoints[0] = y1; super.ypoints[1] = y2;
+	public GuiState(String n, double x1, double x2, double y1, double y2){
+		super.xpoints[0] = (int)(x1 + 1); super.xpoints[1] = (int)(x2 + 1);
+		super.ypoints[0] = (int)(y1 + 1); super.ypoints[1] = (int)(y2 + 1);
 		super.npoints = 4;
 		name = n;
 	}

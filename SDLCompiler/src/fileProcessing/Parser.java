@@ -1,6 +1,11 @@
 package fileProcessing;
 import java.util.regex.*;
 
+import fileProcessing.*;
+import fileProcessing.sdlGUI.*;
+
+import sdlNetwork.SDLNetwork;
+
 public class Parser {
 	public static Pattern actionSignalPattern = Pattern.compile("([0-9.,]+ ){5}");
 	public static Pattern namePattern = Pattern.compile("x=\"[ 0-9a-z.\"=]+>[A-Za-z ]+");
@@ -8,6 +13,7 @@ public class Parser {
 	public static Pattern xPattern = Pattern.compile(" [0-9.]+");
 	public static Pattern yPattern = Pattern.compile(",[0-9.]+");
 	public static Pattern stringNamePattern = Pattern.compile(">[a-zA-Z]+");
+	private static GuiNetwork network = new GuiNetwork();
 
 	public static void addSDLObjects(String XMLText){
 		Matcher actionSignalMatcher = actionSignalPattern.matcher(XMLText);
@@ -45,16 +51,43 @@ public class Parser {
 				while(stringNameMatcher.find()){
 					name = stringNameMatcher.group().substring(1);
 				}
-				System.out.println("" + name + " " + lowestX + "," + highestX + "," + lowestY + "," + highestY);
-				
+				network.addGuiState(new GuiState(name, lowestX, highestX, lowestY, highestY));
+			}
+			
+		}
+		while(actionSignalMatcher.find()){
+			int type = 0; // 0 is Signal, 1 is Action, make this an enum im lazy
+			String rawPoints = actionSignalMatcher.group();
+			Matcher xMatcher = xPattern.matcher(rawPoints);
+			Matcher yMatcher = yPattern.matcher(rawPoints);
+			double x2 = 0;
+			int counter = 0;
+			while(xMatcher.find()){
+				if(counter == 1){
+					x2 = Double.parseDouble(xMatcher.group());
+				}
+				if(counter == 2){
+					if(Double.parseDouble(xMatcher.group()) < x2){
+						type = 0;
+					}else{
+						type = 1;
+					}
+				}
+				counter++;
+			}
+			if(type == 0){
+				/////start coding from here
 			}
 			
 		}
 		
+
+		
 	
-		while(actionSignalMatcher.find()){
+		/*while(actionSignalMatcher.find()){
 			System.out.println("" + actionSignalMatcher.group());
 		}
+		*/
 		
 	}
 
