@@ -4,7 +4,7 @@ public class InvestorMenue extends Menue{
 
 	public InvestorMenue(Menue menue) {
 		super(menue);
-		addTextField("Username:", 120, 75, 60, 15);
+		addTextField("Username:", 115, 75, 70, 15);
 	}
 
 }

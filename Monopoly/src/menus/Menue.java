@@ -51,6 +51,7 @@ public class Menue extends JFrame{
 		btnBack.setBounds(100, 436, 100, 25);
 		contentPane.add(btnBack);
 	}
+	
 	/**
 	 * 
 	 * @param name

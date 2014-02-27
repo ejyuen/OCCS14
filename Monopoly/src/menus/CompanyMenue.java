@@ -4,7 +4,7 @@ public class CompanyMenue extends Menue {
 
 	public CompanyMenue(Menue menue) {
 		super(menue);
-		addTextField("Username:", 120, 75, 60, 15);
+		addTextField("Name:", 115, 75, 70, 15);
 	}
 
 }
