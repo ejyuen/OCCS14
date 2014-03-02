@@ -60,7 +60,6 @@ public class Parser {
 			int type = 0; // 0 is Signal, 1 is Action, make this an enum im lazy
 			String rawPoints = actionSignalMatcher.group();
 			Matcher xMatcher = xPattern.matcher(rawPoints);
-			Matcher yMatcher = yPattern.matcher(rawPoints);
 			double x2 = 0;
 			int counter = 0;
 			while(xMatcher.find()){
@@ -68,7 +67,7 @@ public class Parser {
 					x2 = Double.parseDouble(xMatcher.group());
 				}
 				if(counter == 2){
-					if(Double.parseDouble(xMatcher.group()) < x2){
+					if(Double.parseDouble(xMatcher. group()) < x2){
 						type = 0;
 					}else{
 						type = 1;
@@ -77,9 +76,47 @@ public class Parser {
 				counter++;
 			}
 			if(type == 0){
+				int[] xPoints = new int[5];
+				int[] yPoints = new int[5];
+				Matcher xMatcher2 = xPattern.matcher(rawPoints);
+				int exIndex = 0;
+				while(xMatcher2.find()){
+					xPoints[exIndex] = (int)(Double.parseDouble(xMatcher2.group()));
+					exIndex++;
+				}
+				Matcher yMatcher2 = yPattern.matcher(rawPoints);
+				int yIndex = 0;
+				while(yMatcher2.find()){
+					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher2.group().substring(1)));
+				}
+				
+				String rawName = nameMatcher.group(actionSignalMatcher.end());
+				Matcher nameMatcher2 = stringNamePattern.matcher(rawName);
+				String name = nameMatcher2.group().substring(1);
+				network.addGuiSignal(new GuiSignal(name, xPoints, yPoints));
 				/////start coding from here
 			}
-			
+			if(type == 1){
+				int[] xPoints = new int[5];
+				int[] yPoints = new int[5];
+				Matcher xMatcher2 = xPattern.matcher(rawPoints);
+				int exIndex = 0;
+				while(xMatcher2.find()){
+					xPoints[exIndex] = (int)(Double.parseDouble(xMatcher2.group()));
+					exIndex++;
+				}
+				Matcher yMatcher2 = yPattern.matcher(rawPoints);
+				int yIndex = 0;
+				while(yMatcher2.find()){
+					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher2.group().substring(1)));
+				}
+				
+				String rawName = nameMatcher.group(actionSignalMatcher.end());
+				Matcher nameMatcher2 = stringNamePattern.matcher(rawName);
+				String name = nameMatcher2.group().substring(1);
+				network.addGuiAction(new GuiAction(name, xPoints, yPoints));
+				
+			}
 		}
 		
 
