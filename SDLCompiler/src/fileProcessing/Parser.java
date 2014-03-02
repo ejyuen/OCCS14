@@ -10,15 +10,17 @@ public class Parser {
 	public static Pattern actionSignalPattern = Pattern.compile("([0-9.,]+ ){5}");
 	public static Pattern namePattern = Pattern.compile("x=\"[ 0-9a-z.\"=]+>[A-Za-z ]+");
 	public static Pattern statePattern = Pattern.compile("L[ 0-9.,LC]+z");
-	public static Pattern xPattern = Pattern.compile(" [0-9.]+");
+	public static Pattern xPattern = Pattern.compile(" [0-9.]+ (!? )");
 	public static Pattern yPattern = Pattern.compile(",[0-9.]+");
 	public static Pattern stringNamePattern = Pattern.compile(">[a-zA-Z]+");
+	public static Pattern connectionPattern = Pattern.compile("M[0-9,. ]+A[0-9,. ]+");
 	private static GuiNetwork network = new GuiNetwork();
 
 	public static void addSDLObjects(String XMLText){
 		Matcher actionSignalMatcher = actionSignalPattern.matcher(XMLText);
 		Matcher stateMatcher = statePattern.matcher(XMLText);
 		Matcher nameMatcher = namePattern.matcher(XMLText);
+		Matcher connectionMatcher = connectionPattern.matcher(XMLText);
 		
 		while(stateMatcher.find()){
 			String rawPoints = stateMatcher.group();
@@ -117,6 +119,32 @@ public class Parser {
 				network.addGuiAction(new GuiAction(name, xPoints, yPoints));
 				
 			}
+		}
+		while(connectionMatcher.find()){
+			double x1 = 0;
+			double x2 = 0;
+			double y1 = 0;
+			double y2 = 0;
+			int xCounter = 0;
+			int yCounter = 0;
+			String rawPoints = connectionMatcher.group();
+			Matcher xMatcher = xPattern.matcher(rawPoints);
+			Matcher yMatcher = yPattern.matcher(rawPoints);
+			while(xMatcher.find()){
+				if (xCounter == 0)
+					x1 = Double.parseDouble(xMatcher.group());
+				if (xCounter == 2)
+					x2 = Double.parseDouble(xMatcher.group());
+				xCounter++;
+			}
+			while(yMatcher.find()){
+				if (yCounter == 0)
+					y1 = Double.parseDouble(yMatcher.group());
+				if (yCounter == 2)
+					y2 = Double.parseDouble(yMatcher.group());
+				yCounter++;
+			}
+			network.addGuiConnection(new GuiConnection(x1, y1, x2, y2));
 		}
 		
 
