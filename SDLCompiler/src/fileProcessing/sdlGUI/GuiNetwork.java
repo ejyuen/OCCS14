@@ -25,16 +25,16 @@ public class GuiNetwork extends JFrame{
 		guiActions.add(a);
 	}
 	
+	public void addGuiConnection(GuiConnection c){
+		guiConnections.add(c);
+	}
+	
 	public void addGuiSignal(GuiSignal s){
 		guiSignals.add(s);
 	}
 	
 	public void addGuiState(GuiState s){
 		guiStates.add(s);
-	}
-	
-	public void addGuiConnection(GuiConnection c){
-		guiConnections.add(c);
 	}
 	
 	public ArrayList<GuiAction> getGuiActions(){

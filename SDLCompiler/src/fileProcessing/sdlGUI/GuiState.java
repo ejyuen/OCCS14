@@ -1,14 +1,17 @@
 package fileProcessing.sdlGUI;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 
-public class GuiState extends Polygon {
+
+public class GuiState extends Rectangle2D.Double {
 
 	private String name;
 	private Color color = Color.BLACK;
 	
-	public GuiState(String name, int xpoints[], int ypoints[]){
-		super(xpoints, ypoints, 4);
+	public GuiState(String name, double x, double y, double w, double h){
+		super(x, y, w, h);
 		this.name = name;
 	}
 	
