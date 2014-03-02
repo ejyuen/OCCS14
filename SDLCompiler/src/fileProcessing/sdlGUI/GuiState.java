@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-
+//Important to note, Rectangle2D's contain's method does not Point parameters, you must use ints (xcoord, ycoord)
 public class GuiState extends Rectangle2D.Double {
 
 	private String name;

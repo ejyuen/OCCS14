@@ -52,8 +52,7 @@ public class Parser {
 					name = stringNameMatcher.group().substring(1);
 				}
 				
-				//TODO fix this since I changed how the GUI stuff works
-				//network.addGuiState(new GuiState(name, lowestX, highestX, lowestY, highestY));
+				network.addGuiState(new GuiState(name, lowestX, lowestY, highestX-lowestX, highestY-lowestY));
 			}
 			
 		}
