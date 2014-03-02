@@ -51,7 +51,9 @@ public class Parser {
 				while(stringNameMatcher.find()){
 					name = stringNameMatcher.group().substring(1);
 				}
-				network.addGuiState(new GuiState(name, lowestX, highestX, lowestY, highestY));
+				
+				//TODO fix this since I changed how the GUI stuff works
+				//network.addGuiState(new GuiState(name, lowestX, highestX, lowestY, highestY));
 			}
 			
 		}

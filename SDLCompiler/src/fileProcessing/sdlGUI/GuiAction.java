@@ -1,43 +1,25 @@
 package fileProcessing.sdlGUI;
-import java.awt.*;
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
 
 public class GuiAction extends Polygon {
 
 	private String name;
+	private Color color = Color.BLACK;
 	
-	public GuiAction(String n, int x1, int x2, int y1, int y2, int xmid, int ymid){
-		super.xpoints[0] = x1; super.xpoints[1] = x2; super.xpoints[2] = xmid;
-		super.ypoints[0] = y1; super.ypoints[1] = y2; super.ypoints[2] = ymid;
-		super.npoints = 5;
-		name = n;
+	public GuiAction(String name, int xpoints[], int ypoints[]){
+		super(xpoints, ypoints, 5);
+		this.name = name;
 	}
 	
 	public String getName(){
 		return name;
 	}
 	
-	public int getx1(){
-		return xpoints[0];
+	public void paint(Graphics2D g){
+		g.setColor(color);
+		g.draw(this);
 	}
-	
-	public int getx2(){
-		return xpoints[1];
-	}
-	
-	public int getx3(){
-		return xpoints[2];
-	}
-	
-	public int gety1(){
-		return ypoints[0];
-	}
-	
-	public int gety2(){
-		return ypoints[1];
-	}
-	
-	public int gety3(){
-		return ypoints[2];
-	}
-	
 }

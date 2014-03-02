@@ -5,40 +5,19 @@ import java.awt.*;
 public class GuiState extends Polygon {
 
 	private String name;
+	private Color color = Color.BLACK;
 	
-	public GuiState(String n, double x1, double x2, double y1, double y2){
-		super.xpoints[0] = (int)(x1 + 1); super.xpoints[1] = (int)(x2 + 1);
-		super.ypoints[0] = (int)(y1 + 1); super.ypoints[1] = (int)(y2 + 1);
-		super.npoints = 4;
-		name = n;
+	public GuiState(String name, int xpoints[], int ypoints[]){
+		super(xpoints, ypoints, 4);
+		this.name = name;
 	}
 	
 	public String getName(){
 		return name;
 	}
 	
-	public int getx1(){
-		return xpoints[0];
+	public void paint(Graphics2D g){
+		g.setColor(color);
+		g.draw(this);
 	}
-	
-	public int getx2(){
-		return xpoints[1];
-	}
-	
-	public int gety1(){
-		return ypoints[0];
-	}
-	
-	public int gety2(){
-		return ypoints[1];
-	}
-	
-	/*public int[][] getCoordinates() {
-		int[] coord1 = new int[2]; coord1[0] = xpoints[0]; coord1[1] = ypoints[0];
-		int[] coord2 = new int[2]; coord2[0] = xpoints[0]; coord2[1] = ypoints[1];
-		int[] coord3 = new int[2]; coord3[0] = xpoints[1]; coord3[1] = ypoints[0];
-		int[] coord4 = new int[2]; coord4[0] = xpoints[1]; coord4[1] = ypoints[1];
-		int[][] coords = new int[0][0];
-		return coords;
-	}*/
 }
