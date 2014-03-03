@@ -5,12 +5,14 @@ import java.io.IOException;
 
 import fileProcessing.FileReader;
 import fileProcessing.Parser;
-
+import fileProcessing.sdlGUI.GuiNetwork;
+import sdlNetwork.SDLNetwork;
 public class SDLCompiler {
 
 	public static void main(String[] args){
 		String xmlText = getXmlText("SDLCompiler/src/files/SmartDrive.svg");
 		Parser.addSDLObjects(xmlText);
+		GuiNetwork.paintNetwork(Parser.getGuiNetwork());
 	}
 	
 	/**

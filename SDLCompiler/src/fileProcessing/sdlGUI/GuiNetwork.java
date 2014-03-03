@@ -54,6 +54,9 @@ public class GuiNetwork extends JFrame{
 	}
 	
 	public void paint(Graphics2D g){
+		
+		super.paint(g);
+		
 		//paint actions
 		for(GuiAction a: guiActions){
 			a.paint(g);

@@ -1,8 +1,10 @@
 package fileProcessing;
+import java.awt.Graphics2D;
 import java.util.regex.*;
 
 import fileProcessing.*;
 import fileProcessing.sdlGUI.*;
+import graphics.Graphics;
 
 import sdlNetwork.SDLNetwork;
 
@@ -58,6 +60,7 @@ public class Parser {
 			}
 			
 		}
+		
 		while(actionSignalMatcher.find()){
 			int type = 0; // 0 is Signal, 1 is Action, make this an enum im lazy
 			String rawPoints = actionSignalMatcher.group();
@@ -91,11 +94,15 @@ public class Parser {
 				while(yMatcher2.find()){
 					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher2.group().substring(1)));
 				}
-				
-				String rawName = nameMatcher.group(actionSignalMatcher.end());
-				Matcher nameMatcher2 = stringNamePattern.matcher(rawName);
-				String name = nameMatcher2.group().substring(1);
-				network.addGuiSignal(new GuiSignal(name, xPoints, yPoints));
+					String name = "default";
+				if(nameMatcher.find(actionSignalMatcher.end())) {
+					String rawName = nameMatcher.group();
+					Matcher stringNameMatcher = stringNamePattern.matcher(rawName);
+					while(stringNameMatcher.find()){
+						name = stringNameMatcher.group().substring(1);
+					}
+					network.addGuiSignal(new GuiSignal(name, xPoints, yPoints));
+				}
 				/////start coding from here
 			}
 			if(type == 1){
@@ -112,12 +119,15 @@ public class Parser {
 				while(yMatcher2.find()){
 					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher2.group().substring(1)));
 				}
-				
-				String rawName = nameMatcher.group(actionSignalMatcher.end());
-				Matcher nameMatcher2 = stringNamePattern.matcher(rawName);
-				String name = nameMatcher2.group().substring(1);
-				network.addGuiAction(new GuiAction(name, xPoints, yPoints));
-				
+				String name = "default";
+				if(nameMatcher.find(actionSignalMatcher.end())) {
+					String rawName = nameMatcher.group();
+					Matcher stringNameMatcher = stringNamePattern.matcher(rawName);
+					while(stringNameMatcher.find()){
+						name = stringNameMatcher.group().substring(1);
+					}
+					network.addGuiSignal(new GuiSignal(name, xPoints, yPoints));
+				}
 			}
 		}
 		while(connectionMatcher.find()){
@@ -139,22 +149,19 @@ public class Parser {
 			}
 			while(yMatcher.find()){
 				if (yCounter == 0)
-					y1 = Double.parseDouble(yMatcher.group());
+					y1 = Double.parseDouble(yMatcher.group().substring(1));
 				if (yCounter == 2)
-					y2 = Double.parseDouble(yMatcher.group());
+					y2 = Double.parseDouble(yMatcher.group().substring(1));
 				yCounter++;
 			}
 			network.addGuiConnection(new GuiConnection(x1, y1, x2, y2));
 		}
 		
+		
 
-		
-	
-		/*while(actionSignalMatcher.find()){
-			System.out.println("" + actionSignalMatcher.group());
-		}
-		*/
-		
+	}
+	public static GuiNetwork getGuiNetwork(){
+		return network;
 	}
 
 	//TODO takes in the string from file reader and parses it into and SDL network
