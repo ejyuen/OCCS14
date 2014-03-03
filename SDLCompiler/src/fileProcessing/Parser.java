@@ -4,7 +4,7 @@ import java.util.regex.*;
 
 import fileProcessing.*;
 import fileProcessing.sdlGUI.*;
-import graphics.Graphics;
+
 
 import sdlNetwork.SDLNetwork;
 
@@ -12,7 +12,7 @@ public class Parser {
 	public static Pattern actionSignalPattern = Pattern.compile("([0-9.,]+ ){5}");
 	public static Pattern namePattern = Pattern.compile("x=\"[ 0-9a-z.\"=]+>[A-Za-z ]+");
 	public static Pattern statePattern = Pattern.compile("L[ 0-9.,LC]+z");
-	public static Pattern xPattern = Pattern.compile(" [0-9.]+ (!? )");
+	public static Pattern xPattern = Pattern.compile("( [0-9.]+)(?! )");
 	public static Pattern yPattern = Pattern.compile(",[0-9.]+");
 	public static Pattern stringNamePattern = Pattern.compile(">[a-zA-Z]+");
 	public static Pattern connectionPattern = Pattern.compile("M[0-9,. ]+A[0-9,. ]+");
@@ -37,11 +37,11 @@ public class Parser {
 				double lowestY = Double.MAX_VALUE;
 				String name = "default";
 				while(xMatcher.find()){
-					if(Double.parseDouble(xMatcher.group()) > highestX){
-						highestX = Double.parseDouble(xMatcher.group());
+					if(Double.parseDouble(xMatcher.group().substring(1)) > highestX){
+						highestX = Double.parseDouble(xMatcher.group().substring(1));
 					}
-					if(Double.parseDouble(xMatcher.group()) < lowestX){
-						lowestX = Double.parseDouble(xMatcher.group());
+					if(Double.parseDouble(xMatcher.group().substring(1)) < lowestX){
+						lowestX = Double.parseDouble(xMatcher.group().substring(1));
 					}
 				}
 				while(yMatcher.find()){
@@ -86,7 +86,7 @@ public class Parser {
 				Matcher xMatcher2 = xPattern.matcher(rawPoints);
 				int exIndex = 0;
 				while(xMatcher2.find()){
-					xPoints[exIndex] = (int)(Double.parseDouble(xMatcher2.group()));
+					xPoints[exIndex] = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
 					exIndex++;
 				}
 				Matcher yMatcher2 = yPattern.matcher(rawPoints);
@@ -111,7 +111,7 @@ public class Parser {
 				Matcher xMatcher2 = xPattern.matcher(rawPoints);
 				int exIndex = 0;
 				while(xMatcher2.find()){
-					xPoints[exIndex] = (int)(Double.parseDouble(xMatcher2.group()));
+					xPoints[exIndex] = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
 					exIndex++;
 				}
 				Matcher yMatcher2 = yPattern.matcher(rawPoints);
@@ -126,7 +126,7 @@ public class Parser {
 					while(stringNameMatcher.find()){
 						name = stringNameMatcher.group().substring(1);
 					}
-					network.addGuiSignal(new GuiSignal(name, xPoints, yPoints));
+					network.addGuiAction(new GuiAction(name, xPoints, yPoints));
 				}
 			}
 		}
@@ -142,9 +142,9 @@ public class Parser {
 			Matcher yMatcher = yPattern.matcher(rawPoints);
 			while(xMatcher.find()){
 				if (xCounter == 0)
-					x1 = Double.parseDouble(xMatcher.group());
+					x1 = Double.parseDouble(xMatcher.group().substring(1));
 				if (xCounter == 2)
-					x2 = Double.parseDouble(xMatcher.group());
+					x2 = Double.parseDouble(xMatcher.group().substring(1));
 				xCounter++;
 			}
 			while(yMatcher.find()){
