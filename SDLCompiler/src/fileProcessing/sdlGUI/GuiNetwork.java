@@ -1,10 +1,12 @@
 package fileProcessing.sdlGUI;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GuiNetwork extends JFrame{
 
@@ -12,13 +14,17 @@ public class GuiNetwork extends JFrame{
 	private ArrayList<GuiConnection> guiConnections = new ArrayList<GuiConnection>();
 	private ArrayList<GuiAction> guiActions = new ArrayList<GuiAction>();
 	private ArrayList<GuiSignal> guiSignals = new ArrayList<GuiSignal>();
-	
+	private JPanel j = null;
+
 	private Color backgroundColor = Color.WHITE;
 	
 	public GuiNetwork(){
+		super("GUI Network");
 		setSize(600, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBackground(backgroundColor);
+		setBackground(backgroundColor);
+		j = new NPanel();
+		add(j);
 	}
 	
 	public void addGuiAction(GuiAction a){
@@ -53,33 +59,34 @@ public class GuiNetwork extends JFrame{
 		return guiConnections;
 	}
 	
-	public void paint(Graphics2D g){
-		
-		super.paint(g);
-		
-		//paint actions
-		for(GuiAction a: guiActions){
-			a.paint(g);
-		}
-		
-		//paint connections
-		for(GuiConnection c: guiConnections){
-			c.paint(g);
-		}
-		
-		//paint signals
-		for(GuiSignal s: guiSignals){
-			s.paint(g);
-		}
-		
-		//paint states
-		for(GuiState s: guiStates){
-			s.paint(g);
-		}
-	}
-	
 	public static void paintNetwork(GuiNetwork gn){
 		gn.setVisible(true);
-		gn.repaint();
+	}
+	
+	public class NPanel extends JPanel{
+		
+		public void paintComponent(Graphics g){
+			Graphics2D g2 = (Graphics2D) g;
+			
+			//paint actions
+			for(GuiAction a: guiActions){
+				a.paint(g2);
+			}
+			
+			//paint connections
+			for(GuiConnection c: guiConnections){
+				c.paint(g2);
+			}
+			
+			//paint signals
+			for(GuiSignal s: guiSignals){
+				s.paint(g2);
+			}
+			
+			//paint states
+			for(GuiState s: guiStates){
+				s.paint(g2);
+			}
+		}
 	}
 }

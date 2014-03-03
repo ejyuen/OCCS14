@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 public class GuiState extends Rectangle2D.Double {
 
 	private String name;
-	private Color color = Color.BLACK;
+	private Color color = Color.CYAN;
 	
 	public GuiState(String name, double x, double y, double w, double h){
 		super(x, y, w, h);

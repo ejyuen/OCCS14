@@ -81,20 +81,40 @@ public class Parser {
 				counter++;
 			}
 			if(type == 0){
-				int[] xPoints = new int[5];
+				System.out.println("yoooo");
 				int[] yPoints = new int[5];
 				Matcher xMatcher2 = xPattern.matcher(rawPoints);
-				int exIndex = 0;
+				int xCounter = 0;
+				int xone = 0;
+				int xtwo = 0;
+				int xthree = 0;
 				while(xMatcher2.find()){
-					xPoints[exIndex] = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
-					exIndex++;
+					switch(xCounter){
+					case 0:
+						xtwo = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
+						break;
+					case 1:
+						xthree = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
+						break;
+					case 3:
+						xone  = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
+						break;
+					default:
+						break;
+					}
+					xCounter++;
 				}
+				System.out.println(xone + " " +  xtwo + " " + xthree + " " + xtwo + " " + xone);
+				int[] xPoints = {xone, xtwo, xthree, xtwo, xone};
 				Matcher yMatcher2 = yPattern.matcher(rawPoints);
 				int yIndex = 0;
 				while(yMatcher2.find()){
 					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher2.group().substring(1)));
+					System.out.println((int)(Double.parseDouble(yMatcher2.group().substring(1))));
+					yIndex++;
 				}
-					String name = "default";
+				//System.out.println(yPoints[0] + " " + yPoints[1] + " " + yPoints[2] + " " + yPoints[3] + " " + yPoints[4]);
+				String name = "default";
 				if(nameMatcher.find(actionSignalMatcher.end())) {
 					String rawName = nameMatcher.group();
 					Matcher stringNameMatcher = stringNamePattern.matcher(rawName);
@@ -106,18 +126,34 @@ public class Parser {
 				/////start coding from here
 			}
 			if(type == 1){
-				int[] xPoints = new int[5];
 				int[] yPoints = new int[5];
 				Matcher xMatcher2 = xPattern.matcher(rawPoints);
-				int exIndex = 0;
+				int xCounter = 0;
+				int xone = 0;
+				int xtwo = 0;
+				int xthree = 0;
 				while(xMatcher2.find()){
-					xPoints[exIndex] = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
-					exIndex++;
+					switch(xCounter){
+					case 0:
+						xtwo = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
+						break;
+					case 1:
+						xthree = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
+						break;
+					case 3:
+						xone  = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
+						break;
+					default:
+						break;
+					}
+					xCounter++;
 				}
+				int[] xPoints = {xone, xtwo, xthree, xtwo, xone};
 				Matcher yMatcher2 = yPattern.matcher(rawPoints);
 				int yIndex = 0;
 				while(yMatcher2.find()){
 					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher2.group().substring(1)));
+					yIndex++;
 				}
 				String name = "default";
 				if(nameMatcher.find(actionSignalMatcher.end())) {

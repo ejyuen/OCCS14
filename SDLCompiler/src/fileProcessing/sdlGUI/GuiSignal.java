@@ -4,7 +4,7 @@ import java.awt.*;
 public class GuiSignal extends Polygon {
 
 	private String name;
-	private Color color = Color.BLACK;
+	private Color color = Color.RED;
 	
 	
 	public GuiSignal(String name, int[] xpoints, int[] ypoints){

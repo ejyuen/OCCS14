@@ -7,7 +7,7 @@ import java.awt.Polygon;
 public class GuiAction extends Polygon {
 
 	private String name;
-	private Color color = Color.BLACK;
+	private Color color = Color.BLUE;
 	
 	public GuiAction(String name, int xpoints[], int ypoints[]){
 		super(xpoints, ypoints, 5);
