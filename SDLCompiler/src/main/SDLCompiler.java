@@ -25,7 +25,7 @@ public class SDLCompiler {
 			for(Connection c: s.getConnections())
 			System.out.println(c);
 		}
-		System.out.println(System.currentTimeMillis() - startTime);
+		System.out.println("finished in " + (System.currentTimeMillis() - startTime) + " miliseconds.");
 	}
 	
 	/**
