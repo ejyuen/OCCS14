@@ -10,8 +10,6 @@ public class SDLNetwork {
 	
 	public SDLNetwork(State startState){
 		states = new ArrayList<State>();
-		states.add(startState);
-		this.startState = startState;
 	}
 		
 	public void addState(State s){
@@ -24,5 +22,8 @@ public class SDLNetwork {
 	
 	public State getStartState(){
 		return startState;
+	}
+	public void addStartState(State startState){
+		this.startState = startState;
 	}
 }
