@@ -35,7 +35,7 @@ public class Action implements Runnable{
 		while(parameterMatcher.find()){
 			String rawParameter = parameterMatcher.group();
 			String[] parameterArray = rawParameter.split(",");
-			for(int i=0; i < parameterArray.length -1; i++){
+			for(int i=0; i < parameterArray.length; i++){
 				parameterArray[i].trim();
 			}
 			methodParameters.add(parameterArray);
