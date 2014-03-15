@@ -1,4 +1,4 @@
-package main;
+package sdlRunner;
 
 import java.util.ArrayList;
 import java.util.Queue;
@@ -58,10 +58,5 @@ public class SDLRunner implements Runnable{
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	
-	public static void main(String[] args) {
-		
 	}
 }
