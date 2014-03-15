@@ -16,7 +16,7 @@ public class Action{
 		return name;
 	}
 	
-	public String[] getMethodName(){
+	public String[] getMethodNames(){
 		return new String[0];
 	}
 	
@@ -28,8 +28,8 @@ public class Action{
 		try {
 			Class<utilities.ActionList> c = ActionList.class;
 			
-			for(int i = 0; i < getMethodName().length; i++){
-				Method method = c.getDeclaredMethod(getMethodName()[i], String[].class);
+			for(int i = 0; i < getMethodNames().length; i++){
+				Method method = c.getDeclaredMethod(getMethodNames()[i], String[].class);
 				method.invoke(null, getMethodParameters()[i]);
 			}
 		} catch (NoSuchMethodException e) {
