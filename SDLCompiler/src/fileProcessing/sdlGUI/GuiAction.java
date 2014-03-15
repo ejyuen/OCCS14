@@ -22,4 +22,8 @@ public class GuiAction extends Polygon {
 		g.setColor(color);
 		g.draw(this);
 	}
+	
+	public String toString(){
+		return getName();
+	}
 }

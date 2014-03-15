@@ -31,4 +31,8 @@ public class Connection{
 	public Action getAction() {
 		return action;
 	}
+	
+	public String toString(){
+		return "" + startState + " " + signal + " " + action + " " + endState; 
+	}
 }

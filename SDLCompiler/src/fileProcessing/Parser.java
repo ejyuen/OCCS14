@@ -81,7 +81,7 @@ public class Parser {
 				counter++;
 			}
 			if(type == 0){
-				System.out.println("yoooo");
+				//System.out.println("yoooo");
 				int[] yPoints = new int[5];
 				Matcher xMatcher2 = xPattern.matcher(rawPoints);
 				int xCounter = 0;
@@ -104,13 +104,13 @@ public class Parser {
 					}
 					xCounter++;
 				}
-				System.out.println(xone + " " +  xtwo + " " + xthree + " " + xtwo + " " + xone);
+				//System.out.println(xone + " " +  xtwo + " " + xthree + " " + xtwo + " " + xone);
 				int[] xPoints = {xone, xtwo, xthree, xtwo, xone};
 				Matcher yMatcher2 = yPattern.matcher(rawPoints);
 				int yIndex = 0;
 				while(yMatcher2.find()){
 					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher2.group().substring(1)));
-					System.out.println((int)(Double.parseDouble(yMatcher2.group().substring(1))));
+					//System.out.println((int)(Double.parseDouble(yMatcher2.group().substring(1))));
 					yIndex++;
 				}
 				//System.out.println(yPoints[0] + " " + yPoints[1] + " " + yPoints[2] + " " + yPoints[3] + " " + yPoints[4]);
@@ -121,7 +121,15 @@ public class Parser {
 					while(stringNameMatcher.find()){
 						name = stringNameMatcher.group().substring(1);
 					}
-					network.addGuiSignal(new GuiSignal(name, xPoints, yPoints));
+					boolean before = false;
+					for(GuiAction ga: network.getGuiActions()){
+						if(ga.getName().equals(name)){
+							before = true;
+						}
+					}
+					if(!before){
+					network.addGuiAction(new GuiAction(name, xPoints, yPoints));
+					}
 				}
 				/////start coding from here
 			}
@@ -162,7 +170,15 @@ public class Parser {
 					while(stringNameMatcher.find()){
 						name = stringNameMatcher.group().substring(1);
 					}
-					network.addGuiAction(new GuiAction(name, xPoints, yPoints));
+					boolean befor3 = false;
+					for(GuiSignal ga: network.getGuiSignals()){
+						if(ga.getName().equals(name)){
+							befor3 = true;
+						}
+					}
+					if(!befor3){
+					network.addGuiSignal(new GuiSignal(name, xPoints, yPoints));
+					}
 				}
 			}
 		}

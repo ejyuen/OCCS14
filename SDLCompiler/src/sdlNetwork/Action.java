@@ -46,6 +46,10 @@ public class Action implements Runnable{
 		}
 	}
 	
+	public String toString(){
+		return getName();
+	}
+	
 	public String getName() {
 		return name;
 	}

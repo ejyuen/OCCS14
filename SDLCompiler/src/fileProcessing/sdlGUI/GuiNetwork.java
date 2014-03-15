@@ -28,7 +28,7 @@ public class GuiNetwork extends JFrame{
 	}
 	
 	public void addGuiAction(GuiAction a){
-		guiActions.add(a);
+			guiActions.add(a);
 	}
 	
 	public void addGuiConnection(GuiConnection c){

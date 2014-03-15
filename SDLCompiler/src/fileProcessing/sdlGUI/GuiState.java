@@ -23,4 +23,8 @@ public class GuiState extends Rectangle2D.Double {
 		g.setColor(color);
 		g.draw(this);
 	}
+	
+	public String toString(){
+		return getName();
+	}
 }

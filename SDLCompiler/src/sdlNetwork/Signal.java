@@ -33,4 +33,8 @@ public class Signal{
 			System.out.println(s.toString());
 		}
 	}
+	
+	public String toString(){
+		return getName();
+	}
 }

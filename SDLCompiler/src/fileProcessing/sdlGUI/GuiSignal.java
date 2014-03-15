@@ -20,4 +20,8 @@ public class GuiSignal extends Polygon {
 		g.setColor(color);
 		g.draw(this);
 	}
+	
+	public String toString(){
+		 return getName();
+	}
 }

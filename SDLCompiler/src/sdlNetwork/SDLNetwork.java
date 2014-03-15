@@ -8,7 +8,7 @@ public class SDLNetwork {
 	private ArrayList<State> states;
 	private State startState;
 	
-	public SDLNetwork(State startState){
+	public SDLNetwork(){
 		states = new ArrayList<State>();
 	}
 		

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class State{
 	
-	private ArrayList<Connection> outboundConnections;
+	private ArrayList<Connection> outboundConnections = new ArrayList<Connection>();
 	private String name;
 	
 	public State(String name){
@@ -25,5 +25,9 @@ public class State{
 	
 	public ArrayList<Connection> getConnections() {
 		return outboundConnections;
+	}
+	
+	public String toString(){
+		return name;
 	}
 }
