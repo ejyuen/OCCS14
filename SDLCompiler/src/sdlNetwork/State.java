@@ -19,6 +19,10 @@ public class State{
 		return name;
 	}
 	
+	public boolean equals(State s){
+		return name.equals(s.name);
+	}
+	
 	public ArrayList<Connection> getConnections() {
 		return outboundConnections;
 	}
