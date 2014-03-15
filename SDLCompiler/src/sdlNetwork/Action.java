@@ -9,15 +9,18 @@ import java.util.regex.Pattern;
 import utilities.ActionPack;
 
 public class Action implements Runnable{
+	//private String name;
 	private String name;
 	private ArrayList<String> methodNames;
 	private ArrayList<String[]> methodParameters;
-	private static Pattern methodPattern = Pattern.compile("[/n][/w]+[(]");
-	private static Pattern parameterPattern = Pattern.compile("[(][^)]+");
+	private static final Pattern methodPattern = Pattern.compile(";\n[A-Za-z0-9_]+");
+	private static final Pattern parameterPattern = Pattern.compile("[(][^)]+");
 	
 	
 	public Action(String name){
 		this.name = name;
+		methodNames = new ArrayList<String>();
+		methodParameters = new ArrayList<String[]>();
 		init();
 	}
 	
@@ -28,21 +31,19 @@ public class Action implements Runnable{
 		
 		while(methodMatcher.find()){
 			String rawMethod = methodMatcher.group();
-			rawMethod = rawMethod.substring(1,rawMethod.length()-1);
+			rawMethod = rawMethod.substring(1,rawMethod.length()).trim();
 			methodNames.add(rawMethod);
 		}
 		
 		while(parameterMatcher.find()){
 			String rawParameter = parameterMatcher.group();
+			rawParameter = rawParameter.substring(1, rawParameter.length());
 			String[] parameterArray = rawParameter.split(",");
 			for(int i=0; i < parameterArray.length; i++){
-				parameterArray[i].trim();
+				parameterArray[i] = parameterArray[i].trim();
 			}
 			methodParameters.add(parameterArray);
 		}
-		
-		
-		
 	}
 	
 	public String getName() {
