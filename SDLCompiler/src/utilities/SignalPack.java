@@ -1,5 +1,5 @@
 package utilities;
 
-public enum SignalList {
+public enum SignalPack {
 	STOP, TIMERDONE, INTERSECTION, GO, LEFT, RIGHT, INTERSECTION_DONE, STRAIGHTEN_DONE, PARK;
 }

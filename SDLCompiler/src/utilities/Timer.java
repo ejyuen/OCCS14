@@ -5,14 +5,14 @@ import java.util.Queue;
 public class Timer implements Runnable {
 	
 	private long sleepTime;
-	private Queue<SignalList> queue = null;
+	private Queue<SignalPack> queue = null;
 
-	public static void startTimer(Queue<SignalList> signalQueue, int miliseconds){
+	public static void startTimer(Queue<SignalPack> signalQueue, int miliseconds){
 		new Thread(new Timer(signalQueue, miliseconds)).start();
 	}
 
 	
-	public Timer(Queue<SignalList> signalQueue, long miliseconds){
+	public Timer(Queue<SignalPack> signalQueue, long miliseconds){
 		queue = signalQueue;
 		sleepTime = miliseconds;
 	}
@@ -23,6 +23,6 @@ public class Timer implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		queue.offer(SignalList.TIMERDONE);
+		queue.offer(SignalPack.TIMERDONE);
 	}
 }

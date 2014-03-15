@@ -3,9 +3,9 @@ package sdlNetwork;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import utilities.ActionList;
+import utilities.ActionPack;
 
-public class Action{
+public class Action implements Runnable{
 	private String name;
 	private String[] methodNames;
 	private String[][] methodParameters;
@@ -33,7 +33,7 @@ public class Action{
 	
 	public void run(){
 		try {
-			Class<utilities.ActionList> c = ActionList.class;
+			Class<utilities.ActionPack> c = ActionPack.class;
 			
 			for(int i = 0; i < getMethodNames().length; i++){
 				Method method = c.getDeclaredMethod(getMethodNames()[i], String[].class);

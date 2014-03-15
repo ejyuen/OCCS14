@@ -10,7 +10,7 @@ package utilities;
  * @author Matthew Li
  *
  */
-public class ActionList {
+public class ActionPack {
 	
 	
 	public static void defaultAction(String[] params){

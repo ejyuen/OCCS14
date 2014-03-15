@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import sdlNetwork.Connection;
 import sdlNetwork.SDLNetwork;
 import sdlNetwork.State;
 import sensors.Sensor;
 import utilities.SensorReader;
-import utilities.SignalList;
+import utilities.SignalPack;
 
 public class SDLRunner implements Runnable{
-	private Queue<SignalList> queue = null; //make sure implementation is threadsafe
+	private Queue<SignalPack> queue = null; //make sure implementation is threadsafe
 	private State state = null;
 	private ArrayList<Sensor> sensors = null;
 	private boolean done = false;
@@ -19,7 +20,9 @@ public class SDLRunner implements Runnable{
 	
 	public SDLRunner(ArrayList<Sensor> inputSensors, SDLNetwork network){
 		this.network = network;
-		queue = new ConcurrentLinkedQueue<SignalList>();
+		state = network.getStartState();
+		
+		queue = new ConcurrentLinkedQueue<SignalPack>();
 		sensors = inputSensors == null? new ArrayList<Sensor>(): inputSensors;
 
 		for(Sensor s: sensors){
@@ -28,12 +31,26 @@ public class SDLRunner implements Runnable{
 		new Thread(this).start();
 	}
 	
-	public Queue<SignalList> getQueue(){
+	public Queue<SignalPack> getQueue(){
 		return queue;
 	}
 	
 	public void run() {
-		
+		while(!done){
+			SignalPack s = queue.poll();
+			for(Connection c : state.getConnections()){
+				if(c.getSignal().getSignalPack().equals(s)){
+					new Thread(c.getAction()).start();
+					state = c.getEndState();
+					break;
+				}
+			}
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	

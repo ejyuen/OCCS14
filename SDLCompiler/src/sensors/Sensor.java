@@ -1,7 +1,7 @@
 package sensors;
 
-import utilities.SignalList;
+import utilities.SignalPack;
 
 public interface Sensor {
-	public SignalList getSignal(); //This should block until it returns a signal
+	public SignalPack getSignal(); //This should block until it returns a signal
 }

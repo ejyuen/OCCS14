@@ -1,11 +1,11 @@
 package sdlNetwork;
 
-import utilities.SignalList;
+import utilities.SignalPack;
 
 
 public class Signal{
 	private String name;
-	private SignalList sign = null;
+	private SignalPack sign = null;
 	
 	public Signal(String name){
 		this.name = name;
@@ -16,19 +16,19 @@ public class Signal{
 	}
 		
 	public void setSignal(){
-		for(SignalList s: SignalList.values()){
+		for(SignalPack s: SignalPack.values()){
 			if(s.toString() == name){
 				sign = s;
 			}
 		}
 	}
 	
-	public SignalList getSignal(){
+	public SignalPack getSignalPack(){
 		return sign;
 	}
 	
 	public static void main(String[] args){
-		for(SignalList s: SignalList.values()){
+		for(SignalPack s: SignalPack.values()){
 			System.out.println(s.toString());
 		}
 	}
