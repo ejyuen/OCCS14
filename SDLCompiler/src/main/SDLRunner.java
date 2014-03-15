@@ -38,6 +38,13 @@ public class SDLRunner implements Runnable{
 	public void run() {
 		while(!done){
 			SignalPack s = queue.poll();
+			
+			//the end signal finishes the runner
+			if(s.equals(SignalPack.END)){
+				done = true;
+				break;
+			}
+			
 			for(Connection c : state.getConnections()){
 				if(c.getSignal().getSignalPack().equals(s)){
 					new Thread(c.getAction()).start();

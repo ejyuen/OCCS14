@@ -9,13 +9,14 @@ public class Signal{
 	
 	public Signal(String name){
 		this.name = name;
+		setSignal();
 	}
 	
 	public String getName() {
 		return name;
 	}
 		
-	public void setSignal(){
+	private void setSignal(){
 		for(SignalPack s: SignalPack.values()){
 			if(s.toString() == name){
 				sign = s;
