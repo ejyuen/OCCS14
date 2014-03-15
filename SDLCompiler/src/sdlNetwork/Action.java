@@ -7,9 +7,16 @@ import utilities.ActionList;
 
 public class Action{
 	private String name;
+	private String[] methodNames;
+	private String[][] methodParameters;
 	
 	public Action(String name){
 		this.name = name;
+		init();
+	}
+	
+	private void init(){
+		//set methodNames and Parameters here;
 	}
 	
 	public String getName() {
@@ -17,11 +24,11 @@ public class Action{
 	}
 	
 	public String[] getMethodNames(){
-		return new String[0];
+		return methodNames;
 	}
 	
 	public String[][] getMethodParameters(){
-		return new String[0][0];
+		return methodParameters;
 	}
 	
 	public void run(){
