@@ -17,12 +17,11 @@ public class GuiReader {
 
 	public void readStates(){
 		for(GuiState gs : guiNetwork.getGuiStates()) {
-			if(gs.getName() == "Start"){
-				SDLNetwork.addStartState(new State(gs.getName()));
-			}
 			SDLNetwork.addState(new State(gs.getName()));
 		}
+		
 	}
+	
 	public void readConnections(){
 		System.out.println(guiNetwork.getGuiStates());
 		System.out.println(guiNetwork.getGuiSignals());

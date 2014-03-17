@@ -13,6 +13,9 @@ public class SDLNetwork {
 	}
 		
 	public void addState(State s){
+		if(s.getName().equals("Start")){
+			setStartState(s);
+		}
 		states.add(s);
 	}
 		
@@ -23,7 +26,7 @@ public class SDLNetwork {
 	public State getStartState(){
 		return startState;
 	}
-	public void addStartState(State startState){
+	public void setStartState(State startState){
 		this.startState = startState;
 	}
 }

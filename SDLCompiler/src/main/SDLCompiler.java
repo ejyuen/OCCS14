@@ -29,6 +29,7 @@ public class SDLCompiler {
 			for(Connection c: s.getConnections())
 			System.out.println(c);
 		}
+		System.out.println("Start State is : " + sdlNetwork.getStartState());
 		
 		
 		//TODO add more signals to SignalPack, add more ActionPack
