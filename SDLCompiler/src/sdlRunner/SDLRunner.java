@@ -18,6 +18,10 @@ public class SDLRunner implements Runnable{
 	private boolean done = false;
 	private SDLNetwork network = null;
 	
+	public SDLRunner(SDLNetwork network){
+		this(null, network);
+	}
+	
 	public SDLRunner(ArrayList<Sensor> inputSensors, SDLNetwork network){
 		this.network = network;
 		state = network.getStartState();
