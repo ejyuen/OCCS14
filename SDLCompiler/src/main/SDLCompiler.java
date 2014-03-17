@@ -1,8 +1,9 @@
 package main;
 
 import java.io.File;
-
 import java.io.IOException;
+import java.util.Queue;
+
 import fileProcessing.FileReader;
 import fileProcessing.GuiReader;
 import fileProcessing.Parser;
@@ -10,6 +11,9 @@ import fileProcessing.sdlGUI.GuiNetwork;
 import sdlNetwork.Connection;
 import sdlNetwork.SDLNetwork;
 import sdlNetwork.State;
+import sdlRunner.SDLRunner;
+import utilities.ActionPack;
+import utilities.SignalPack;
 public class SDLCompiler {
 	
 	public static void main(String[] args){
@@ -25,6 +29,13 @@ public class SDLCompiler {
 			for(Connection c: s.getConnections())
 			System.out.println(c);
 		}
+		
+		
+		//TODO add more signals to SignalPack, add more ActionPack
+		SDLRunner sr = new SDLRunner(sdlNetwork);
+		Queue<SignalPack> q = sr.getQueue();
+		q.add(SignalPack.TIMERDONE);
+		
 		System.out.println("finished in " + (System.currentTimeMillis() - startTime) + " miliseconds.");
 	}
 	
