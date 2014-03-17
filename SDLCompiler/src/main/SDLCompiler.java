@@ -36,6 +36,7 @@ public class SDLCompiler {
 		SDLRunner sr = new SDLRunner(sdlNetwork);
 		Queue<SignalPack> q = sr.getQueue();
 		q.add(SignalPack.TIMERDONE);
+		q.add(SignalPack.END);
 		
 		System.out.println("finished in " + (System.currentTimeMillis() - startTime) + " miliseconds.");
 	}
