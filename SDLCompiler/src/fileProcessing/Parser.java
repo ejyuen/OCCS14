@@ -9,6 +9,11 @@ import fileProcessing.sdlGUI.*;
 import sdlNetwork.SDLNetwork;
 
 public class Parser {
+	
+	private enum actionSignal{
+		ACTION, SIGNAL
+	}
+	
 	public static Pattern actionSignalPattern = Pattern.compile("([0-9.,]+ ){5}");
 	public static Pattern namePattern = Pattern.compile("x=\"[ 0-9a-z.\"=]+>[A-Za-z ]+");
 	public static Pattern statePattern = Pattern.compile("L[ 0-9.,LC]+z");
@@ -62,7 +67,7 @@ public class Parser {
 		}
 		
 		while(actionSignalMatcher.find()){
-			int type = 0; // 0 is Signal, 1 is Action, make this an enum im lazy
+			actionSignal type = actionSignal.SIGNAL; // 0 is Signal, 1 is Action, make this an enum im lazy
 			String rawPoints = actionSignalMatcher.group();
 			Matcher xMatcher = xPattern.matcher(rawPoints);
 			double x2 = 0;
@@ -73,14 +78,14 @@ public class Parser {
 				}
 				if(counter == 2){
 					if(Double.parseDouble(xMatcher. group()) < x2){
-						type = 0;
+						type = actionSignal.SIGNAL;
 					}else{
-						type = 1;
+						type = actionSignal.ACTION;
 					}
 				}
 				counter++;
 			}
-			if(type == 0){
+			if(type == actionSignal.SIGNAL){
 				//System.out.println("yoooo");
 				int[] yPoints = new int[5];
 				Matcher xMatcher2 = xPattern.matcher(rawPoints);
@@ -133,7 +138,7 @@ public class Parser {
 				}
 				/////start coding from here
 			}
-			if(type == 1){
+			if(type == actionSignal.ACTION){
 				int[] yPoints = new int[5];
 				Matcher xMatcher2 = xPattern.matcher(rawPoints);
 				int xCounter = 0;
