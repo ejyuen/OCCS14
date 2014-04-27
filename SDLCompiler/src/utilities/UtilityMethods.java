@@ -7,7 +7,8 @@ import sdlNetwork.State;
 public class UtilityMethods {
 	
 	/**
-	 * 
+	 * runs the actions in the connection and returns the endState
+	 * placed here because it's called from a few different places
 	 * 
 	 * @return endState of connection
 	 */
