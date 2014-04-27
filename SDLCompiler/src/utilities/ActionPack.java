@@ -12,6 +12,9 @@ package utilities;
  */
 public class ActionPack {
 	
+	public static void test(int i, boolean b, double s){
+		System.out.println("" + i + " " + b + " " + s);
+	}
 	
 	public static void defaultAction(String[] params){
 		//do something here
