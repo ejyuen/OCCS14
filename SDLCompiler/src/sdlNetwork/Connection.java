@@ -6,14 +6,14 @@ public class Connection{
 	private State startState;
 	private State endState;
 	private Signal signal;
-	private Action action;
+	private ArrayList<Action> actions;
 	
 	public Connection(State startState, State endState, 
-			Signal signal, Action action){
+			Signal signal, ArrayList<Action> actions){
 		this.startState = startState;
 		this.endState = endState;
 		this.signal = signal;
-		this.action = action;
+		this.actions = actions;
 	}
 	
 	public State getStartState() {
@@ -28,11 +28,11 @@ public class Connection{
 		return signal;
 	}
 	
-	public Action getAction() {
-		return action;
+	public ArrayList<Action> getActions() {
+		return actions;
 	}
 	
 	public String toString(){
-		return "" + startState + " " + signal + " " + action + " " + endState; 
+		return "" + startState + " " + signal + " " + actions + " " + endState; 
 	}
 }
