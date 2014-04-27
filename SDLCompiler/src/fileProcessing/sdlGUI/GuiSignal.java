@@ -1,7 +1,7 @@
 package fileProcessing.sdlGUI;
 import java.awt.*;
 
-public class GuiSignal extends Polygon {
+public class GuiSignal extends Polygon implements GuiObject{
 
 	private String name;
 	private Color color = Color.RED;
@@ -24,4 +24,8 @@ public class GuiSignal extends Polygon {
 	public String toString(){
 		 return getName();
 	}
+	public String returnType(){
+		return this.getClass().getName();
+	}
+	
 }

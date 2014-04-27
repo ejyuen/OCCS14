@@ -14,6 +14,7 @@ public class GuiNetwork extends JFrame{
 	private ArrayList<GuiConnection> guiConnections = new ArrayList<GuiConnection>();
 	private ArrayList<GuiAction> guiActions = new ArrayList<GuiAction>();
 	private ArrayList<GuiSignal> guiSignals = new ArrayList<GuiSignal>();
+	private ArrayList<GuiDecision> guiDecisions = new ArrayList<GuiDecision>();
 	private JPanel j = null;
 
 	private Color backgroundColor = Color.WHITE;
@@ -26,6 +27,7 @@ public class GuiNetwork extends JFrame{
 		j = new NPanel();
 		add(j);
 	}
+	
 	
 	public void addGuiAction(GuiAction a){
 			guiActions.add(a);
@@ -43,6 +45,10 @@ public class GuiNetwork extends JFrame{
 		guiStates.add(s);
 	}
 	
+	public void addGuiDecision(GuiDecision d){
+		guiDecisions.add(d);
+	}
+	
 	public ArrayList<GuiAction> getGuiActions(){
 		return guiActions;
 	}
@@ -57,6 +63,10 @@ public class GuiNetwork extends JFrame{
 	
 	public ArrayList<GuiConnection> getGuiConnections(){
 		return guiConnections;
+	}
+	
+	public ArrayList<GuiDecision> getGuiDecisions(){
+		return guiDecisions;
 	}
 	
 	public static void paintNetwork(GuiNetwork gn){

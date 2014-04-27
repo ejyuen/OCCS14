@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
 //Important to note, Rectangle2D's contain's method does not Point parameters, you must use ints (xcoord, ycoord)
-public class GuiState extends Rectangle2D.Double {
+public class GuiState extends Rectangle2D.Double implements GuiObject {
 
 	private String name;
 	private Color color = Color.CYAN;
@@ -27,4 +27,8 @@ public class GuiState extends Rectangle2D.Double {
 	public String toString(){
 		return getName();
 	}
+	public String returnType(){
+		return this.getClass().getName();
+	}
+	
 }

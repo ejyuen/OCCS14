@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 
-public class GuiAction extends Polygon {
+public class GuiAction extends Polygon implements GuiObject{
 
 	private String name;
 	private Color color = Color.BLUE;
@@ -16,6 +16,10 @@ public class GuiAction extends Polygon {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public String returnType(){
+		return this.getClass().getName();
 	}
 	
 	public void paint(Graphics2D g){
