@@ -40,7 +40,7 @@ public class Action implements Runnable{
 		for(int i = 0; i < methodArray.length; i++) {
 			String[] nameArray = methodArray[i].split("[(]");
 			methodNames.add(nameArray[0]);
-			
+
 			nameArray[1] = nameArray[1].substring(0, nameArray[1].length() - 1);
 			String[] parameterArray = nameArray[1].split(",");
 			ArrayList<String> temp = new ArrayList<String>();
@@ -51,36 +51,37 @@ public class Action implements Runnable{
 		}
 	}
 
-	public void convertParameters(){
-		
-		ArrayList<Object> convertedParameters = new ArrayList<Object>();
-		boolean identified= true;
+	public void convertParameters(){		
 		for (ArrayList<String> method: methodParameters){
-			for (String parameter: method){
+			ArrayList<Object> convertedParameters = new ArrayList<Object>();
+			for(String parameter: method){
+				//integer
 				try{
-					convertedParameters.add(Integer.valueOf(parameter));    
-				}catch(NumberFormatException e1){
-					identified = false;
+					convertedParameters.add(Integer.valueOf(parameter));
+					continue;
+				} catch(NumberFormatException e1){
+					//do nothing, not an int
 				}
-				if(!identified){
-					identified = true;
-					try{
-						convertedParameters.add(Double.valueOf(parameter));
-					} catch(NumberFormatException e2){
-						identified = false;
-					}
-					if (!identified && (parameter.toLowerCase().equals("true") || parameter.toLowerCase().equals("false")))
-						convertedParameters.add(Boolean.valueOf(parameter));
-					else{
-						convertedParameters.add(parameter);
-					}
+				
+				//double
+				try{
+					convertedParameters.add(Double.valueOf(parameter));
+					continue;
+				} catch(NumberFormatException e2){
+					//do nothing, not a double
 				}
-				identified = true;
+				
+				//boolean
+				if (parameter.toLowerCase().equals("true") || parameter.toLowerCase().equals("false")){
+					convertedParameters.add(Boolean.valueOf(parameter));
+					continue;
+				} 
+				
+				//string
+				convertedParameters.add(parameter);
 			}
 			convertedMethodParameters.add(convertedParameters);
-			convertedParameters.clear();
 		}
-	
 	}
 
 
@@ -99,7 +100,7 @@ public class Action implements Runnable{
 	public ArrayList<ArrayList<String>> getMethodParameters(){
 		return methodParameters;
 	}
-	
+
 	public ArrayList<ArrayList<Object>> getConvertedMethodParameters(){
 		return convertedMethodParameters;
 	}
@@ -115,15 +116,16 @@ public class Action implements Runnable{
 		ArrayList<Object> ret = new ArrayList<Object>();
 		try {
 			Class<utilities.ActionPack> c = ActionPack.class;
-			
+
 			for(int i = 0; i < getMethodNames().size(); i++){
 				Class[] parameterTypes = new Class[getConvertedMethodParameters().get(i).size()];
 				for(int j = 0; j < getConvertedMethodParameters().get(i).size(); j++){
-                	 parameterTypes[j] = getConvertedMethodParameters().get(i).get(j).getClass();
-                }
+					parameterTypes[j] = getConvertedMethodParameters().get(i).get(j).getClass();
+				}
+				Object[] methodParams = getConvertedMethodParameters().get(i).toArray();
 				
 				Method method = c.getDeclaredMethod(getMethodNames().get(i), parameterTypes);
-				ret.add(method.invoke(null, getConvertedMethodParameters().get(i)));
+				ret.add(method.invoke(null, methodParams));
 			}
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
@@ -143,7 +145,7 @@ public class Action implements Runnable{
 		}
 		return ret;
 	}
-	
+
 	public static void main(String[] args){
 		new Action("test(1, true, 1.0);").run();
 	}
