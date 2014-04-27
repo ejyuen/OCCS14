@@ -1,6 +1,6 @@
 package sdlNetwork;
 
-import utilities.HelperMethods;
+import utilities.UtilityMethods;
 
 public class Decision extends Action{
 	private String name;
@@ -33,9 +33,9 @@ public class Decision extends Action{
 		}
 		
 		if(decisionValue){
-			return HelperMethods.runConnection(trueConnection);
+			return UtilityMethods.runConnection(trueConnection);
 		} else {
-			return HelperMethods.runConnection(falseConnection);
+			return UtilityMethods.runConnection(falseConnection);
 		}
 	}
 }

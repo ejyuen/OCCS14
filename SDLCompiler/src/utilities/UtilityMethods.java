@@ -4,9 +4,10 @@ import sdlNetwork.Action;
 import sdlNetwork.Connection;
 import sdlNetwork.State;
 
-public class HelperMethods {
+public class UtilityMethods {
 	
 	/**
+	 * 
 	 * 
 	 * @return endState of connection
 	 */
