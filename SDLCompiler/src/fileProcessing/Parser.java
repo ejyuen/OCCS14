@@ -20,6 +20,7 @@ public class Parser {
 	public static Pattern yPattern = Pattern.compile(",[0-9.]+");
 	public static Pattern namePattern = Pattern.compile(">[a-zA-Z0-9()]+");
 	public static Pattern connectionPattern = Pattern.compile("M[0-9,. ]+A[0-9,. ]+");
+	public static Pattern decisionPattern = Pattern.compile("f\" points=\"([0-9.,]+ ){4}\"/>");
 	private static GuiNetwork network = new GuiNetwork();
 
 	public static void addSDLObjects(String XMLText){
@@ -27,6 +28,7 @@ public class Parser {
 		Matcher stateMatcher = statePattern.matcher(XMLText);
 		Matcher nameMatcher = namePattern.matcher(XMLText);
 		Matcher connectionMatcher = connectionPattern.matcher(XMLText);
+		Matcher decisionMatcher = decisionPattern.matcher(XMLText);
 		
 		while(stateMatcher.find()){
 			String rawPoints = stateMatcher.group();
@@ -179,7 +181,24 @@ public class Parser {
 			network.addGuiConnection(new GuiConnection(x1, y1, x2, y2));
 		}
 		
-		
+		while(decisionMatcher.find()){
+			String rawPoints = decisionMatcher.group();
+			Matcher xMatcher = xPattern.matcher(rawPoints);
+			Matcher yMatcher = yPattern.matcher(rawPoints);
+			int[] xPoints = new int[4];
+			int[] yPoints = new int[4];
+			int xIndex = 0;
+			int yIndex = 0;
+			while(xMatcher.find()){
+				xPoints[xIndex] = (int)(Double.parseDouble(xMatcher.group().substring(1)));
+				xIndex++;
+			}
+			while(yMatcher.find()){
+				yPoints[yIndex] = (int)(Double.parseDouble(yMatcher.group().substring(1)));
+				yIndex++;
+			}
+			network.addGuiDecision(new GuiDecision(xPoints, yPoints));
+		}
 
 	}
 	public static GuiNetwork getGuiNetwork(){
