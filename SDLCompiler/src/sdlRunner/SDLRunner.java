@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import sdlNetwork.Action;
 import sdlNetwork.Connection;
 import sdlNetwork.SDLNetwork;
 import sdlNetwork.State;
@@ -51,7 +52,9 @@ public class SDLRunner implements Runnable{
 			
 			for(Connection c : state.getConnections()){
 				if(c.getSignal().getSignalPack().equals(s)){
-					new Thread(c.getAction()).start();
+					for(Action a: c.getActions()){
+						new Thread(a).start();
+					}
 					state = c.getEndState();
 					break;
 				}
