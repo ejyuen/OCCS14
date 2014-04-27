@@ -18,6 +18,7 @@ public class Parser {
 	public static Pattern statePattern = Pattern.compile("L[ 0-9.,LC]+z");
 	public static Pattern xPattern = Pattern.compile("( [0-9.]+)(?! )");
 	public static Pattern yPattern = Pattern.compile(",[0-9.]+");
+	public static Pattern xDecisionPattern = Pattern.compile("([ \"][0-9.]+)(?! )");
 	public static Pattern namePattern = Pattern.compile(">[a-zA-Z0-9()]+");
 	public static Pattern connectionPattern = Pattern.compile("M[0-9,. ]+A[0-9,. ]+");
 	public static Pattern decisionPattern = Pattern.compile("f\" points=\"([0-9.,]+ ){4}\"/>");
@@ -183,7 +184,7 @@ public class Parser {
 		
 		while(decisionMatcher.find()){
 			String rawPoints = decisionMatcher.group();
-			Matcher xMatcher = xPattern.matcher(rawPoints);
+			Matcher xMatcher = xDecisionPattern.matcher(rawPoints);
 			Matcher yMatcher = yPattern.matcher(rawPoints);
 			int[] xPoints = new int[4];
 			int[] yPoints = new int[4];
@@ -198,6 +199,10 @@ public class Parser {
 				yIndex++;
 			}
 			network.addGuiDecision(new GuiDecision(xPoints, yPoints));
+			System.out.println(network.getGuiDecisions());
+			for (int i = 0; i < 4; i++){
+				System.out.println(xPoints[i] + "," + yPoints[i]);
+			}
 		}
 
 	}
