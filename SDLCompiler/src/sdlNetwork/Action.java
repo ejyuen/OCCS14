@@ -63,12 +63,17 @@ public class Action implements Runnable{
 	}
 	
 	public void run(){
+		runMethods();
+	}
+	
+	public ArrayList<Object> runMethods(){
+		ArrayList<Object> ret = new ArrayList<Object>();
 		try {
 			Class<utilities.ActionPack> c = ActionPack.class;
 			
 			for(int i = 0; i < getMethodNames().size(); i++){
 				Method method = c.getDeclaredMethod(getMethodNames().get(i), String[].class);
-				method.invoke(null, getMethodParameters().get(i));
+				ret.add(method.invoke(null, getMethodParameters().get(i)));
 			}
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
@@ -86,5 +91,6 @@ public class Action implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return ret;
 	}
 }

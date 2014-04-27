@@ -9,6 +9,7 @@ import sdlNetwork.Connection;
 import sdlNetwork.SDLNetwork;
 import sdlNetwork.State;
 import sensors.Sensor;
+import utilities.HelperMethods;
 import utilities.SensorReader;
 import utilities.SignalPack;
 
@@ -52,10 +53,7 @@ public class SDLRunner implements Runnable{
 			
 			for(Connection c : state.getConnections()){
 				if(c.getSignal().getSignalPack().equals(s)){
-					for(Action a: c.getActions()){
-						new Thread(a).start();
-					}
-					state = c.getEndState();
+					state = HelperMethods.runConnection(c);
 					break;
 				}
 			}
