@@ -20,4 +20,8 @@ public class GuiDecision extends Polygon{
 	public String returnType(){
 		return this.getClass().getName();
 	}
+	
+	public String toString(){
+		return "Decision!";
+	}
 }

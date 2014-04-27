@@ -97,6 +97,11 @@ public class GuiNetwork extends JFrame{
 			for(GuiState s: guiStates){
 				s.paint(g2);
 			}
+			
+			//paint decisions
+			for(GuiDecision d : guiDecisions){
+				d.paint(g2);
+			}
 		}
 	}
 }
