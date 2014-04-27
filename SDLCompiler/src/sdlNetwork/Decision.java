@@ -25,14 +25,14 @@ public class Decision extends Action{
 	 * @return the endState of the chosen connection
 	 */
 	public State makeDecision(){
-		boolean b = true;
+		boolean decisionValue = true;
 		for(Object o : runMethods()){
 			if(o instanceof Boolean){
-				b = (Boolean) o;
+				decisionValue = (Boolean) o;
 			}
 		}
 		
-		if(b){
+		if(decisionValue){
 			return HelperMethods.runConnection(trueConnection);
 		} else {
 			return HelperMethods.runConnection(falseConnection);
