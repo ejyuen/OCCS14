@@ -199,10 +199,6 @@ public class Parser {
 				yIndex++;
 			}
 			network.addGuiDecision(new GuiDecision(xPoints, yPoints));
-			System.out.println(network.getGuiDecisions());
-			for (int i = 0; i < 4; i++){
-				System.out.println(xPoints[i] + "," + yPoints[i]);
-			}
 		}
 
 	}

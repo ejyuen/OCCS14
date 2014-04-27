@@ -14,6 +14,10 @@ public class GuiAction extends Polygon implements GuiObject{
 		this.name = name;
 	}
 	
+	public GuiAction(String name){
+		this.name = name;
+	}
+	
 	public String getName(){
 		return name;
 	}
