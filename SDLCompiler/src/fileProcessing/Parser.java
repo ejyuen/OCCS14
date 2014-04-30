@@ -48,8 +48,8 @@ public class Parser {
 	 */
 	public static Pattern connectionPattern = Pattern.compile("M[0-9,. ]+A[0-9,. ]+");
 	/*
-	 * Finds a set of 4 (x,y) coordinates. These are the decision shapes (diamonds). {f\" points=\"} is again used
-	 * to avoid duplication.
+	 * Finds a set of 4 (x,y) coordinates. These are characteristic of the decision shapes (diamonds). {f\" points=\"} is 
+	 * again used to avoid duplication.
 	 */
 	public static Pattern decisionPattern = Pattern.compile("f\" points=\"([0-9.,]+ ){4}\"/>");
 	private static GuiNetwork network = new GuiNetwork();
