@@ -66,7 +66,8 @@ public class Parser {
 		while(actionSignalMatcher.find()){
 			actionSignal type = null; // 0 is Signal, 1 is Action, make this an enum im lazy
 			String rawPoints = actionSignalMatcher.group();
-			Matcher xMatcher = xPattern.matcher(rawPoints);
+			Matcher xMatcher = xDecisionPattern.matcher(rawPoints);
+			Matcher yMatcher = yPattern.matcher(rawPoints);
 			double outerXPoint = 0;
 			double innerXPoint = 0;
 			int counter = 0;
@@ -80,38 +81,22 @@ public class Parser {
 				counter++;
 			}
 			if(innerXPoint < outerXPoint)
-				type = actionSignal.SIGNAL;
-			else
 				type = actionSignal.ACTION;
+			else
+				type = actionSignal.SIGNAL;
 			xMatcher.reset();
 			
 			if(type == actionSignal.SIGNAL){
 				int[] yPoints = new int[5];
-				int xCounter = 0;
-				int xone = 0;
-				int xtwo = 0;
-				int xthree = 0;
+				int[] xPoints = new int[5];
+				int xIndex = 0;
 				while(xMatcher.find()){
-					switch(xCounter){
-					case 0:
-						xtwo = (int)(Double.parseDouble(xMatcher.group().substring(1)));
-						break;
-					case 1:
-						xthree = (int)(Double.parseDouble(xMatcher.group().substring(1)));
-						break;
-					case 3:
-						xone  = (int)(Double.parseDouble(xMatcher.group().substring(1)));
-						break;
-					default:
-						break;
-					}
-					xCounter++;
+					xPoints[xIndex] = (int)(Double.parseDouble(xMatcher.group().substring(1)));
+					xIndex++;
 				}
-				int[] xPoints = {xone, xtwo, xthree, xtwo, xone};
-				Matcher yMatcher2 = yPattern.matcher(rawPoints);
 				int yIndex = 0;
-				while(yMatcher2.find()){
-					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher2.group().substring(1)));
+				while(yMatcher.find()){
+					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher.group().substring(1)));
 					yIndex++;
 				}
 				if(nameMatcher.find(actionSignalMatcher.end())) {
@@ -121,37 +106,23 @@ public class Parser {
 			}
 			if(type == actionSignal.ACTION){
 				int[] yPoints = new int[5];
-				Matcher xMatcher2 = xPattern.matcher(rawPoints);
-				int xCounter = 0;
-				int xone = 0;
-				int xtwo = 0;
-				int xthree = 0;
-				while(xMatcher2.find()){
-					switch(xCounter){
-					case 0:
-						xtwo = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
-						break;
-					case 1:
-						xthree = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
-						break;
-					case 3:
-						xone  = (int)(Double.parseDouble(xMatcher2.group().substring(1)));
-						break;
-					default:
-						break;
-					}
-					xCounter++;
-				}
-				int[] xPoints = {xone, xtwo, xthree, xtwo, xone};
-				Matcher yMatcher2 = yPattern.matcher(rawPoints);
+				int[] xPoints = new int[5];
+				int xIndex = 0;
 				int yIndex = 0;
-				while(yMatcher2.find()){
-					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher2.group().substring(1)));
+				while(xMatcher.find()){
+					xPoints[xIndex] = (int)(Double.parseDouble(xMatcher.group().substring(1)));
+					xIndex++;
+				}
+				while(yMatcher.find()){
+					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher.group().substring(1)));
 					yIndex++;
 				}
 				if(nameMatcher.find(actionSignalMatcher.end())) {
 					String name = nameMatcher.group().substring(1);
 					network.addGuiSignal(new GuiSignal(name, xPoints, yPoints));
+					for(int i = 0; i < 5; i++){
+						System.out.println(xPoints[i] + "," + yPoints[i] + " This is " + name);
+					}
 				}
 			}
 		}
