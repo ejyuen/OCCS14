@@ -10,17 +10,47 @@ import sdlNetwork.SDLNetwork;
 
 public class Parser {
 	
+	/*
+	 * Used to distinguish Actions from Signals while parsing.
+	 * They are initially grouped together because the regex used to find them looks for a series of 5 (x,y) coordinates, which both 
+	 * actions and signals have.
+	 */
 	private enum actionSignal{
 		ACTION, SIGNAL
 	}
-	
+	/* Finds a series of 5 (x,y) coordinates. {f\" points=\"} is used to avoid duplication. Without this part, 
+	 * this pattern would find multiple instances of the same set of 5 coordinates.
+	 */
 	public static Pattern actionSignalPattern = Pattern.compile("f\" points=\"([0-9.,]+ ){5}");
+	/* Finds all coordinates proceeding the capital letter L. In the XML, the first coordinates describing 
+	 * a state follow the first L in MLCCLCC. {z} is used to avoid duplication. Without this part,
+	 * this pattern would find two instances of the same set of coordinates.
+	 */
 	public static Pattern statePattern = Pattern.compile("L[ 0-9.,LC]+z");
-	public static Pattern xPattern = Pattern.compile("( [0-9.]+)(?! )");
+	/*
+	 * Finds a double proceeding a comma. All y coordinates follow a comma in the XML.
+	 */
 	public static Pattern yPattern = Pattern.compile(",[0-9.]+");
-	public static Pattern xDecisionPattern = Pattern.compile("([ \"][0-9.]+)(?! )");
+	/*
+	 * Finds a double proceeding either a space or a double quote. All x coordinates follow one of these
+	 * two things in the XML.
+	 */
+	public static Pattern xPattern = Pattern.compile("([ \"][0-9.]+)(?! )");
+	/*
+	 * Finds text proceeding a right arrow bracket {>}. The XML always places the text contained within a shape
+	 * after this character. 
+	 */
 	public static Pattern namePattern = Pattern.compile(">[a-zA-Z0-9()]+");
+	/*
+	 * Finds coordinates following the capital letter M and then the capital letter A. The (x,y) following M is
+	 * the start point of the line and the (x,y) following A is the end point. The MA combination is characteristic
+	 * of the connections in the XML.
+	 */
 	public static Pattern connectionPattern = Pattern.compile("M[0-9,. ]+A[0-9,. ]+");
+	/*
+	 * Finds a set of 4 (x,y) coordinates. These are the decision shapes (diamonds). {f\" points=\"} is again used
+	 * to avoid duplication.
+	 */
 	public static Pattern decisionPattern = Pattern.compile("f\" points=\"([0-9.,]+ ){4}\"/>");
 	private static GuiNetwork network = new GuiNetwork();
 
@@ -66,7 +96,7 @@ public class Parser {
 		while(actionSignalMatcher.find()){
 			actionSignal type = null; // 0 is Signal, 1 is Action, make this an enum im lazy
 			String rawPoints = actionSignalMatcher.group();
-			Matcher xMatcher = xDecisionPattern.matcher(rawPoints);
+			Matcher xMatcher = xPattern.matcher(rawPoints);
 			Matcher yMatcher = yPattern.matcher(rawPoints);
 			double outerXPoint = 0;
 			double innerXPoint = 0;
@@ -120,9 +150,6 @@ public class Parser {
 				if(nameMatcher.find(actionSignalMatcher.end())) {
 					String name = nameMatcher.group().substring(1);
 					network.addGuiSignal(new GuiSignal(name, xPoints, yPoints));
-					for(int i = 0; i < 5; i++){
-						System.out.println(xPoints[i] + "," + yPoints[i] + " This is " + name);
-					}
 				}
 			}
 		}
@@ -155,7 +182,7 @@ public class Parser {
 		
 		while(decisionMatcher.find()){
 			String rawPoints = decisionMatcher.group();
-			Matcher xMatcher = xDecisionPattern.matcher(rawPoints);
+			Matcher xMatcher = xPattern.matcher(rawPoints);
 			Matcher yMatcher = yPattern.matcher(rawPoints);
 			int[] xPoints = new int[4];
 			int[] yPoints = new int[4];
@@ -176,6 +203,4 @@ public class Parser {
 	public static GuiNetwork getGuiNetwork(){
 		return network;
 	}
-
-	//TODO takes in the string from file reader and parses it into and SDL network
 }
