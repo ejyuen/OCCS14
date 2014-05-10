@@ -16,5 +16,7 @@ public class GuiConnection extends Line2D.Double implements GuiObject {
 	public String returnType(){
 		return this.getClass().getName();
 	}
-	
+	public String toString(){
+		return this.getX1() + "," + this.getY1() + " to " + this.getX2() + "," + this.getY2();
+	}
 }
