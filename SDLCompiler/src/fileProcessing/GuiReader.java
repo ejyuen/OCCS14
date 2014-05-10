@@ -10,6 +10,7 @@ import sdlNetwork.*;
 public class GuiReader {
 	private GuiNetwork guiNetwork;
 	private SDLNetwork SDLNetwork;
+	private GuiAction lastAction;
 
 	public GuiReader(GuiNetwork guiNetwork, SDLNetwork SDLNetwork){
 		this.guiNetwork = guiNetwork;
@@ -30,8 +31,8 @@ public class GuiReader {
 		System.out.println(guiNetwork.getGuiActions());
 		State startState;
 		Signal signal;
-		ArrayList<Action> actions = new ArrayList<Action>();
 		State endState;
+		ArrayList<Action> actions = new ArrayList<Action>();
 		GuiConnection actionConnection;
 		for (GuiState gs : guiNetwork.getGuiStates()) {
 			startState = new State(gs.getName());
@@ -42,32 +43,30 @@ public class GuiReader {
 							signal = new Signal(gsl.getName());
 							for(GuiConnection gc2 : guiNetwork.getGuiConnections()){
 								if((gsl.getBounds()).intersects(gc2.getX1() - 20, gc2.getY1() - 20, 40, 40)){
-									//									for(GuiAction ga : guiNetwork.getGuiActions()){
-									//										if(ga.intersects(gc2.getX2() - 20, gc2.getY2() - 20, 40, 40)){
-									//										if(getNextGuiAction(gc2) == null){
-									//											
-									//										}
 									actionConnection = gc2;
+									actions.clear();
 									while(getNextGuiAction(actionConnection).getName() != "null"){
 										actions.add(new Action(getNextGuiAction(actionConnection).getName()));
-										//System.out.println(actions);
 										for(GuiConnection gcA : guiNetwork.getGuiConnections()){
 											if(getNextGuiAction(actionConnection).intersects(gcA.getX1() - 20, gcA.getY1() - 20, 40, 40)){
 												actionConnection = gcA;
 											}
 										}
 									}
-									//											for(GuiConnection gc3 : guiNetwork.getGuiConnections()){
-									//												if(ga.intersects(gc3.getX1() - 20, gc3.getY1() - 20, 40, 40)){
+									if(actions.get(0).getName().equals(lastAction.getName())){
+										
+									}else{
+									actions.add(new Action(lastAction.getName()));
+									}
 									for(GuiState gs2 : guiNetwork.getGuiStates()){
 										if(gs2.intersects(actionConnection.getX2() - 20, actionConnection.getY2() - 20, 40, 40)){
 											endState = new State(gs2.getName());
 											for(int i = 0; i < SDLNetwork.getStates().size(); i++){
 												if(SDLNetwork.getStates().get(i).equals(startState)){
 													System.out.println(actions);
-													SDLNetwork.getStates().get(i).addConnection(new Connection(startState, endState, signal, actions));
-													System.out.println(actions);
-													actions.clear();
+													ArrayList<Action> secondcopy = actions;
+													SDLNetwork.getStates().get(i).addConnection(new Connection(startState, endState, signal, secondcopy));
+													//actions.clear();
 												}
 											}
 										}
@@ -84,9 +83,11 @@ public class GuiReader {
 	public GuiAction getNextGuiAction(GuiConnection gc){
 		for(GuiAction ga : guiNetwork.getGuiActions()){
 			if(ga.intersects(gc.getX2() - 20, gc.getY2() - 20, 40, 40)){
+				lastAction = ga;
 				return ga;
 			}
 		}
+		
 		return new GuiAction("null");
 	}
 }
