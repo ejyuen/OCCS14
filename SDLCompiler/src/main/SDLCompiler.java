@@ -18,7 +18,7 @@ public class SDLCompiler {
 	
 	public static void main(String[] args){
 		long startTime = System.currentTimeMillis();
-		String xmlText = getXmlText("SDLCompiler/src/files/SmartDrive.svg");
+		String xmlText = getXmlText("SDLCompiler/src/files/hungryman.svg");
 		Parser.addSDLObjects(xmlText);
 		GuiNetwork.paintNetwork(Parser.getGuiNetwork());
 		SDLNetwork sdlNetwork = new SDLNetwork();
