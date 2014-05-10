@@ -41,7 +41,7 @@ public class Action implements Runnable{
 			String[] nameArray = methodArray[i].split("[(]");
 			methodNames.add(nameArray[0]);
 
-			nameArray[1] = nameArray[1].substring(0, nameArray[1].length() - 1);
+			nameArray[1] = nameArray[1].substring(0, nameArray[1].length()-1);
 			String[] parameterArray = nameArray[1].split(",");
 			ArrayList<String> temp = new ArrayList<String>();
 			for(String s: parameterArray){

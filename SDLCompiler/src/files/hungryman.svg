@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="8cm" height="39cm" viewBox="86 30 150 770" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <path style="fill: #ffffff" d="M 122.02 31.9 L 195.472,31.9 C 204.654,39.5001 207.592,43.3002 207.592,50.9003 C 207.592,58.5004 204.654,62.3005 195.472,69.9006 L 122.02,69.9006 C 112.838,62.3005 109.9,58.5004 109.9,50.9003 C 109.9,43.3002 112.838,39.5001 122.02,31.9z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 122.02 31.9 L 195.472,31.9 C 204.654,39.5001 207.592,43.3002 207.592,50.9003 C 207.592,58.5004 204.654,62.3005 195.472,69.9006 L 122.02,69.9006 C 112.838,62.3005 109.9,58.5004 109.9,50.9003 C 109.9,43.3002 112.838,39.5001 122.02,31.9"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="158.746" y="54.9003">
+      <tspan x="158.746" y="54.9003">Start</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="109.9,98.9 207.214,98.9 197.483,117.629 207.214,136.357 109.9,136.357 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="109.9,98.9 207.214,98.9 197.483,117.629 207.214,136.357 109.9,136.357 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="158.557" y="121.629">
+      <tspan x="158.557" y="121.629">Hungry</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 158.746,69.9006 A 15.2563,15.2563 0 1 0 150.01,99.1194"/>
+    <polygon style="fill: #000000" points="156.427,99.5814 148.427,107.391 149.284,101.867 145.379,97.8667 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="156.427,99.5814 148.427,107.391 149.284,101.867 145.379,97.8667 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="113.8,166.8 196.262,166.8 205.425,185.892 196.262,204.984 113.8,204.984 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="113.8,166.8 196.262,166.8 205.425,185.892 196.262,204.984 113.8,204.984 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="159.613" y="189.892">
+      <tspan x="159.613" y="189.892">StartCar</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 158.557,136.357 A 15.7993,15.7993 0 0 0 151.001,167.038"/>
+    <polygon style="fill: #000000" points="157.479,167.469 149.432,175.231 150.322,169.712 146.441,165.689 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="157.479,167.469 149.432,175.231 150.322,169.712 146.441,165.689 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="112.806,231.9 197.237,231.9 206.619,250.992 197.237,270.084 112.806,270.084 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="112.806,231.9 197.237,231.9 206.619,250.992 197.237,270.084 112.806,270.084 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="159.712" y="254.992">
+      <tspan x="159.712" y="254.992">DriveCar</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 159.613,204.984 A 14.5281,14.5281 0 1 0 151.297,232.699"/>
+    <polygon style="fill: #000000" points="157.644,232.75 150.295,241.175 150.707,235.6 146.494,231.926 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="157.644,232.75 150.295,241.175 150.707,235.6 146.494,231.926 "/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 105.896 300.9 L 213.596,300.9 C 227.058,308.5 231.366,312.3 231.366,319.9 C 231.366,327.5 227.058,331.3 213.596,338.901 L 105.896,338.901 C 92.4334,331.3 88.1254,327.5 88.1254,319.9 C 88.1254,312.3 92.4334,308.5 105.896,300.9z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 105.896 300.9 L 213.596,300.9 C 227.058,308.5 231.366,312.3 231.366,319.9 C 231.366,327.5 227.058,331.3 213.596,338.901 L 105.896,338.901 C 92.4334,331.3 88.1254,327.5 88.1254,319.9 C 88.1254,312.3 92.4334,308.5 105.896,300.9"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="159.746" y="323.9">
+      <tspan x="159.746" y="323.9">LookingForFood</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 159.712,270.084 A 15.9353,15.9353 0 0 0 151.116,300.769"/>
+    <polygon style="fill: #000000" points="157.584,301.473 149.199,308.867 150.335,303.394 146.637,299.201 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="157.584,301.473 149.199,308.867 150.335,303.394 146.637,299.201 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="111.9,363.9 209.214,363.9 199.483,382.629 209.214,401.357 111.9,401.357 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="111.9,363.9 209.214,363.9 199.483,382.629 209.214,401.357 111.9,401.357 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="160.557" y="386.629">
+      <tspan x="160.557" y="386.629">Food</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 159.746,338.901 A 13.9102,13.9102 0 1 0 152.329,365.399"/>
+    <polygon style="fill: #000000" points="158.579,364.944 152.069,374.033 151.946,368.444 147.402,365.189 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="158.579,364.944 152.069,374.033 151.946,368.444 147.402,365.189 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="113.9,429.9 196.363,429.9 205.525,448.992 196.363,468.084 113.9,468.084 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="113.9,429.9 196.363,429.9 205.525,448.992 196.363,468.084 113.9,468.084 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="159.713" y="452.992">
+      <tspan x="159.713" y="452.992">GetFood</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 160.557,401.357 A 15.0963,15.0963 0 1 0 151.184,430.027"/>
+    <polygon style="fill: #000000" points="157.577,430.563 149.511,438.305 150.415,432.789 146.544,428.756 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="157.577,430.563 149.511,438.305 150.415,432.789 146.544,428.756 "/>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 107.771 496.9 L 205.721,496.9 C 217.965,504.5 221.883,508.3 221.883,515.9 C 221.883,523.5 217.965,527.3 205.721,534.901 L 107.771,534.901 C 95.5271,527.3 91.6091,523.5 91.6091,515.9 C 91.6091,508.3 95.5271,504.5 107.771,496.9z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 107.771 496.9 L 205.721,496.9 C 217.965,504.5 221.883,508.3 221.883,515.9 C 221.883,523.5 217.965,527.3 205.721,534.901 L 107.771,534.901 C 95.5271,527.3 91.6091,523.5 91.6091,515.9 C 91.6091,508.3 95.5271,504.5 107.771,496.9"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="156.746" y="519.9">
+      <tspan x="156.746" y="519.9">CheckingOut</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 159.713,468.084 A 15.2449,15.2449 0 1 0 148.218,496.306"/>
+    <polygon style="fill: #000000" points="154.561,497.376 145.855,504.391 147.233,498.974 143.726,494.621 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="154.561,497.376 145.855,504.391 147.233,498.974 143.726,494.621 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="87.3383,560.9 233.776,560.9 219.132,579.629 233.776,598.357 87.3383,598.357 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="87.3383,560.9 233.776,560.9 219.132,579.629 233.776,598.357 87.3383,598.357 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="160.557" y="583.629">
+      <tspan x="160.557" y="583.629">MoneyRequest</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 156.746,534.901 A 14.3156,14.3156 0 1 0 152.407,563.027"/>
+    <polygon style="fill: #000000" points="158.655,562.076 152.78,571.589 152.277,566.021 147.52,563.084 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="158.655,562.076 152.78,571.589 152.277,566.021 147.52,563.084 "/>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="111.306,624.9 198.438,624.9 208.119,643.992 198.438,663.084 111.306,663.084 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="111.306,624.9 198.438,624.9 208.119,643.992 198.438,663.084 111.306,663.084 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="159.713" y="647.992">
+      <tspan x="159.713" y="647.992">GiveMoney</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="106.9,689.9 194.031,689.9 203.713,708.992 194.031,728.084 106.9,728.084 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="106.9,689.9 194.031,689.9 203.713,708.992 194.031,728.084 106.9,728.084 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="155.306" y="712.992">
+      <tspan x="155.306" y="712.992">EatFood</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffffff" d="M 106.062 760.9 L 204.012,760.9 C 216.255,768.5 220.173,772.3 220.173,779.9 C 220.173,787.5 216.255,791.3 204.012,798.901 L 106.062,798.901 C 93.818,791.3 89.9,787.5 89.9,779.9 C 89.9,772.3 93.818,768.5 106.062,760.9z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 106.062 760.9 L 204.012,760.9 C 216.255,768.5 220.173,772.3 220.173,779.9 C 220.173,787.5 216.255,791.3 204.012,798.901 L 106.062,798.901 C 93.818,791.3 89.9,787.5 89.9,779.9 C 89.9,772.3 93.818,768.5 106.062,760.9"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="155.037" y="783.9">
+      <tspan x="155.037" y="783.9">End</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 160.557,598.357 A 14.4077,14.4077 0 1 0 151.296,625.487"/>
+    <polygon style="fill: #000000" points="157.625,625.702 150.084,633.956 150.624,628.392 146.497,624.621 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="157.625,625.702 150.084,633.956 150.624,628.392 146.497,624.621 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 159.713,663.084 A 14.6158,14.6158 0 1 0 146.867,689.228"/>
+    <polygon style="fill: #000000" points="153.121,690.376 144.414,697.389 145.793,691.972 142.287,687.618 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="153.121,690.376 144.414,697.389 145.793,691.972 142.287,687.618 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 155.306,728.084 A 16.7312,16.7312 0 0 0 146.345,760.246"/>
+    <polygon style="fill: #000000" points="152.84,761.319 143.954,768.103 145.473,762.724 142.081,758.28 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="152.84,761.319 143.954,768.103 145.473,762.724 142.081,758.28 "/>
+  </g>
+</svg>
