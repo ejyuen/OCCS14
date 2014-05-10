@@ -23,33 +23,33 @@ public class Action implements Runnable{
 		this.name = name;
 		methodNames = new ArrayList<String>();
 		methodParameters = new ArrayList<ArrayList<String>>();
-		init();
+		//init();
 		convertParameters();
 	}
 
 
 
-	private void init(){
-		//TODO: make this stuff work with strings
-		//set methodNames and Parameters here;
-		//Matcher methodMatcher = methodPattern.matcher(name);
-		//Matcher parameterMatcher = parameterPattern.matcher(name);             
-
-		name = name.replaceAll("\\s", "");
-		String[] methodArray = name.split(";");
-		for(int i = 0; i < methodArray.length; i++) {
-			String[] nameArray = methodArray[i].split("[(]");
-			methodNames.add(nameArray[0]);
-
-			nameArray[1] = nameArray[1].substring(0, nameArray[1].length()-1);
-			String[] parameterArray = nameArray[1].split(",");
-			ArrayList<String> temp = new ArrayList<String>();
-			for(String s: parameterArray){
-				temp.add(s);
-			}
-			methodParameters.add(temp);
-		}
-	}
+//	private void init(){
+//		//TODO: make this stuff work with strings
+//		//set methodNames and Parameters here;
+//		//Matcher methodMatcher = methodPattern.matcher(name);
+//		//Matcher parameterMatcher = parameterPattern.matcher(name);             
+//
+//		name = name.replaceAll("\\s", "");
+//		String[] methodArray = name.split(";");
+//		for(int i = 0; i < methodArray.length; i++) {
+//			String[] nameArray = methodArray[i].split("[(]");
+//			methodNames.add(nameArray[0]);
+//
+//			nameArray[1] = nameArray[1].substring(0, nameArray[1].length()-1);
+//			String[] parameterArray = nameArray[1].split(",");
+//			ArrayList<String> temp = new ArrayList<String>();
+//			for(String s: parameterArray){
+//				temp.add(s);
+//			}
+//			methodParameters.add(temp);
+//		}
+//	}
 
 	public void convertParameters(){		
 		for (ArrayList<String> method: methodParameters){
