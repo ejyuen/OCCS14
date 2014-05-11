@@ -5,27 +5,28 @@ import java.util.ArrayList;
 public class Connection{
 	private State startState;
 	private Signal signal;
-	private Object[] connectionActions;
+	private ArrayList<Action> actions;
 	
 	//Decision and endState cannot both be not equal to null
 	private State endState = null;
 	private Decision decision = null;
 	
 	public Connection(State startState, State endState, 
-			Signal signal, Object[] actions){
+			Signal signal, ArrayList<Action> actions){
 		this.startState = startState;
 		this.endState = endState;
 		this.signal = signal;
-		this.connectionActions = actions;
-		System.out.println(connectionActions);
+		this.actions = actions;
+		
+		System.out.println(actions);
 	}
 	
 	public Connection(State startState, Decision decision, 
-			Signal signal, Object [] actions){
+			Signal signal, ArrayList<Action> actions){
 		this.startState = startState;
 		this.decision = decision;
 		this.signal = signal;
-		this.connectionActions = actions;
+		this.actions = actions;
 	}
 	
 	public State getStartState() {
@@ -44,15 +45,11 @@ public class Connection{
 		return signal;
 	}
 	
-	public Object[] getActions() {
-		return connectionActions;
+	public ArrayList<Action> getActions() {
+		return actions;
 	}
 	
 	public String toString(){
-		String res = "";
-		for(int i = 0; i < connectionActions.length; i++){
-			res+= connectionActions[i];
-		}
-		return "" + startState + " " + signal + " " + res + " " + endState; 
+		return "" + startState + " " + signal + " " + actions + " " + endState; 
 	}
 }

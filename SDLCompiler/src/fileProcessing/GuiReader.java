@@ -11,7 +11,6 @@ public class GuiReader {
 	private GuiNetwork guiNetwork;
 	private SDLNetwork SDLNetwork;
 	private GuiAction lastAction;
-	public ArrayList<Action> actions = new ArrayList<Action>();
 	
 	public GuiReader(GuiNetwork guiNetwork, SDLNetwork SDLNetwork){
 		this.guiNetwork = guiNetwork;
@@ -45,7 +44,7 @@ public class GuiReader {
 							for(GuiConnection gc2 : guiNetwork.getGuiConnections()){
 								if((gsl.getBounds()).intersects(gc2.getX1() - 20, gc2.getY1() - 20, 40, 40)){
 									actionConnection = gc2;
-									actions.clear();
+									ArrayList<Action> actions = new ArrayList<Action>();
 									while(getNextGuiAction(actionConnection).getName() != "null"){
 										actions.add(new Action(getNextGuiAction(actionConnection).getName()));
 										for(GuiConnection gcA : guiNetwork.getGuiConnections()){
@@ -67,7 +66,7 @@ public class GuiReader {
 											for(int i = 0; i < SDLNetwork.getStates().size(); i++){
 												if(SDLNetwork.getStates().get(i).equals(startState)){
 													System.out.println(actions);
-													SDLNetwork.getStates().get(i).addConnection(new Connection(startState, endState, signal, actions.toArray()));
+													SDLNetwork.getStates().get(i).addConnection(new Connection(startState, endState, signal, actions));
 													System.out.println(SDLNetwork.getStates().get(i).getConnections().get(0));
 													//actions.clear();
 												}
