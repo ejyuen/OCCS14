@@ -9,5 +9,5 @@ package utilities;
  *
  */
 public enum SignalPack {
-	END, TIMERDONE
+	Food, Hungry, MoneyRequest, END, TIMERDONE
 }

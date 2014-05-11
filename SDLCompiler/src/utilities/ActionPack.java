@@ -19,4 +19,26 @@ public class ActionPack {
 	public static void defaultAction(String[] params){
 		//do something here
 	}
+	
+	public static void StartCar(String[] params){
+		System.out.println("Starting Car");
+	}
+	
+	public static void DriveCar(String[] params){
+		System.out.println("Driving to food");
+	}
+	
+	public static void GetFood(String[] params){
+		System.out.println("Getting food");
+	}
+	
+	public static void GiveMoney(String[] params){
+		System.out.println("Giving Money");
+	}
+	
+	public static void EatFood(String[] params){
+		System.out.println("Eating food");
+	}
+	
+	
 }
