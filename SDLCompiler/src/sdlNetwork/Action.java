@@ -3,9 +3,6 @@ package sdlNetwork;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 import utilities.ActionPack;
@@ -15,43 +12,44 @@ public class Action implements Runnable{
 	private ArrayList<String> methodNames;
 	private ArrayList<ArrayList<String>> methodParameters;
 	private ArrayList<ArrayList<Object>> convertedMethodParameters = new ArrayList<ArrayList<Object>>();
-	//private static final Pattern methodPattern = Pattern.compile("[^;]+");
-	//private static final Pattern parameterPattern = Pattern.compile("[(][^)]+");
-
 
 	public Action(String name){
 		this.name = name;
 		methodNames = new ArrayList<String>();
 		methodParameters = new ArrayList<ArrayList<String>>();
-		//init();
-		convertParameters();
+		init();
 	}
 
 
+	/**
+	 * Sets methodNames and methodParameters based on name, then calls convertParameters
+	 */
+	private void init(){
+		//TODO: make this stuff work with strings that have funny characters
+		
+		name = name.replaceAll("\\s", "");
+		String[] methodArray = name.split(";");
+		for(int i = 0; i < methodArray.length; i++) {
+			String[] nameArray = methodArray[i].split("[(]");
+			methodNames.add(nameArray[0]);
 
-//	private void init(){
-//		//TODO: make this stuff work with strings
-//		//set methodNames and Parameters here;
-//		//Matcher methodMatcher = methodPattern.matcher(name);
-//		//Matcher parameterMatcher = parameterPattern.matcher(name);             
-//
-//		name = name.replaceAll("\\s", "");
-//		String[] methodArray = name.split(";");
-//		for(int i = 0; i < methodArray.length; i++) {
-//			String[] nameArray = methodArray[i].split("[(]");
-//			methodNames.add(nameArray[0]);
-//
-//			nameArray[1] = nameArray[1].substring(0, nameArray[1].length()-1);
-//			String[] parameterArray = nameArray[1].split(",");
-//			ArrayList<String> temp = new ArrayList<String>();
-//			for(String s: parameterArray){
-//				temp.add(s);
-//			}
-//			methodParameters.add(temp);
-//		}
-//	}
+			nameArray[1] = nameArray[1].substring(0, nameArray[1].length()-1);
+			String[] parameterArray = nameArray[1].split(",");
+			ArrayList<String> temp = new ArrayList<String>();
+			for(String s: parameterArray){
+				temp.add(s);
+			}
+			methodParameters.add(temp);
+		}
 
-	public void convertParameters(){		
+		convertParameters();
+	}
+
+	/**
+	 * converts methodParameters(which are all strings) into int, boolean, or double
+	 * if it isn't one of those three, it keeps it as a string
+	 */
+	private void convertParameters(){		
 		for (ArrayList<String> method: methodParameters){
 			ArrayList<Object> convertedParameters = new ArrayList<Object>();
 			for(String parameter: method){
@@ -59,23 +57,19 @@ public class Action implements Runnable{
 				try{
 					convertedParameters.add(Integer.valueOf(parameter));
 					continue;
-				} catch(NumberFormatException e1){
-					//do nothing, not an int
-				}
+				} catch(NumberFormatException e1){} //do nothing, not an int
 				
 				//double
 				try{
 					convertedParameters.add(Double.valueOf(parameter));
 					continue;
-				} catch(NumberFormatException e2){
-					//do nothing, not a double
-				}
-				
+				} catch(NumberFormatException e2){} //do nothing, not a double
+
 				//boolean
 				if (parameter.toLowerCase().equals("true") || parameter.toLowerCase().equals("false")){
 					convertedParameters.add(Boolean.valueOf(parameter));
 					continue;
-				} 
+				}
 				
 				//string
 				convertedParameters.add(parameter);
@@ -84,7 +78,26 @@ public class Action implements Runnable{
 		}
 	}
 
-
+	/**
+	 * Functions just like object.getClass()
+	 * However some primitive objects (Integer, Double, Boolean) use the .class of their primitive types 
+	 * 
+	 * @param obj an object
+	 * @return the .class or getClass() of the parameter
+	 */
+	private Class primitiveGetClass(Object obj){
+		if(obj instanceof Integer){
+			return int.class;
+		}
+		if(obj instanceof Double){
+			return double.class;
+		}
+		if(obj instanceof Boolean){
+			return boolean.class;
+		}
+		return obj.getClass();
+	} 
+	
 	public String toString(){
 		return getName();
 	}
@@ -118,11 +131,12 @@ public class Action implements Runnable{
 			Class<utilities.ActionPack> c = ActionPack.class;
 
 			for(int i = 0; i < getMethodNames().size(); i++){
-				Class[] parameterTypes = new Class[getConvertedMethodParameters().get(i).size()];
-				for(int j = 0; j < getConvertedMethodParameters().get(i).size(); j++){
-					parameterTypes[j] = getConvertedMethodParameters().get(i).get(j).getClass();
-				}
+				//turns parameters into an array and creates an array of their getClass()
 				Object[] methodParams = getConvertedMethodParameters().get(i).toArray();
+				Class[] parameterTypes = new Class[methodParams.length];
+				for(int j = 0; j < methodParams.length; j++){
+					parameterTypes[j] = primitiveGetClass(methodParams[j]);
+				}
 				
 				Method method = c.getDeclaredMethod(getMethodNames().get(i), parameterTypes);
 				ret.add(method.invoke(null, methodParams));
