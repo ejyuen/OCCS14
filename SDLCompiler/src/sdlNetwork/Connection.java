@@ -17,8 +17,6 @@ public class Connection{
 		this.endState = endState;
 		this.signal = signal;
 		this.actions = actions;
-		
-		System.out.println(actions);
 	}
 	
 	public Connection(State startState, Decision decision, 

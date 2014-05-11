@@ -58,7 +58,6 @@ public class GuiReader {
 										
 									}else{
 									actions.add(new Action(lastAction.getName()));
-									System.out.println(actions);
 									}
 									for(GuiState gs2 : guiNetwork.getGuiStates()){
 										if(gs2.intersects(actionConnection.getX2() - 20, actionConnection.getY2() - 20, 40, 40)){
@@ -67,8 +66,6 @@ public class GuiReader {
 												if(SDLNetwork.getStates().get(i).equals(startState)){
 													System.out.println(actions);
 													SDLNetwork.getStates().get(i).addConnection(new Connection(startState, endState, signal, actions));
-													System.out.println(SDLNetwork.getStates().get(i).getConnections().get(0));
-													//actions.clear();
 												}
 											}
 										}

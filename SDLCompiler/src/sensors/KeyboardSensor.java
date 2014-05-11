@@ -3,15 +3,16 @@ package sensors;
 
 import utilities.SignalPack;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class KeyboardSensor implements Sensor, KeyListener, ActionListener{
 	
 	private SignalPack signal;
 	
-	
-	
-	public void keyPressed(KeyEvent e)(
+	public void keyPressed(KeyEvent e){
 			signal = SignalPack.Hungry;
 			
 			switch(e.getKeyCode()){
@@ -41,12 +42,16 @@ public class KeyboardSensor implements Sensor, KeyListener, ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 	}
+	
 	public void keyReleased(KeyEvent e){
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-	}
+	
 	
 	public SignalPack getSignal(){
 		return signal; 
+	}
+
 }
+
+	
