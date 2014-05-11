@@ -11,7 +11,8 @@ public class GuiReader {
 	private GuiNetwork guiNetwork;
 	private SDLNetwork SDLNetwork;
 	private GuiAction lastAction;
-
+	public ArrayList<Action> actions = new ArrayList<Action>();
+	
 	public GuiReader(GuiNetwork guiNetwork, SDLNetwork SDLNetwork){
 		this.guiNetwork = guiNetwork;
 		this.SDLNetwork = SDLNetwork;
@@ -32,7 +33,7 @@ public class GuiReader {
 		State startState;
 		Signal signal;
 		State endState;
-		ArrayList<Action> actions = new ArrayList<Action>();
+		
 		GuiConnection actionConnection;
 		for (GuiState gs : guiNetwork.getGuiStates()) {
 			startState = new State(gs.getName());
@@ -53,10 +54,12 @@ public class GuiReader {
 											}
 										}
 									}
-									if(actions.get(0).getName().equals(lastAction.getName())){
+									if(actions.get(actions.size()-1).getName().equals(lastAction.getName())){
+										System.out.println(actions);
 										
 									}else{
 									actions.add(new Action(lastAction.getName()));
+									System.out.println(actions);
 									}
 									for(GuiState gs2 : guiNetwork.getGuiStates()){
 										if(gs2.intersects(actionConnection.getX2() - 20, actionConnection.getY2() - 20, 40, 40)){
@@ -64,8 +67,8 @@ public class GuiReader {
 											for(int i = 0; i < SDLNetwork.getStates().size(); i++){
 												if(SDLNetwork.getStates().get(i).equals(startState)){
 													System.out.println(actions);
-													ArrayList<Action> secondcopy = actions;
-													SDLNetwork.getStates().get(i).addConnection(new Connection(startState, endState, signal, secondcopy));
+													SDLNetwork.getStates().get(i).addConnection(new Connection(startState, endState, signal, actions.toArray()));
+													System.out.println(SDLNetwork.getStates().get(i).getConnections().get(0));
 													//actions.clear();
 												}
 											}

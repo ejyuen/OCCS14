@@ -8,6 +8,7 @@ import fileProcessing.FileReader;
 import fileProcessing.GuiReader;
 import fileProcessing.Parser;
 import fileProcessing.sdlGUI.GuiNetwork;
+import sdlNetwork.Action;
 import sdlNetwork.Connection;
 import sdlNetwork.SDLNetwork;
 import sdlNetwork.State;
@@ -25,6 +26,7 @@ public class SDLCompiler {
 		GuiReader guiReader = new GuiReader(Parser.getGuiNetwork(), sdlNetwork);
 		guiReader.readStates();
 		guiReader.readConnections();
+		//guiReader.actions.add(new Action("look"));
 		for(State s: sdlNetwork.getStates()){
 			for(Connection c: s.getConnections())
 			System.out.println(c);
