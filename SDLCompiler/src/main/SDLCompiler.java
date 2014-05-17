@@ -31,13 +31,8 @@ public class SDLCompiler {
 		guiReader.readStates();
 		guiReader.readConnections();
 		//guiReader.actions.add(new Action("look"));
-		for(State s: sdlNetwork.getStates()){
-			for(Connection c: s.getConnections())
-			System.out.println(c);
-		}
+		
 		System.out.println("Start State is : " + sdlNetwork.getStartState());
-		
-		
 		Graphics g = new Graphics();
 		
 		ArrayList<Sensor> sensors = new ArrayList<Sensor>();

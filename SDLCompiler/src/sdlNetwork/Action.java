@@ -122,9 +122,6 @@ public class Action implements Runnable{
 	}
 
 	public void run(){
-		System.out.println("MethodNames: " + getMethodNames());
-		System.out.println("MethodParameters: " + getMethodParameters());
-		System.out.println("ConvertedMethodParameters: " + getConvertedMethodParameters());
 		runMethods();
 	}
 

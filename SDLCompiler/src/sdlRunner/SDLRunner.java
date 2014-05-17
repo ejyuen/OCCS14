@@ -67,7 +67,6 @@ public class SDLRunner implements Runnable{
 			}
 			
 			for(Connection c : state.getConnections()){
-				System.out.println(c.getSignal().getSignalPack());
 				if(c.getSignal().getSignalPack().equals(s)){
 					state = UtilityMethods.runConnection(c);
 					break;
