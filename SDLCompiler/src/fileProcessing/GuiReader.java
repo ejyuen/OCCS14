@@ -46,6 +46,7 @@ public class GuiReader {
 									actionConnection = gc2;
 									ArrayList<Action> actions = new ArrayList<Action>();
 									while(getNextGuiAction(actionConnection).getName() != "null"){
+										System.out.println("boo");
 										actions.add(new Action(getNextGuiAction(actionConnection).getName()));
 										for(GuiConnection gcA : guiNetwork.getGuiConnections()){
 											if(getNextGuiAction(actionConnection).intersects(gcA.getX1() - 20, gcA.getY1() - 20, 40, 40)){
@@ -53,8 +54,9 @@ public class GuiReader {
 											}
 										}
 									}
+									System.out.println(actions);
 									if(actions.get(actions.size()-1).getName().equals(lastAction.getName())){
-										System.out.println(actions);
+										//System.out.println(actions);
 										
 									}else{
 									actions.add(new Action(lastAction.getName()));
