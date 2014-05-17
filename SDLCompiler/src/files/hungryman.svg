@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="8cm" height="38cm" viewBox="76 30 155 755" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="10cm" height="38cm" viewBox="63 30 188 755" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g>
     <path style="fill: #ffffff" d="M 122.02 31.9 L 195.472,31.9 C 204.654,39.5001 207.592,43.3002 207.592,50.9003 C 207.592,58.5004 204.654,62.3005 195.472,69.9006 L 122.02,69.9006 C 112.838,62.3005 109.9,58.5004 109.9,50.9003 C 109.9,43.3002 112.838,39.5001 122.02,31.9z"/>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 122.02 31.9 L 195.472,31.9 C 204.654,39.5001 207.592,43.3002 207.592,50.9003 C 207.592,58.5004 204.654,62.3005 195.472,69.9006 L 122.02,69.9006 C 112.838,62.3005 109.9,58.5004 109.9,50.9003 C 109.9,43.3002 112.838,39.5001 122.02,31.9"/>
@@ -21,9 +21,9 @@
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="155.568,93.9214 148.956,102.937 148.896,97.3471 144.388,94.0411 "/>
   </g>
   <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 157.557,130.357 A 15.2442,15.2442 0 1 0 150.187,159.924"/>
-    <polygon style="fill: #000000" points="156.617,160.083 148.997,168.263 149.591,162.705 145.5,158.894 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="156.617,160.083 148.997,168.263 149.591,162.705 145.5,158.894 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 157.557,130.357 A 25.4385,25.4385 0 0 0 148.251,176.321"/>
+    <polygon style="fill: #000000" points="154.537,179.536 143.654,182.098 147.238,177.808 145.957,172.367 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="154.537,179.536 143.654,182.098 147.238,177.808 145.957,172.367 "/>
   </g>
   <g>
     <path style="fill: #ffffff" d="M 94.8959 277.9 L 202.596,277.9 C 216.058,285.5 220.366,289.3 220.366,296.9 C 220.366,304.5 216.058,308.3 202.596,315.901 L 94.8959,315.901 C 81.4334,308.3 77.1254,304.5 77.1254,296.9 C 77.1254,289.3 81.4334,285.5 94.8959,277.9z"/>
@@ -31,11 +31,6 @@
     <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="148.746" y="300.9">
       <tspan x="148.746" y="300.9">LookingForFood</tspan>
     </text>
-  </g>
-  <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 155.713,256.484 A 13.1699,13.1699 0 1 0 140.534,277.179"/>
-    <polygon style="fill: #000000" points="146.569,278.411 137.977,285.566 139.268,280.126 135.691,275.831 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="146.569,278.411 137.977,285.566 139.268,280.126 135.691,275.831 "/>
   </g>
   <g>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 148.746,315.9 A 13.1376,13.1376 0 1 0 149.698,341.461"/>
@@ -103,25 +98,9 @@
     </text>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="110.9,159.301 196.962,159.301 206.525,178.393 196.962,197.484 110.9,197.484 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="110.9,159.301 196.962,159.301 206.525,178.393 196.962,197.484 110.9,197.484 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="158.713" y="174.393">
-      <tspan x="158.713" y="174.393">StartCar();</tspan>
-      <tspan x="158.713" y="190.393"></tspan>
-    </text>
-  </g>
-  <g>
-    <polygon style="fill: #ffffff" points="107.9,218.3 193.963,218.3 203.525,237.392 193.963,256.484 107.9,256.484 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="107.9,218.3 193.963,218.3 203.525,237.392 193.963,256.484 107.9,256.484 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="155.713" y="233.392">
-      <tspan x="155.713" y="233.392"></tspan>
-      <tspan x="155.713" y="249.392">DriveCar();</tspan>
-    </text>
-  </g>
-  <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 158.712,197.484 A 12.7643,12.7643 0 1 0 147.615,219.39"/>
-    <polygon style="fill: #000000" points="153.709,219.292 146.964,228.209 146.987,222.619 142.528,219.246 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="153.709,219.292 146.964,228.209 146.987,222.619 142.528,219.246 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 156.712,218.234 A 32.6465,32.6465 0 0 0 141.387,272.005"/>
+    <polygon style="fill: #000000" points="146.817,276.769 135.662,276.021 140.348,272.974 140.722,267.396 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="146.817,276.769 135.662,276.021 140.348,272.974 140.722,267.396 "/>
   </g>
   <g>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 156.557,374.357 A 14.7497,14.7497 0 1 0 149.284,402.866"/>
@@ -140,6 +119,14 @@
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="109.9,401.9 195.963,401.9 205.525,420.992 195.963,440.084 109.9,440.084 "/>
     <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="157.713" y="424.992">
       <tspan x="157.713" y="424.992">GetFood();</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="64.1187,180.051 230.787,180.051 249.306,199.143 230.787,218.234 64.1187,218.234 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="64.1187,180.051 230.787,180.051 249.306,199.143 230.787,218.234 64.1187,218.234 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="156.712" y="195.143">
+      <tspan x="156.712" y="195.143">StartCar(); DriveCar();</tspan>
+      <tspan x="156.712" y="211.143"></tspan>
     </text>
   </g>
 </svg>
