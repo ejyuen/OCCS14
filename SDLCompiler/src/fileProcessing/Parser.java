@@ -40,7 +40,7 @@ public class Parser {
 	 * Finds text proceeding a right arrow bracket {>}. The XML always places the text contained within a shape
 	 * after this character. 
 	 */
-	public static Pattern namePattern = Pattern.compile(">[a-zA-Z0-9()]+");
+	public static Pattern namePattern = Pattern.compile(">[a-zA-Z0-9();]+");
 	/*
 	 * Finds coordinates following the capital letter M and then the capital letter A. The (x,y) following M is
 	 * the start point of the line and the (x,y) following A is the end point. The MA combination is characteristic
