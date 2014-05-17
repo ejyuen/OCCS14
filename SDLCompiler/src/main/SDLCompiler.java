@@ -43,7 +43,7 @@ public class SDLCompiler {
 		sensors.add(new KeyboardSensor(KeyEvent.VK_T, SignalPack.TIMERDONE, g));
 		
 		//TODO add more signals to SignalPack, add more ActionPack
-		SDLRunner sr = new SDLRunner(sdlNetwork, sensors);
+		SDLRunner sr = new SDLRunner(sdlNetwork, sensors, g);
 	}
 	
 	/**

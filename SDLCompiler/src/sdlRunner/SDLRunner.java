@@ -1,5 +1,7 @@
 package sdlRunner;
 
+import graphics.Graphics;
+
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -19,15 +21,22 @@ public class SDLRunner implements Runnable{
 	private State state = null;
 	private ArrayList<Sensor> sensors = null;
 	private boolean done = false;
+	
 	private SDLNetwork network = null;
 	private Timer timer;
+	private Graphics graphics;
 	
 	public SDLRunner(SDLNetwork network){
-		this(network, null);
+		this(network, new ArrayList<Sensor>());
 	}
 	
 	public SDLRunner(SDLNetwork network, ArrayList<Sensor> inputSensors){
+		this(network, new ArrayList<Sensor>(), new Graphics());
+	}
+	
+	public SDLRunner(SDLNetwork network, ArrayList<Sensor> inputSensors, Graphics graphics){
 		this.network = network;
+		this.graphics = graphics;
 		state = network.getStartState();
 		
 		queue = new ConcurrentLinkedQueue<SignalPack>();
