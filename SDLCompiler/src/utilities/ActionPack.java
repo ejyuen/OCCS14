@@ -14,27 +14,27 @@ public class ActionPack {
 		System.out.println("" + i + " " + b + " " + s);
 	}
 	
-	public static void defaultAction(String[] params){
+	public static void defaultAction(){
 		//do something here
 	}
 	
-	public static void StartCar(String[] params){
+	public static void StartCar(){
 		System.out.println("Starting Car");
 	}
 	
-	public static void DriveCar(String[] params){
+	public static void DriveCar(){
 		System.out.println("Driving to food");
 	}
 	
-	public static void GetFood(String[] params){
+	public static void GetFood(){
 		System.out.println("Getting food");
 	}
 	
-	public static void GiveMoney(String[] params){
+	public static void GiveMoney(){
 		System.out.println("Giving Money");
 	}
 	
-	public static void EatFood(String[] params){
+	public static void EatFood(){
 		System.out.println("Eating food");
 	}
 	
