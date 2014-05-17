@@ -42,6 +42,10 @@ public class Parser {
 	 */
 	public static Pattern namePattern = Pattern.compile(">[a-zA-Z0-9();]+");
 	/*
+	 * Finds raw name
+	 */
+	public static Pattern rawNamePattern = Pattern.compile(">[a-zA-Z0-9();</>\n =,\".]+</t");
+	/*
 	 * Finds coordinates following the capital letter M and then the capital letter A. The (x,y) following M is
 	 * the start point of the line and the (x,y) following A is the end point. The MA combination is characteristic
 	 * of the connections in the XML.
@@ -60,6 +64,7 @@ public class Parser {
 		Matcher nameMatcher = namePattern.matcher(XMLText);
 		Matcher connectionMatcher = connectionPattern.matcher(XMLText);
 		Matcher decisionMatcher = decisionPattern.matcher(XMLText);
+		Matcher rawNameMatcher = rawNamePattern.matcher(XMLText);
 		
 		while(stateMatcher.find()){
 			String rawPoints = stateMatcher.group();
@@ -129,7 +134,7 @@ public class Parser {
 					yPoints[yIndex] = (int)(Double.parseDouble(yMatcher.group().substring(1)));
 					yIndex++;
 				}
-				if(nameMatcher.find(actionSignalMatcher.end())) {
+				if(nameMatcher.find(actionSignalMatcher.end())){
 					String name = nameMatcher.group().substring(1);
 					network.addGuiAction(new GuiAction(name, xPoints, yPoints));
 				}
