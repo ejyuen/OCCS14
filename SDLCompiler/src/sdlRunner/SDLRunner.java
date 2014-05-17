@@ -36,8 +36,9 @@ public class SDLRunner implements Runnable{
 	
 	public SDLRunner(SDLNetwork network, ArrayList<Sensor> inputSensors, Graphics graphics){
 		this.network = network;
-		this.graphics = graphics;
 		state = network.getStartState();
+		this.graphics = graphics;
+		graphics.setState(state);
 		
 		queue = new ConcurrentLinkedQueue<SignalPack>();
 		sensors = inputSensors == null? new ArrayList<Sensor>(): inputSensors;
@@ -78,6 +79,7 @@ public class SDLRunner implements Runnable{
 			for(Connection c : state.getConnections()){
 				if(c.getSignal().getSignalPack().equals(s)){
 					state = UtilityMethods.runConnection(c);
+					graphics.setState(state);
 					break;
 				}
 			}
