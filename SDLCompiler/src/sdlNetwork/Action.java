@@ -35,9 +35,12 @@ public class Action implements Runnable{
 
 			nameArray[1] = nameArray[1].substring(0, nameArray[1].length()-1);
 			String[] parameterArray = nameArray[1].split(",");
+			
 			ArrayList<String> temp = new ArrayList<String>();
-			for(String s: parameterArray){
-				temp.add(s);
+			if(parameterArray.length != 1 || !parameterArray[0].equals("")){
+				for(String s: parameterArray){
+					temp.add(s);
+				}
 			}
 			methodParameters.add(temp);
 		}
@@ -160,7 +163,7 @@ public class Action implements Runnable{
 		return ret;
 	}
 
-	public static void main(String[] args){
-		new Action("test(1, true, 1.0);").run();
-	}
+//	public static void main(String[] args){
+//		new Action("test(1, true, 1.0);").run();
+//	}
 }
