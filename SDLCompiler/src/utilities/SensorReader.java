@@ -14,7 +14,7 @@ public class SensorReader implements Runnable{
 	
 	public void run() {
 		while(sensor != null){
-			SignalPack s = sensor.getSignal();
+			SignalPack s = sensor.checkSignal();
 			if(s != null){
 				queue.offer(s);	
 			}

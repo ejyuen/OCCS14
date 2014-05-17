@@ -1,7 +1,9 @@
 package main;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Queue;
 
 import fileProcessing.FileReader;
@@ -13,6 +15,7 @@ import sdlNetwork.Connection;
 import sdlNetwork.SDLNetwork;
 import sdlNetwork.State;
 import sdlRunner.SDLRunner;
+import sensors.*;
 import utilities.ActionPack;
 import utilities.SignalPack;
 public class SDLCompiler {
@@ -33,14 +36,33 @@ public class SDLCompiler {
 		}
 		System.out.println("Start State is : " + sdlNetwork.getStartState());
 		
+		//switch(e.getKeyCode()){
+		//case KeyEvent.VK_F:
+//			signal = SignalPack.Food;
+//			break;
+		//case KeyEvent.VK_H:
+//			signal = SignalPack.Hungry;
+//			break;
+		//case KeyEvent.VK_M:
+//			signal = SignalPack.MoneyRequest;
+//			break;
+		//case KeyEvent.VK_E:
+//			signal = SignalPack.END;
+//			break;
+		//case KeyEvent.VK_T:
+//			signal = SignalPack.TIMERDONE;
+//			break;
+
+		
+		ArrayList<Sensor> sensors = new ArrayList<Sensor>();
+		sensors.add(new KeyboardSensor(KeyEvent.VK_F, SignalPack.Food));
+		sensors.add(new KeyboardSensor(KeyEvent.VK_H, SignalPack.Hungry));
+		sensors.add(new KeyboardSensor(KeyEvent.VK_M, SignalPack.MoneyRequest));
+		sensors.add(new KeyboardSensor(KeyEvent.VK_E, SignalPack.END));
+		sensors.add(new KeyboardSensor(KeyEvent.VK_T, SignalPack.TIMERDONE));
 		
 		//TODO add more signals to SignalPack, add more ActionPack
-		SDLRunner sr = new SDLRunner(sdlNetwork);
-		Queue<SignalPack> q = sr.getQueue();
-		q.add(SignalPack.TIMERDONE);
-		q.add(SignalPack.END);
-		
-		System.out.println("finished in " + (System.currentTimeMillis() - startTime) + " miliseconds.");
+		SDLRunner sr = new SDLRunner(sdlNetwork, sensors);
 	}
 	
 	/**

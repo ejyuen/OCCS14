@@ -2,54 +2,57 @@ package sensors;
 
 
 import utilities.SignalPack;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyboardSensor implements Sensor, KeyListener, ActionListener{
+public class KeyboardSensor implements Sensor, KeyListener{
 	
 	private SignalPack signal;
+	private int key;
+	private boolean keyPressed = false;
 	
-	public void keyPressed(KeyEvent e){
-			signal = SignalPack.Hungry;
-			
-			switch(e.getKeyCode()){
-			case KeyEvent.VK_F:
-				signal = SignalPack.Food;
-				break;
-			case KeyEvent.VK_H:
-				signal = SignalPack.Hungry;
-				break;
-			case KeyEvent.VK_M:
-				signal = SignalPack.MoneyRequest;
-				break;
-			case KeyEvent.VK_E:
-				signal = SignalPack.END;
-				break;
-			case KeyEvent.VK_T:
-				signal = SignalPack.TIMERDONE;
-				break;
-			default: 
-				break;
-			}
-				
+	public KeyboardSensor(int key, SignalPack signal){
+		this.key = key;
+		this.signal = signal;
 	}
 	
-	public void keyTyped(KeyEvent e){
+
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == key){
+			keyPressed = true;
+		}
+	}
+	
+	public void keyReleased(KeyEvent e) {
+		// TODO not implemented
+		
 	}
 
-	public void actionPerformed(ActionEvent e) {
+	public void keyTyped(KeyEvent e) {
+		// TODO not implemented
 	}
-	
-	public void keyReleased(KeyEvent e){
-	}
-	
-	
-	
-	public SignalPack getSignal(){
-		return signal; 
+
+	/**
+	 * returns signal after the key has been pressed only once
+	 * blocks until key is pressed
+	 * 
+	 * @return signal
+	 */
+	public SignalPack checkSignal() {
+		while(!keyPressed){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		keyPressed = false;
+		return signal;
 	}
 
 }

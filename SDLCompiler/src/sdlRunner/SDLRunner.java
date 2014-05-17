@@ -9,6 +9,7 @@ import sdlNetwork.Connection;
 import sdlNetwork.SDLNetwork;
 import sdlNetwork.State;
 import sensors.Sensor;
+import utilities.Timer;
 import utilities.UtilityMethods;
 import utilities.SensorReader;
 import utilities.SignalPack;
@@ -19,12 +20,13 @@ public class SDLRunner implements Runnable{
 	private ArrayList<Sensor> sensors = null;
 	private boolean done = false;
 	private SDLNetwork network = null;
+	private Timer timer;
 	
 	public SDLRunner(SDLNetwork network){
-		this(null, network);
+		this(network, null);
 	}
 	
-	public SDLRunner(ArrayList<Sensor> inputSensors, SDLNetwork network){
+	public SDLRunner(SDLNetwork network, ArrayList<Sensor> inputSensors){
 		this.network = network;
 		state = network.getStartState();
 		
@@ -35,10 +37,19 @@ public class SDLRunner implements Runnable{
 			new Thread(new SensorReader(queue, s)).start();
 		}
 		new Thread(this).start();
+		this.timer = new Timer(queue);
 	}
 	
 	public Queue<SignalPack> getQueue(){
 		return queue;
+	}
+	
+	public Timer getTimer(){
+		return timer;
+	}
+	
+	public ArrayList<Sensor> getSensors(){
+		return sensors;
 	}
 	
 	public void run() {
