@@ -30,6 +30,14 @@ public class KeyboardSensor implements Sensor, KeyListener{
 		}
 	}
 	
+	public int getKey(){
+		return key;
+	}
+	
+	public SignalPack getSignal(){
+		return signal;
+	}
+	
 	public void keyReleased(KeyEvent e) {
 		// TODO not implemented
 		
