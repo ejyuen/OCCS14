@@ -56,6 +56,10 @@ public class SDLRunner implements Runnable{
 		while(!done){
 			SignalPack s = queue.poll();
 			
+			if(s == null){
+				continue;
+			}
+			
 			//the end signal finishes the runner
 			if(s.equals(SignalPack.END)){
 				done = true;
@@ -63,11 +67,13 @@ public class SDLRunner implements Runnable{
 			}
 			
 			for(Connection c : state.getConnections()){
+				System.out.println(c.getSignal().getSignalPack());
 				if(c.getSignal().getSignalPack().equals(s)){
 					state = UtilityMethods.runConnection(c);
 					break;
 				}
 			}
+			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {

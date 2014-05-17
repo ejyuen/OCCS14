@@ -18,7 +18,7 @@ public class Signal{
 		
 	private void setSignal(){
 		for(SignalPack s: SignalPack.values()){
-			if(s.toString() == name){
+			if(s.toString().equals(name)){
 				sign = s;
 			}
 		}
@@ -28,11 +28,6 @@ public class Signal{
 		return sign;
 	}
 	
-	public static void main(String[] args){
-		for(SignalPack s: SignalPack.values()){
-			System.out.println(s.toString());
-		}
-	}
 	
 	public String toString(){
 		return getName();

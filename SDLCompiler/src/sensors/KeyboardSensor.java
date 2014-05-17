@@ -1,13 +1,12 @@
 package sensors;
 
 
-import utilities.SignalPack;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import graphics.Graphics;
+import utilities.SignalPack;
+
 
 public class KeyboardSensor implements Sensor, KeyListener{
 	
@@ -20,6 +19,10 @@ public class KeyboardSensor implements Sensor, KeyListener{
 		this.signal = signal;
 	}
 	
+	public KeyboardSensor(int key, SignalPack signal, Graphics graphics){
+		this(key, signal);
+		graphics.addKeyboardSensor(this);
+	}
 
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == key){

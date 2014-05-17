@@ -10,6 +10,7 @@ import fileProcessing.FileReader;
 import fileProcessing.GuiReader;
 import fileProcessing.Parser;
 import fileProcessing.sdlGUI.GuiNetwork;
+import graphics.Graphics;
 import sdlNetwork.Action;
 import sdlNetwork.Connection;
 import sdlNetwork.SDLNetwork;
@@ -36,30 +37,17 @@ public class SDLCompiler {
 		}
 		System.out.println("Start State is : " + sdlNetwork.getStartState());
 		
-		//switch(e.getKeyCode()){
-		//case KeyEvent.VK_F:
-//			signal = SignalPack.Food;
-//			break;
-		//case KeyEvent.VK_H:
-//			signal = SignalPack.Hungry;
-//			break;
-		//case KeyEvent.VK_M:
-//			signal = SignalPack.MoneyRequest;
-//			break;
-		//case KeyEvent.VK_E:
-//			signal = SignalPack.END;
-//			break;
-		//case KeyEvent.VK_T:
-//			signal = SignalPack.TIMERDONE;
-//			break;
-
+		
+		Graphics g = new Graphics();
 		
 		ArrayList<Sensor> sensors = new ArrayList<Sensor>();
-		sensors.add(new KeyboardSensor(KeyEvent.VK_F, SignalPack.Food));
-		sensors.add(new KeyboardSensor(KeyEvent.VK_H, SignalPack.Hungry));
-		sensors.add(new KeyboardSensor(KeyEvent.VK_M, SignalPack.MoneyRequest));
-		sensors.add(new KeyboardSensor(KeyEvent.VK_E, SignalPack.END));
-		sensors.add(new KeyboardSensor(KeyEvent.VK_T, SignalPack.TIMERDONE));
+		sensors.add(new KeyboardSensor(KeyEvent.VK_F, SignalPack.Food, g));
+		sensors.add(new KeyboardSensor(KeyEvent.VK_H, SignalPack.Hungry, g));
+		sensors.add(new KeyboardSensor(KeyEvent.VK_M, SignalPack.MoneyRequest, g));
+		sensors.add(new KeyboardSensor(KeyEvent.VK_E, SignalPack.END, g));
+		sensors.add(new KeyboardSensor(KeyEvent.VK_T, SignalPack.TIMERDONE, g));
+		
+		
 		
 		//TODO add more signals to SignalPack, add more ActionPack
 		SDLRunner sr = new SDLRunner(sdlNetwork, sensors);
