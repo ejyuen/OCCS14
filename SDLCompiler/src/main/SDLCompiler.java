@@ -25,12 +25,13 @@ public class SDLCompiler {
 		long startTime = System.currentTimeMillis();
 		String xmlText = getXmlText("SDLCompiler/src/files/hungryman.svg");
 		Parser.addSDLObjects(xmlText);
-		GuiNetwork.paintNetwork(Parser.getGuiNetwork());
+		
+		//GuiNetwork.paintNetwork(Parser.getGuiNetwork());
+		
 		SDLNetwork sdlNetwork = new SDLNetwork();
 		GuiReader guiReader = new GuiReader(Parser.getGuiNetwork(), sdlNetwork);
 		guiReader.readStates();
 		guiReader.readConnections();
-		//guiReader.actions.add(new Action("look"));
 		
 		System.out.println("Start State is : " + sdlNetwork.getStartState());
 		Graphics g = new Graphics();

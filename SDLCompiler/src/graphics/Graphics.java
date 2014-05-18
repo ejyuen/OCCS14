@@ -39,6 +39,7 @@ public class Graphics extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setFocusable(true);
+		frame.setBackground(Color.WHITE);
 		this.setFocusable(true);
 		Timer timer = new Timer(36, new TimeAction());
 		timer.start();
