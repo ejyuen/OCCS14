@@ -27,6 +27,7 @@ public class Graphics extends JPanel{
 		this.keySensors = keySensors;
 		frame = new JFrame("Test");
 		init();
+		this.setBackground(Color.WHITE);
 		for(KeyboardSensor s : keySensors){
 			frame.addKeyListener(s);
 		}
@@ -55,21 +56,22 @@ public class Graphics extends JPanel{
 	}
 	
 	public void paintComponent(java.awt.Graphics g) {
+		super.paintComponent(g);
 		paintState((Graphics2D) g);
 		paintKeys((Graphics2D) g);
 	}
 	
 	public void paintState(Graphics2D g2) {
-		g2.drawString("Current State = " + currentState.toString(), 300, 0);
+		g2.drawString("Current State = " + currentState.toString(), 300, 25);
 	}
 	
 	public void paintKeys(Graphics2D g2) {
+		int ydisplace = 50;
 		for (KeyboardSensor ks : keySensors) {
-			int ydisplace = 20;
-			g2.drawString("Key", 0, 0);
-			g2.drawString("Signal", 50, 0);
+			g2.drawString("Key", 0, 25);
+			g2.drawString("Signal", 75, 25);
 			g2.drawString(String.valueOf((char) ks.getKey()), 0, ydisplace);
-			g2.drawString(ks.getSignal().toString(), 50, ydisplace);
+			g2.drawString(ks.getSignal().toString(), 75, ydisplace);
 			ydisplace += 20;
 		}
 	}
