@@ -72,6 +72,7 @@ public class SDLRunner implements Runnable{
 			if(s.equals(SignalPack.END)){
 				done = true;
 				timer.endTimer();
+				System.out.println("END signal recieved, this state machine will now end");
 				break;
 			}
 			

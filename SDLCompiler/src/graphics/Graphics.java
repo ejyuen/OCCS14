@@ -64,7 +64,7 @@ public class Graphics extends JPanel{
 	public void paintState(Graphics2D g2) {
 		int x = 300;
 		int yTop = 25;
-		int ydisplace = yTop + 25; //sets initial value of displacement between state and connections
+		int ydisplace = yTop + 30; //sets initial value of displacement between state and connections
 		
 		//paints state
 		g2.drawString("Current State = " + currentState.toString(), x, yTop);
