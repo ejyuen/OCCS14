@@ -1,5 +1,7 @@
 package utilities;
 
+import java.util.ArrayList;
+
 import sdlNetwork.Action;
 import sdlNetwork.Connection;
 import sdlNetwork.State;
@@ -13,9 +15,21 @@ public class UtilityMethods {
 	 * @return endState of connection
 	 */
 	public static State runConnection(Connection connection){
-		for(Action a: connection.getActions()){
-			new Thread(a).start();
-		}
+		new Thread(new ActionRunner(connection.getActions())).start();
 		return connection.getEndState();
+	}
+	
+	static class ActionRunner implements Runnable{
+		ArrayList<Action> actions;
+		public ActionRunner(ArrayList<Action> actions){
+			this.actions = actions;
+		}
+		
+		public void run() {
+			for(Action a: actions){
+				a.run();
+			}
+		}
+		
 	}
 }
