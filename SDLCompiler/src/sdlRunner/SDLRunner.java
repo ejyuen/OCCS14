@@ -46,16 +46,14 @@ public class SDLRunner implements Runnable{
 		for(Sensor s: sensors){
 			new Thread(new SensorReader(queue, s)).start();
 		}
+		
+		this.timer = new Timer(queue); //automatically starts a timer
 		new Thread(this).start();
-		this.timer = new Timer(queue);
+		
 	}
 	
 	public Queue<SignalPack> getQueue(){
 		return queue;
-	}
-	
-	public Timer getTimer(){
-		return timer;
 	}
 	
 	public ArrayList<Sensor> getSensors(){
@@ -73,6 +71,7 @@ public class SDLRunner implements Runnable{
 			//the end signal finishes the runner
 			if(s.equals(SignalPack.END)){
 				done = true;
+				timer.endTimer();
 				break;
 			}
 			

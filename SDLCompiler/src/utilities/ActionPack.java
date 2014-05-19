@@ -18,6 +18,16 @@ public class ActionPack {
 		//do something here
 	}
 	
+	/**
+	 * sets the timer to the millisecond amount.
+	 * when timer is done, it sends a TIMERDONE signal
+	 * 
+	 * @param milliseconds
+	 */
+	public static void Timer(int milliseconds){
+		Timer.setTimer(milliseconds);
+	}
+	
 	public static void StartCar(){
 		System.out.println("Starting Car");
 	}

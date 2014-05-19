@@ -6,7 +6,7 @@ import java.util.Queue;
 public class Timer implements Runnable {
 
 	private static ArrayList<Long> endTimes = new ArrayList<Long>();
-	private static boolean endTimer = false; 
+	private boolean endTimer = false; 
 	private Queue<SignalPack> queue = null;
 	
 	public Timer(Queue<SignalPack> signalQueue) {
@@ -18,7 +18,7 @@ public class Timer implements Runnable {
 		endTimes.add(System.currentTimeMillis() + milliseconds);
 	}
 	
-	public static void endTimer(){
+	public void endTimer(){
 		endTimer = true;
 	}
 	
