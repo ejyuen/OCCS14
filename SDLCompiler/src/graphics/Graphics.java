@@ -35,7 +35,7 @@ public class Graphics extends JPanel{
 	
 	private void init() {
 		frame.setMinimumSize(new Dimension(480, 480));
-		frame.setSize(600, 600);
+		frame.setSize(700, 700);
 		frame.add(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
@@ -62,17 +62,33 @@ public class Graphics extends JPanel{
 	}
 	
 	public void paintState(Graphics2D g2) {
-		g2.drawString("Current State = " + currentState.toString(), 300, 25);
+		int x = 300;
+		int yTop = 25;
+		int ydisplace = yTop + 25; //sets initial value of displacement between state and connections
+		
+		//paints state
+		g2.drawString("Current State = " + currentState.toString(), x, yTop);
+		
+		//paints connections
+		g2.drawString("Connections (StartState ~ Signal ~ Actions ~ EndState)", x, ydisplace);
+		ydisplace += 25; //displacement between label and actual connections
+		for (Connection s : currentState.getConnections()) {
+			g2.drawString(s.toString(), x, ydisplace);
+			ydisplace += 20; //the displacement between lines
+		}
 	}
 	
 	public void paintKeys(Graphics2D g2) {
-		int ydisplace = 50;
+		int yTop = 25;
+		int ydisplace = yTop + 25; //sets initial value of displacement between label and signals
+		int xKey = 0;
+		int xSignal = 75;
 		for (KeyboardSensor ks : keySensors) {
-			g2.drawString("Key", 0, 25);
-			g2.drawString("Signal", 75, 25);
-			g2.drawString(String.valueOf((char) ks.getKey()), 0, ydisplace);
-			g2.drawString(ks.getSignal().toString(), 75, ydisplace);
-			ydisplace += 20;
+			g2.drawString("Key", xKey, yTop);
+			g2.drawString("Signal", xSignal, yTop);
+			g2.drawString(String.valueOf((char) ks.getKey()), xKey, ydisplace);
+			g2.drawString(ks.getSignal().toString(), xSignal, ydisplace);
+			ydisplace += 20; //the displacement between lines
 		}
 	}
 	

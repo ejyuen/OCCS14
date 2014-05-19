@@ -48,6 +48,6 @@ public class Connection{
 	}
 	
 	public String toString(){
-		return "" + startState + " " + signal + " " + actions + " " + endState; 
+		return "" + startState + " ~ " + signal + " ~ " + actions + " ~ " + endState; 
 	}
 }
